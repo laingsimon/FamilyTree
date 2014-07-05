@@ -1,0 +1,163 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="Cooke">
+  <Person Gender="Male">
+    <Name First="John" Nickname="Jack" Last="Cooke" />
+    <Birth Date="" />
+    <Death Date="?" />
+    <Marriage>
+      <To>
+        <Person Gender="Female">
+          <Name First="Margaret" Middle="Ethel" Last="Wearn" />
+          <Birth Date="" />
+          <Death Date="?" />
+        </Person>
+      </To>
+	  <Children>
+		<Person Gender="Female">
+			<Name First="Susan" Last="Cooke" />
+			<Marriage Status="Divorced">
+				<To>
+					<Person Gender="Male">
+						<Name First="Jim" Last="Burton" />
+					</Person>
+				</To>
+				<Children>
+					<Person Gender="Female">
+						<Name First="Katherine" Last="Burton" />
+					</Person>
+					<Person Gender="Female">
+						<Name First="Ruth" Last="Burton" />
+						<Marriage>
+							<To>
+								<Person Gender="Male">
+									<Name First="Keith" Last="Jupp" />
+								</Person>
+							</To>
+							<Children>
+								<Person Gender="Male">
+									<Name First="Jaylen" Last="Jupp" />
+								</Person>
+								<Person Gender="Female">
+									<Name First="Jessica" Last="Jupp" />
+								</Person>
+							</Children>
+						</Marriage>
+					</Person>
+				</Children>
+			</Marriage>
+		</Person>
+		<Person Gender="Female">
+			<Name First="Barbara" Middle="Anne" Last="Cooke" />
+			<Birth Date="10/02/1949" />
+			<Marriage>
+				<To>
+					<Person Gender="Male">
+						<Name First="James" Middle="Alexander" Last="Laing" />
+						<Birth Date="26/02/1952" />
+					</Person>
+				</To>
+				<Children>
+					<Person Gender="Male">
+						<Name First="Timothy" Middle="Peter" Last="Laing" />
+						<Birth Date="14/04/1981" />
+						<Marriage>
+							<To>
+								<Person Gender="Female">
+									<Name First="Vicky" Last="Andrews" />
+                <Birth Date="09/05/1977" />
+								</Person>
+							</To>
+							<Children>
+								<Person Gender="Male">
+									<Name First="Nathan" Last="Laing" />
+									<Birth Date="22/04/2011" />
+								</Person>
+							</Children>
+						</Marriage>
+					</Person>
+					<Person Gender="Male">
+						<Name First="Simon" Middle="Robert" Last="Laing" />
+						<Birth Date="30/03/1983" />
+						<Marriage>
+							<To>
+								<Person Gender="Female">
+									<Name First="Sarah" Middle="Louise" Last="McCann" />
+									<Birth Date="18/09/1976" />
+								</Person>
+							</To>
+							<Children SeeOtherTree="Laing">
+								<!-- <Person Gender="Male">
+									<Name First="Ryan" Middle="James" Last="Laing" />
+									<Birth Date="05/12/2011" />
+								</Person> -->
+							</Children>
+						</Marriage>
+					</Person>
+				</Children>
+			</Marriage>
+		</Person>
+		<Person Gender="Male">
+			<Name First="Roy" Last="Cooke" />
+			<Marriage Type="CommonLaw">
+			 <To>
+			  <Person Gender="Female">
+				<Name First="Evelyn" Last="?" />
+			  </Person>
+			 </To>
+      <Children>
+				<Person Gender="Male">
+					<Name First="Keith" Last="Cooke" />
+					<Birth Date="?" />
+				</Person>
+				<Person Gender="Male">
+					<Name First="David" Last="Cooke" />
+					<Birth Date="?" />
+					<Death Date="?" />
+				</Person>
+			</Children>
+			</Marriage>
+		</Person>
+		<Person Gender="Female">
+			<Name First="Gillian" Last="Cooke" />
+			<Marriage Status="Divorced">
+				<To>
+					<Person Gender="Male">
+						<Name First="Roy" Last="Blakeley" />
+					</Person>
+				</To>
+				<Children>
+					<Person Gender="Male">
+						<Name First="Phillip" Last="Blakeley" />
+						<Marriage>
+							<To>
+								<Person Gender="Female">
+									<Name First="Coleen" Last="?" />
+								</Person>
+							</To>
+							<Children>
+							</Children>
+						</Marriage>
+					</Person>
+					<Person Gender="Female">
+						<Name First="Karen" Last="Blakeley" />
+						<Marriage>
+							<To>
+								<Person Gender="Male">
+									<Name First="?" Last="?" />
+								</Person>
+							</To>
+							<Children>
+							</Children>
+						</Marriage>
+					</Person>
+					<Person Gender="Female">
+						<Name First="Chrissie" Last="Blakeley" />
+					</Person>
+				</Children>
+			</Marriage>
+		</Person>
+	  </Children>
+    </Marriage>
+  </Person>
+</Tree>

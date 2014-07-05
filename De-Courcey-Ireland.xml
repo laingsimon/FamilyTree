@@ -1,0 +1,56 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="De Courcey-Ireland">
+  <Person Gender="Male">
+    <Name First="Montague" Nickname="Monty" Last="De Courcey-Ireland" />
+    <Birth Date="" Location="" />
+    <Death Date="?" />
+    <Marriage>
+      <To>
+        <Person Gender="Female">
+          <Name First="Eleanor" Nickname="Diana" Middle="Diana" Last="Laing" />
+          <Birth Date="19/08/1904" Location="" />
+          <Death Date="?" />
+        </Person>
+      </To>
+      <Children EntryPoint="Montague-De-Courcey-Ireland+Eleanor-Diana-Laing_19081904">
+        <Person Gender="Female">
+          <Name First="Eleanor" Last="De Courcey-Ireland" />
+          <Birth Date="" Location="" />
+          <Marriage>
+            <To>
+              <Person Gender="Male">
+                <Name First="Guy" Last="Sclater" />
+              </Person>
+            </To>
+            <Children SeeOtherTree="Sclater" />
+          </Marriage>
+        </Person>
+        <Person Gender="Female">
+          <Name First="Sarah" Last="De Courcey-Ireland" />
+          <Birth Date="" Location="" />
+          <Marriage>
+            <To>
+              <Person Gender="Male">
+                <Name First="Charles" Last="Aldous" />
+              </Person>
+            </To>
+            <Children SeeOtherTree="Aldous" />
+          </Marriage>
+        </Person>
+        <Person Gender="Female">
+          <Name First="Rosamond" Last="De Courcey-Ireland" />
+          <Birth Date="" Location="" />
+          <Marriage>
+            <To>
+              <Person Gender="Male">
+                <Name First="Richard" Last="Nash" />
+              </Person>
+            </To>
+            <Children SeeOtherTree="Nash" />
+          </Marriage>
+        </Person>
+      </Children>
+    </Marriage>
+  </Person>
+</Tree>

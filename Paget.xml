@@ -1,0 +1,85 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="Paget">
+ <Person Gender="Male">
+  <Name First="Alwyn" Middle="de Blaquiere Valentine" Last="Paget" />
+  <Birth Date="14/02/1855" />
+  <Death Date="14/05/1931" />
+  <Marriage Date="02/02/1882">
+   <To>
+    <Person Gender="Female">
+     <Name First="Florence" Middle="Talbot" Last="Laing" />
+     <Birth Date="28/05/1859" />
+     <Death Date="09/11/1943" />
+    </Person>
+   </To>
+   <Children EntryPoint="Alwyn-de-Blaquiere-Valentine-Paget_14021855+Florence-Talbot-Laing_28051859">
+    <Person Gender="Male">
+     <Name First="Rupert" Middle="Alwyn" Last="Paget" />
+     <Birth Date="04/12/1882" />
+     <Death Date="?" />
+     <Marriage Date="">
+      <To>
+       <Person Gender="Female">
+        <Name First="Amy" Middle="Bessie" Last="Dugdale" />
+        <Birth Date="?" />
+        <Death Date="?" />
+       </Person>
+      </To>
+     </Marriage>
+    </Person>
+    <Person Gender="Female">
+     <Name First="Gladys" Middle="Theresa" Last="Paget" />
+     <Birth Date="17/09/1885" />
+     <Death Date="?" />
+    </Person>
+    <Person Gender="Female">
+     <Name First="Florence" Middle="Eleanor" Last="Paget" />
+     <Birth Date="25/09/1887" />
+     <Death Date="?" />
+     <Marriage Date="">
+      <To>
+       <Person Gender="Male">
+        <Name First="Adam" Middle="Norman" Last="Dugdale" />
+        <Birth Date="?" />
+        <Death Date="?" />
+       </Person>
+      </To>
+     </Marriage>
+    </Person>
+    <Person Gender="Female">
+     <Name First="Kathleen" Middle="Louisa" Last="Paget" />
+     <Birth Date="06/06/1896" />
+     <Death Date="?" />
+     <Marriage Date="">
+      <To>
+       <Person Gender="Male">
+        <Name Title="Captain" First="John" Last="Holt-Schooling" />
+        <Birth Date="?" />
+        <Death Date="?" />
+       </Person>
+      </To>
+     </Marriage>
+     <Marriage Date="">
+      <To>
+       <Person Gender="Male">
+        <Name Title="Captain" First="Allan" Middle="Gibson" Last="Hughes" />
+        <Birth Date="?" />
+        <Death Date="?" />
+       </Person>
+      </To>
+     </Marriage>
+     <Marriage Date="">
+      <To>
+       <Person Gender="Male">
+        <Name First="Leslie" Middle="Doriam" Last="Cadman" />
+        <Birth Date="?" />
+        <Death Date="?" />
+       </Person>
+      </To>
+     </Marriage>
+    </Person>
+   </Children>
+  </Marriage>
+ </Person>
+</Tree>

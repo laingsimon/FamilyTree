@@ -1,0 +1,219 @@
+body{
+	font-family: "Tahoma";
+	font-size: 12px;
+}
+
+.highlight{
+ outline: 5px dashed #ff8800;
+}
+
+table{
+ border-collapse: collapse;
+ border: 0px solid #000000
+}
+
+a.handle{
+	display: block;
+	height: 0px;
+}
+
+td{
+ text-align: center;
+}
+
+div.person{
+ margin: 0px 3px;
+ padding: 1px 2px;
+}
+
+div.particulars.dead{
+ opacity: 0.7;
+}
+
+div.person.repeated div.particulars{
+  background-color: #ffffff;
+}
+
+div.particulars-container{
+ left: 50%;
+ position: relative;
+}
+
+div.Male{
+ background-color: #00ccff;
+ border-color: #00ccff;
+}
+
+div.Female{
+ background-color: #ff8888;
+ border-color: #ff8888;
+}
+
+div.particulars{
+ left: -50%;
+ display: inline-block;
+ position: relative;
+ padding: 0px 4px;
+ padding-top: 50px;
+ background-position: center top;
+ background-repeat: no-repeat;
+ background-size: auto 50px;
+ border-radius: 5px;
+ cursor: pointer;
+ border-width: 2px;
+ border-style: solid;
+ min-width: 60px;
+}
+
+div.particulars span{
+ display: block;
+ text-align: center;
+ white-space: nowrap;
+}
+
+td > div.marriage{
+ border-top: 1px solid #000000;
+}
+
+td:first-child > div.marriage,
+td:last-child > div.marriage{
+ border-top: 0px;
+}
+
+div.marriage div.people{
+ text-align: center;
+ padding: 0px;
+ white-space: nowrap;
+}
+
+div.marriage div.people div.person{
+ display: inline-block;
+}
+
+td:last-child > div.marriage > div.people > div.person > div.child-connector > div.vertical{
+ left: -50%;
+ position: relative;
+ border-right: 1px solid #000000;
+ height: 10px;
+ border-top: 1px solid #000000;
+ border-left-width: 0px;
+ top: -2px;
+}
+
+td:first-child > div.marriage > div.people > div.person > div.child-connector > div.vertical{
+ left: 50%;
+ position: relative;
+ border-left: 1px solid #000000;
+ height: 10px;
+ border-top: 1px solid #000000;
+ border-right-width: 0px;
+ top: -2px;
+}
+
+td > div.marriage > div.people > div.person > div.child-connector > div.vertical{
+ left: 50%;
+ position: relative;
+ border-left: 1px solid #000000;
+ height: 10px;
+ top: -2px;
+}
+
+td.only-child > div.marriage > div.people > div.person > div.child-connector > div.vertical{
+ width: 64%; /* probably only works in one scenario */
+}
+
+body > table > tbody > tr > td > div.marriage > div.people > div.person > div.child-connector{
+ display: none;
+}
+     
+div.marriage div.symbol{
+ padding: 10px 2px;
+ display: inline-block;
+ vertical-align: text-bottom;
+ cursor: pointer;
+}
+
+div.children{
+ padding-top: 3px;
+ text-align: center;
+}
+
+div.children > div.connector{
+ margin-left: 50%;
+ border-left: 1px solid #000000;
+ height: 20px;
+}
+
+div.children > table{
+	margin: 0 auto;
+}
+
+div.children td > div.child-connector{
+ border-top: 1px solid #000000;
+ height: 10px;
+}
+
+div.children td.only-child:first-child > div.child-connector,
+div.children td.only-child:last-child > div.child-connector{
+ border-top: 0px;
+}
+
+div.children td > div.child-connector div.vertical,
+div.children td.only-child:first-child > div.child-connector div.vertical,
+div.children td.only-child:last-child > div.child-connector div.vertical{
+ margin-left: 50%;
+ height: 10px;
+ margin-right: 0px;
+ border-left: 1px solid #000000;
+ border-right: 0px;
+ border-top: 0px;
+}
+
+div.children td:first-child > div.child-connector{
+ border-top: 0px;
+}
+
+div.children td:first-child > div.child-connector div.vertical{
+ margin-left: 50%;
+ border-left: 1px solid #000000;
+ border-top: 1px solid #000000;
+ border-right-width: 0px;
+}
+
+div.children td:last-child > div.child-connector{
+ border-top: 0px;
+}
+
+div.children td:last-child > div.child-connector div.vertical{
+ margin-right: 50%;
+ margin-left: 0px;
+ border-left: 0px;
+ border-right: 1px solid #000000;
+ border-top: 1px solid #000000;
+}
+
+td:first-child > div.mid-line{
+ border-top: 1px solid #000000;
+ position: relative;
+ left: 50%;
+}
+
+td:last-child > div.mid-line{
+ border-top: 1px solid #000000;
+ position: relative;
+ width: 50%;
+ left: -55px;
+}
+
+td{
+ overflow: hidden;
+}
+
+td.only-child > div.mid-line{
+ visibility: hidden;
+}
+
+body div.particulars .hidden{
+ display: none;
+}
+

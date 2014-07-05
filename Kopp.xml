@@ -1,0 +1,33 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="Kopp">
+  <Person Gender="Male">
+    <Name First="Georges" Last="Kopp" />
+    <Birth Date="?/?/1902" />
+    <Death Date="15/07/1951" />
+    <Marriage Date="?/?/1944">
+      <To>
+        <Person Gender="Female">
+          <Name First="Doreen" Last="Hunton" />
+          <Birth Date="?/?/1910" />
+          <Death Date="30/07/1969" />
+        </Person>
+      </To>
+      <Children EntryPoint="Georges-Kopp_??1902+Doreen-Hunton_??1910">
+        <Person Gender="Male">
+          <Name First="Stephen" Middle="M" Last="Kopp" />
+          <Birth Date="24/02/1945" />
+          <Death Date="12/09/1964" />
+        </Person>
+        <Person Gender="Male">
+          <Name First="?" Last="Kopp" />
+          <Birth Date="?" />
+        </Person>
+        <Person Gender="Female">
+          <Name First="?" Last="Kopp" />
+          <Birth Date="?" />
+        </Person>
+      </Children>
+    </Marriage>
+  </Person>
+</Tree>

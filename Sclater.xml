@@ -1,0 +1,48 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="Sclater">
+  <Person Gender="Male">
+    <Name First="Guy" Last="Sclater" />
+    <Birth Date="" Location="" />
+    <Marriage>
+      <To>
+        <Person Gender="Female">
+          <Name First="Eleanor" Last="De Courcey-Ireland" />
+        </Person>
+      </To>
+      <Children EntryPoint="Guy-Sclater+Eleanor-De-Courcey-Ireland">
+        <Person Gender="Female">
+          <Name First="Alice" Last="Sclater" />
+        </Person>
+        <Person Gender="Male">
+          <Name First="Charles" Last="Sclater" />
+        </Person>
+        <Person Gender="Male">
+          <Name First="Rupert" Last="Sclater" />
+		  <Marriage>
+			<To>
+				<Person Gender="Female">
+					<Name First="?" Last="?" />
+				</Person>
+			</To>
+			<Children>
+				<Person Gender="Female">
+					<Name First="Lottie" Last="Sclater" />
+				</Person>
+				<Person Gender="Male">
+					<Name First="Monty" Last="Sclater" />
+				</Person>
+			</Children>
+		  </Marriage>
+		  <Marriage>
+			<To>
+				<Person Gender="Female">
+					<Name First="Josephine" Last="?" />
+				</Person>
+			</To>
+		  </Marriage>
+        </Person>
+      </Children>
+    </Marriage>
+  </Person>
+</Tree>
