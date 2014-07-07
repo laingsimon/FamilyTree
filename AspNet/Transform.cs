@@ -4,12 +4,15 @@ using System.Xml;
 using System.Xml.Xsl;
 using System.IO;
 using System.Text;
+using System.Configuration;
 
 namespace FamilyTree
 {
 	public class TransformHandler : IHttpHandler
 	{
         private const string _xslPath = @"~/Render/ft.xsl";
+		private static readonly string _defaultFamily = ConfigurationManager.AppSettings["defaultFamily"];
+
         private static readonly XsltSettings _xsltSettings = new XsltSettings
         {
             EnableDocumentFunction = true
@@ -21,9 +24,17 @@ namespace FamilyTree
             var url = request.Url;
             var withoutQueryString = url.PathAndQuery.Replace("?" + url.Query, "");
             var path = withoutQueryString.Substring(request.ApplicationPath.Length);
-            var fileName = context.Server.MapPath("~" + context.Server.UrlDecode(path));
 
-            if (Path.GetExtension(fileName) == "")
+			if (string.IsNullOrEmpty(path))
+			{
+				context.Response.StatusCode = 301;
+				context.Response.Headers.Add("Location", "/" + _defaultFamily);
+				return;
+			}
+
+            var fileName = context.Server.MapPath("~/" + context.Server.UrlDecode(path));
+
+            if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
                 fileName += ".xml";
 
             var xslPath = context.Server.MapPath(_xslPath);
