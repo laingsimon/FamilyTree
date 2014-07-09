@@ -30,20 +30,19 @@ namespace FamilyTree.Controllers
 			if (string.IsNullOrEmpty(size))
 				return File(photoFile.FullName, "image/jpeg");
 
-			var resizedPhoto = _ResizePhoto(photoFile, size);
-			return File(resizedPhoto, "image/jpeg");
+			return _ResizePhoto(photoFile, size);
 		}
 
-		private static byte[] _ResizePhoto(FileInfo photoFile, string size)
+		private ActionResult _ResizePhoto(FileInfo photoFile, string size)
 		{
 			if (!photoFile.Exists)
-				return new byte[0];
+				return HttpNotFound();
 
 			using (var bitmap = Image.FromFile(photoFile.FullName))
 			{
 				var desiredSize = _ParseSize(size, bitmap.Size);
 				if (desiredSize.IsEmpty)
-					return new byte[0];
+					return new HttpStatusCodeResult(204);
 
 				var stream = new MemoryStream();
 
@@ -58,7 +57,7 @@ namespace FamilyTree.Controllers
 						resizedImage.Height);
 
 					resizedImage.Save(stream, ImageFormat.Jpeg);
-					return stream.ToArray();
+					return File(stream.ToArray(), "image/jpeg");
 				}
 			}
 		}
