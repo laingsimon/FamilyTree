@@ -36,7 +36,10 @@ namespace FamilyTree.Controllers
 		private ActionResult _ResizePhoto(FileInfo photoFile, string size)
 		{
 			if (!photoFile.Exists)
+			{
+				Response.AddHeader("FileName", photoFile.FullName);
 				return HttpNotFound();
+			}
 
 			using (var bitmap = Image.FromFile(photoFile.FullName))
 			{
