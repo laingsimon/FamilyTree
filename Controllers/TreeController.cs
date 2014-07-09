@@ -8,14 +8,14 @@ namespace FamilyTree.Controllers
 	{
 		private static readonly string _defaultFamily = ConfigurationManager.AppSettings["DefaultFamily"];
 		
-		public ActionResult Index(string id)
+		public ActionResult Index(string family)
 		{
-			return RedirectToAction("Family", new { id = id ?? _defaultFamily });
+			return RedirectToAction("Family", new { family = family ?? _defaultFamily });
 		}
 
-		public ActionResult Family(string id)
+		public ActionResult Family(string family)
 		{
-			var relativePath = string.Format("~/Data/{0}.xml", id);
+			var relativePath = string.Format("~/Data/{0}.xml", family);
 			var familyFilePath = Server.MapPath(relativePath);
 			if (!System.IO.File.Exists(familyFilePath))
 			{

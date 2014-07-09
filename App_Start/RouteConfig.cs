@@ -11,8 +11,8 @@ namespace FamilyTree.App_Start
 
 			routes.MapRoute(
 				name: "Default",
-				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Tree", action = "Index", id = UrlParameter.Optional }
+				url: "{controller}/{action}/{family}",
+				defaults: new { controller = "Tree", action = "Index", family = "Laing" }
 			);
 		}
 	}
