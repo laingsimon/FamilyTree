@@ -249,7 +249,7 @@
 
   <div class="particulars-container">
    <a name="{$handle}" class="handle"></a>
-    <div class="{@Gender}{$deadClass} particulars" fullName="{$fullName}" style="background-image: url({translate($photo, '?', '')})">
+    <div class="{@Gender}{$deadClass} particulars" fullName="{$fullName}" style="background-image: url('{translate($photo, '?', '')}')">
      <xsl:attribute name="tree-available">
       <xsl:choose>
        <xsl:when test="count(document($path)/Tree) > 0">
