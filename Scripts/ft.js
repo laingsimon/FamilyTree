@@ -59,7 +59,7 @@ $(document).ready(function() {
 	  var dateOfBirth = $(this).find("span.date-of-birth").text();
 	  var dateOfDeath = $(this).find("span.date-of-death").text();
     var treeAvailable = $(this).attr("tree-available") === "true";
-    var photoUri = $($(this)[0]).css("background-image").replace(")", "").replace("url(", "");
+    var photoUri = $($(this)[0]).css("background-image").replace(")", "").replace("url(", "").replace("/h50", "/h200");
     var handle = $(this).prev("a.handle");
 
 	  if (dateOfBirth)
