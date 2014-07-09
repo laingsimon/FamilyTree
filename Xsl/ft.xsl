@@ -1,6 +1,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
  <xsl:include href="pop-up.xsl" />
- <xsl:output method="html"/>
+ <xsl:output method="html" omit-xml-declaration="yes" />
  
  <xsl:template match="Tree">
   <html>
@@ -220,9 +220,31 @@
   </xsl:variable>
 
   <xsl:variable name="photo">
-   <xsl:text>../../Photos/</xsl:text>
-   <xsl:apply-templates select="." mode="Handle" />
-   <xsl:text>.jpg</xsl:text>
+   <xsl:text>../../Photo/Index/</xsl:text>
+		<xsl:value-of select="Name/@Last"/>
+		<xsl:text>/</xsl:text>
+		<xsl:value-of select="Name/@First" />
+		<xsl:text>/</xsl:text>
+		<xsl:choose>
+			<xsl:when test="Name/@Middle">
+				<xsl:value-of select="Name/@Middle" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>-</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>/</xsl:text>
+
+		<xsl:choose>
+			<xsl:when test="Birth/@Date and Birth/@Date != ''">
+				<xsl:value-of select="translate(Birth/@Date, '/', '-')" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>01-01-0001</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+
+		<xsl:text>/h50</xsl:text>
   </xsl:variable>
 
   <div class="particulars-container">

@@ -10,9 +10,16 @@ namespace FamilyTree.App_Start
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-				name: "Default",
+				name: "Photo",
+				url: "{controller}/{action}/{family}/{firstName}/{middleName}/{dob}/{size}",
+				defaults: new { controller = "Photo", action = "Index", middleName = UrlParameter.Optional, size = UrlParameter.Optional },
+				constraints: new { controller = "Photo", dob = @"^\d{2}-\d{2}-\d{4}$" }
+			);
+
+			routes.MapRoute(
+				name: "Tree",
 				url: "{controller}/{action}/{family}",
-				defaults: new { controller = "Tree", action = "Index", family = "Laing" }
+				defaults: new { controller = "Tree", action = "Index", family = UrlParameter.Optional }
 			);
 		}
 	}
