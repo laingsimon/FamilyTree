@@ -247,8 +247,12 @@
 		<xsl:text>/h50</xsl:text>
   </xsl:variable>
 
+   <xsl:variable name="xpath">
+     <xsl:apply-templates mode="XPath" select="." />
+   </xsl:variable>
+
   <div class="particulars-container">
-   <a name="{$handle}" class="handle"></a>
+   <a name="{$handle}" class="handle" data-xpath="{$xpath}"></a>
     <div class="{@Gender}{$deadClass} particulars" fullName="{$fullName}" style="background-image: url('{translate($photo, '?', '')}')">
      <xsl:attribute name="tree-available">
       <xsl:choose>
@@ -264,6 +268,24 @@
      <span class="date-of-death hidden"><xsl:value-of select="Death/@Date" /><br /></span>
     </div>
    </div>
+  </xsl:template>
+
+  <xsl:template match="Person" mode="XPath">
+    <xsl:text>//Person[Name/@First='</xsl:text>
+    <xsl:value-of select="Name/@First" />
+    <xsl:text>'</xsl:text>
+    <xsl:if test="Name/@Middle">
+      <xsl:text> and Name/@Middle='</xsl:text>
+      <xsl:value-of select="Name/@Middle" />
+      <xsl:text>'</xsl:text>
+    </xsl:if>
+    <xsl:if test="Name/@Last">
+      <xsl:text> and Name/@Last='</xsl:text>
+      <xsl:value-of select="Name/@Last" />
+      <xsl:text>'</xsl:text>
+    </xsl:if>
+
+    <xsl:text>]</xsl:text>
   </xsl:template>
   
   <xsl:template match="Person" mode="Handle">
