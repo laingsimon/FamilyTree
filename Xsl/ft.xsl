@@ -1,5 +1,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
  <xsl:include href="pop-up.xsl" />
+ <xsl:include href="edit.xsl" />
  <xsl:output method="html" omit-xml-declaration="yes" />
  
  <xsl:template match="Tree">
@@ -23,6 +24,7 @@
     </table>
 
     <xsl:call-template name="pop-up" />
+      <xsl:call-template name="edit" />
    </body>
   </html>
  </xsl:template>
@@ -252,7 +254,14 @@
    </xsl:variable>
 
   <div class="particulars-container">
-   <a name="{$handle}" class="handle" data-xpath="{$xpath}"></a>
+   <a name="{$handle}"
+			class="handle"
+			data-xpath="{$xpath}"
+			data-first-name="{Name/@First}"
+			data-last-name="{Name/@Last}"
+			data-middle-name="{Name/@Middle}"
+			data-nick-name="{Name/@Nick}"
+			data-date-of-birth="{Birth/@Date}"></a>
     <div class="{@Gender}{$deadClass} particulars" fullName="{$fullName}" style="background-image: url('{translate($photo, '?', '')}')">
      <xsl:attribute name="tree-available">
       <xsl:choose>

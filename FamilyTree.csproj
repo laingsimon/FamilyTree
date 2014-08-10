@@ -83,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\edit.css" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\pop-up.css" />
     <Content Include="Data\Aldous.xml" />
@@ -129,6 +130,7 @@
     <Content Include="Photos\Simon-Robert-Laing_30031983.jpg" />
     <Content Include="Photos\Timothy-Peter-Laing_14041981.jpg" />
     <Content Include="Photos\William-Joseph-Young_1828.jpg" />
+    <Content Include="Scripts\edit.js" />
     <Content Include="Scripts\ft.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\pop-up.js" />
@@ -156,7 +158,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Xsl\ft.xsl" />
+    <Content Include="Xsl\edit.xsl" />
+    <Content Include="Xsl\ft.xsl">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Xsl\pop-up.xsl" />
   </ItemGroup>
   <ItemGroup />
