@@ -26,7 +26,7 @@
         </Person>
         <Person Gender="Male">
           <Name First="Rupert" Last="Sclater" />
-		  <Marriage>
+		  <Marriage Status="Divorced">
 			<To>
 				<Person Gender="Female">
 					<Name First="Elizabeth" Last="Steel" />
