@@ -2,25 +2,52 @@
 
 <Tree Family="Nash">
  <Person Gender="Male">
-	<Name First="Richard" Last="Nash" />
+	<Name First="Llewellyn" Middle="James Richard" Last="Nash" />
   <Birth Date="" />
   <Death Date="?" />
   <Marriage Date="">
    <To>
     <Person Gender="Female">
-	   <Name First="Rosamond" Last="De Courcey-Ireland" />
+	   <Name First="Rosamond" Middle="Diana" Last="De Courcey-Ireland" />
      <Birth Date="" Location="" />
     </Person>
    </To>
-   <Children EntryPoint="Richard-Nash+Rosamond-De-Courcey-Ireland">
+   <Children EntryPoint="Rosamond-Diana-De-Courcey-Ireland_??1942+Llewellyn-James-Richard-Nash">
      <Person Gender="Female">
-       <Name First="Emma" Last="Nash" />
+       <Name First="Rosamond" Middle="Emma" Last="Nash" />
+	   <Birth Date="?/03/1974" />
+	   <Marriage Date="?/09/2002">
+		<To>
+			<Person Gender="Male">
+				<Name First="Benjamin" Last="Tooley" />
+			</Person>
+		</To>
+		<Children SeeOtherTree="Tooley" />
+	   </Marriage>
      </Person>
      <Person Gender="Female">
-       <Name First="Louise" Last="Nash" />
+       <Name First="Louise" Middle="Catherine" Last="Nash" />
+	   <Birth Date="?/02/1976" />
+	   <Marriage Date="?/06/2013">
+		<To>
+			<Person Gender="Male">
+				<Name First="Christof" Last="Hoepler" />
+			</Person>
+		</To>
+		<Children SeeOtherTree="Hoepler" />
+	   </Marriage>
      </Person>
      <Person Gender="Female">
-       <Name First="Juliette" Last="Nash" />
+       <Name First="Juliette" Middle="Diana" Last="Nash" />
+	   <Birth Date="01/03/1981" />
+	   <Marriage Date="?/05/2011">
+		<To>
+			<Person Gender="Male">
+				<Name First="Bryan" Last="Turner" />
+			</Person>
+		</To>
+		<Children SeeOtherTree="Turner" />
+	   </Marriage>
      </Person>
    </Children>
   </Marriage>

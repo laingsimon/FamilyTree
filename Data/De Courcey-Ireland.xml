@@ -15,39 +15,39 @@
       </To>
       <Children EntryPoint="Montague-De-Courcey-Ireland+Eleanor-Diana-Laing_19081904">
         <Person Gender="Female">
-          <Name First="Eleanor" Last="De Courcey-Ireland" />
-          <Birth Date="" Location="" />
-          <Marriage>
+          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcey-Ireland" />
+          <Birth Date="?/?/1941" Location="" />
+          <Marriage Date="?/?/1963">
             <To>
               <Person Gender="Male">
-                <Name First="Guy" Last="Sclater" />
+                <Name First="Edward" Middle="Guy Lutley" Last="Sclater" />
               </Person>
             </To>
             <Children SeeOtherTree="Sclater" />
           </Marriage>
         </Person>
         <Person Gender="Female">
-          <Name First="Sarah" Last="De Courcey-Ireland" />
-          <Birth Date="" Location="" />
+          <Name First="Rosamond" Middle="Diana" Last="De Courcey-Ireland" />
+          <Birth Date="?/?/1942" Location="" />
           <Marriage>
+            <To>
+              <Person Gender="Male">
+                <Name First="Llewellyn" Middle="James Richard" Last="Nash" />
+              </Person>
+            </To>
+            <Children SeeOtherTree="Nash" />
+          </Marriage>
+        </Person>
+        <Person Gender="Female">
+          <Name First="Hermione" Middle="Sarah" Last="De Courcey-Ireland" />
+          <Birth Date="?/05/1944" Location="" />
+          <Marriage Date="?/05/1969">
             <To>
               <Person Gender="Male">
                 <Name First="Charles" Last="Aldous" />
               </Person>
             </To>
             <Children SeeOtherTree="Aldous" />
-          </Marriage>
-        </Person>
-        <Person Gender="Female">
-          <Name First="Rosamond" Last="De Courcey-Ireland" />
-          <Birth Date="" Location="" />
-          <Marriage>
-            <To>
-              <Person Gender="Male">
-                <Name First="Richard" Last="Nash" />
-              </Person>
-            </To>
-            <Children SeeOtherTree="Nash" />
           </Marriage>
         </Person>
       </Children>

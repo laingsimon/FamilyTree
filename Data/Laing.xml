@@ -414,28 +414,28 @@
 													<Person Gender="Female">
 														<Name First="Eleanor" Nickname="Diana" Middle="Diana" Last="Laing" />
 														<Birth Date="19/08/1904" Location="" />
-                         <Death Date="?" />
+														<Death Date="?" />
 														<Marriage>
 															<To>
 																<Person Gender="Male">
 																	<Name First="Montague" Nickname="Monty" Last="De Courcey-Ireland" />
 																	<Birth Date="" Location="" />
-                               <Death Date="?" />
+																	<Death Date="?" />
 																</Person>
 															</To>
 															<Children SeeOtherTree="De Courcey-Ireland" />
 														</Marriage>
 													</Person>
 													<Person Gender="Male">
-														<Name First="Peter" Last="Laing" />
+														<Name First="Peter" Middle="Kenneth" Last="Laing" />
 														<Birth Date="31/07/1907" Location="Abdale, Northumberland" />
-                          <Death Date="16/10/1964" />
+														<Death Date="16/10/1965" />
 														<Marriage Date="30/04/1946" Location="Gresford">
 															<To>
 																<Person Gender="Female">
 																	<Name First="Hazel" Last="Edwyn-Jones" />
 																	<Birth Date="24/09/1913" Location="Gresford?" />
-                               <Death Date="24/01/1979" />
+																	<Death Date="24/01/1979" />
 																</Person>
 															</To>
 															<Children>

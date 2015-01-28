@@ -1,0 +1,17 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="MacMillan">
+	<Person Gender="Male">
+		<Name First="Angus" Last="MacMillan" />
+		<Marriage Date="?/07/2014">
+			<To>
+				<Person Gender="Female">
+					<Name First="Antonia" Last="Aldous" />
+					<Birth Date="?/09/1975" />
+				</Person>
+			</To>
+			<Children EntryPoint="Antonia-Aldous_?091975+Angus-MacMillan">
+			</Children>
+		</Marriage>
+	</Person>
+</Tree>

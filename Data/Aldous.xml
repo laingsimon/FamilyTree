@@ -4,16 +4,60 @@
   <Person Gender="Male">
     <Name First="Charles" Last="Aldous" />
     <Birth Date="" Location="" />
-    <Death Date="?" />
-    <Marriage>
+    <Marriage Date="?/05/1969">
       <To>
         <Person Gender="Female">
-          <Name First="Sarah" Last="De Courcey-Ireland" />
-          <Birth Date="" Location="" />
-          <Death Date="?" />
+          <Name First="Hermione" Middle="Sarah" Last="De Courcey-Ireland" />
+          <Birth Date="?/05/1944" Location="" />
         </Person>
       </To>
-      <Children EntryPoint="Charles-Aldous+Sarah-De-Courcey-Ireland">
+      <Children EntryPoint="Charles-Aldous+Hermione-Sarah-De-Courcey-Ireland_?051944">
+		<Person Gender="Female">
+			<Name First="Hermione" Last="Aldous" />
+			<Birth Date="?/10/1971" />
+			<Death Date="?/?/1972" />
+		</Person>
+		<Person Gender="Female">
+			<Name First="Charlotte" Last="Aldous" />
+			<Birth Date="?/06/1973" />
+			<Marriage Date="?/10/1999">
+				<To>
+					<Person Gender="Male">
+						<Name First="Jason" Last="Gallian" />
+					</Person>
+				</To>
+				<Children SeeOtherTree="Gallian" />
+			</Marriage>
+		</Person>
+		<Person Gender="Female">
+			<Name First="Antonia" Last="Aldous" />
+			<Birth Date="?/09/1975" />
+			<Marriage Date="?/07/2014">
+				<To>
+					<Person Gender="Male">
+						<Name First="Angus" Last="MacMillan" />
+					</Person>
+				</To>
+				<Children SeeOtherTree="MacMillan" />
+			</Marriage>
+		</Person>
+		<Person Gender="Male">
+			<Name First="Alastair" Last="Aldous" />
+			<Birth Date="?/12/1979" />
+			<Marriage>
+				<To>
+					<Person Gender="Female">
+						<Name First="Nicola" Last="McCollon" />
+					</Person>
+				</To>
+				<Children>
+					<Person Gender="Male">
+						<Name First="Oliver" Last="Aldous" />
+						<Birth Date="?/11/2011" />
+					</Person>
+				</Children>
+			</Marriage>
+		</Person>
       </Children>
     </Marriage>
   </Person>

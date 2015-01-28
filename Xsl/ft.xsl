@@ -124,7 +124,7 @@
     </xsl:variable>
     <xsl:variable name="path">
      <xsl:text>~/Data/</xsl:text>
-     <xsl:value-of select="translate(Children/@SeeOtherTree, ' ',  '-')" />
+     <xsl:value-of select="translate(Children/@SeeOtherTree, ' ',  ' ')" />
      <xsl:text>.xml</xsl:text>
     </xsl:variable>
     <xsl:choose>
