@@ -2,12 +2,12 @@
 
 <Tree Family="Sclater">
   <Person Gender="Male">
-    <Name First="Edward" Middle="Guy Lutley" Last="Sclater" />
+    <Name First="Edward" Nickname="Guy" Middle="Guy Lutley" Last="Sclater" />
     <Birth Date="" Location="" />
     <Marriage Date="?/?/1963">
       <To>
         <Person Gender="Female">
-          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcy-Ireland" />
+          <Name First="Elizabeth" Nickname="Eleanor" Middle="Eleanor" Last="De Courcy-Ireland" />
 		  <Birth Date="?/?/1941" Location="" />
         </Person>
       </To>
@@ -26,6 +26,7 @@
         </Person>
         <Person Gender="Male">
           <Name First="Rupert" Last="Sclater" />
+		  <Birth Date="?/12/1967" />
 		  <Marriage Status="Divorced">
 			<To>
 				<Person Gender="Female">

@@ -101,7 +101,7 @@
     <Content Include="Data\Kopp.xml" />
     <Content Include="Data\Laing.xml" />
     <Content Include="Data\Leather.xml" />
-    <Content Include="Data\MacMillan.xml" />
+    <Content Include="Data\MacMillian.xml" />
     <Content Include="Data\McCann.xml" />
     <Content Include="Data\Nash.xml" />
     <Content Include="Data\Oswald.xml" />

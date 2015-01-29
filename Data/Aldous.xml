@@ -7,7 +7,7 @@
     <Marriage Date="?/05/1969">
       <To>
         <Person Gender="Female">
-          <Name First="Hermione" Middle="Sara" Last="De Courcy-Ireland" />
+          <Name First="Hermione" Nickname="Sara" Middle="Sara" Last="De Courcy-Ireland" />
           <Birth Date="?/05/1944" Location="" />
         </Person>
       </To>
@@ -35,10 +35,10 @@
 			<Marriage Date="?/07/2014">
 				<To>
 					<Person Gender="Male">
-						<Name First="Angus" Last="MacMillan" />
+						<Name First="Angus" Last="Macmillian" />
 					</Person>
 				</To>
-				<Children SeeOtherTree="MacMillan" />
+				<Children SeeOtherTree="Macmillian" />
 			</Marriage>
 		</Person>
 		<Person Gender="Male">
@@ -47,7 +47,7 @@
 			<Marriage>
 				<To>
 					<Person Gender="Female">
-						<Name First="Nicola" Last="McCollon" />
+						<Name First="Nicola" Last="McCollum" />
 					</Person>
 				</To>
 				<Children>

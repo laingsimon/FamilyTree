@@ -15,12 +15,12 @@
       </To>
       <Children EntryPoint="Montague-De-Courcy-Ireland+Eleanor-Diana-Laing_19081904">
         <Person Gender="Female">
-          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcy-Ireland" />
+          <Name First="Elizabeth" Nickname="Eleanor" Middle="Eleanor" Last="De Courcy-Ireland" />
           <Birth Date="?/?/1941" Location="" />
           <Marriage Date="?/?/1963">
             <To>
               <Person Gender="Male">
-                <Name First="Edward" Middle="Guy Lutley" Last="Sclater" />
+                <Name First="Edward" Nickname="Guy" Middle="Guy Lutley" Last="Sclater" />
               </Person>
             </To>
             <Children SeeOtherTree="Sclater" />
@@ -28,18 +28,18 @@
         </Person>
         <Person Gender="Female">
           <Name First="Rosamond" Middle="Diana" Last="De Courcy-Ireland" />
-          <Birth Date="?/?/1942" Location="" />
+          <Birth Date="?/09/1942" Location="" />
           <Marriage>
             <To>
               <Person Gender="Male">
-                <Name First="Llewellyn" Middle="James Richard" Last="Nash" />
+                <Name First="Llewellyn" Nickname="Richard" Middle="James Richard" Last="Nash" />
               </Person>
             </To>
             <Children SeeOtherTree="Nash" />
           </Marriage>
         </Person>
         <Person Gender="Female">
-          <Name First="Hermione" Middle="Sara" Last="De Courcy-Ireland" />
+          <Name First="Hermione" Nickname="Sara" Middle="Sara" Last="De Courcy-Ireland" />
           <Birth Date="?/05/1944" Location="" />
           <Marriage Date="?/05/1969">
             <To>
