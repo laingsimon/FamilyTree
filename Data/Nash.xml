@@ -8,11 +8,11 @@
   <Marriage Date="">
    <To>
     <Person Gender="Female">
-	   <Name First="Rosamond" Middle="Diana" Last="De Courcey-Ireland" />
+	   <Name First="Rosamond" Middle="Diana" Last="De Courcy-Ireland" />
      <Birth Date="" Location="" />
     </Person>
    </To>
-   <Children EntryPoint="Rosamond-Diana-De-Courcey-Ireland_??1942+Llewellyn-James-Richard-Nash">
+   <Children EntryPoint="Rosamond-Diana-De-Courcy-Ireland_??1942+Llewellyn-James-Richard-Nash">
      <Person Gender="Female">
        <Name First="Rosamond" Middle="Emma" Last="Nash" />
 	   <Birth Date="?/03/1974" />

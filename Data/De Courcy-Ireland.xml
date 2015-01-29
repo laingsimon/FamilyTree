@@ -1,8 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
 
-<Tree Family="De Courcey-Ireland">
+<Tree Family="De Courcy-Ireland">
   <Person Gender="Male">
-    <Name First="Montague" Nickname="Monty" Last="De Courcey-Ireland" />
+    <Name First="Montague" Nickname="Monty" Last="De Courcy-Ireland" />
     <Birth Date="" Location="" />
     <Death Date="?" />
     <Marriage>
@@ -13,9 +13,9 @@
           <Death Date="?" />
         </Person>
       </To>
-      <Children EntryPoint="Montague-De-Courcey-Ireland+Eleanor-Diana-Laing_19081904">
+      <Children EntryPoint="Montague-De-Courcy-Ireland+Eleanor-Diana-Laing_19081904">
         <Person Gender="Female">
-          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcey-Ireland" />
+          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcy-Ireland" />
           <Birth Date="?/?/1941" Location="" />
           <Marriage Date="?/?/1963">
             <To>
@@ -27,7 +27,7 @@
           </Marriage>
         </Person>
         <Person Gender="Female">
-          <Name First="Rosamond" Middle="Diana" Last="De Courcey-Ireland" />
+          <Name First="Rosamond" Middle="Diana" Last="De Courcy-Ireland" />
           <Birth Date="?/?/1942" Location="" />
           <Marriage>
             <To>
@@ -39,7 +39,7 @@
           </Marriage>
         </Person>
         <Person Gender="Female">
-          <Name First="Hermione" Middle="Sara" Last="De Courcey-Ireland" />
+          <Name First="Hermione" Middle="Sara" Last="De Courcy-Ireland" />
           <Birth Date="?/05/1944" Location="" />
           <Marriage Date="?/05/1969">
             <To>

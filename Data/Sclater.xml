@@ -7,11 +7,11 @@
     <Marriage Date="?/?/1963">
       <To>
         <Person Gender="Female">
-          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcey-Ireland" />
+          <Name First="Elizabeth" Middle="Eleanor" Last="De Courcy-Ireland" />
 		  <Birth Date="?/?/1941" Location="" />
         </Person>
       </To>
-      <Children EntryPoint="Elizabeth-Eleanor-De-Courcey-Ireland_??1941+Edward-Guy-Lutley-Sclater">
+      <Children EntryPoint="Elizabeth-Eleanor-De-Courcy-Ireland_??1941+Edward-Guy-Lutley-Sclater">
         <Person Gender="Female">
           <Name First="Alice" Last="Sclater" />
 		  <Birth Date="?/10/1965" />

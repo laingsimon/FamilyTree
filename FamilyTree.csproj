@@ -90,7 +90,7 @@
     <Content Include="Data\Baker.xml" />
     <Content Include="Data\Cooke.xml" />
     <Content Include="Data\Cowan.xml" />
-    <Content Include="Data\De Courcey-Ireland.xml" />
+    <Content Include="Data\De Courcy-Ireland.xml" />
     <Content Include="Data\Doxford.xml" />
     <Content Include="Data\Featherstonhaugh.xml" />
     <Content Include="Data\Fenton.xml" />

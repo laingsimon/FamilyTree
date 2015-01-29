@@ -418,12 +418,12 @@
 														<Marriage>
 															<To>
 																<Person Gender="Male">
-																	<Name First="Montague" Nickname="Monty" Last="De Courcey-Ireland" />
+																	<Name First="Montague" Nickname="Monty" Last="De Courcy-Ireland" />
 																	<Birth Date="" Location="" />
 																	<Death Date="?" />
 																</Person>
 															</To>
-															<Children SeeOtherTree="De Courcey-Ireland" />
+															<Children SeeOtherTree="De Courcy-Ireland" />
 														</Marriage>
 													</Person>
 													<Person Gender="Male">

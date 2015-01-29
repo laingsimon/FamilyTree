@@ -7,11 +7,11 @@
     <Marriage Date="?/05/1969">
       <To>
         <Person Gender="Female">
-          <Name First="Hermione" Middle="Sara" Last="De Courcey-Ireland" />
+          <Name First="Hermione" Middle="Sara" Last="De Courcy-Ireland" />
           <Birth Date="?/05/1944" Location="" />
         </Person>
       </To>
-      <Children EntryPoint="Charles-Aldous+Hermione-Sara-De-Courcey-Ireland_?051944">
+      <Children EntryPoint="Charles-Aldous+Hermione-Sara-De-Courcy-Ireland_?051944">
 		<Person Gender="Female">
 			<Name First="Hermione" Last="Aldous" />
 			<Birth Date="?/10/1971" />
