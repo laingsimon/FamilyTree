@@ -75,6 +75,11 @@
 								<Name First="Vicky" Last="?" />
 							</Person>
 						</To>
+						<Children>
+							<Person Gender="Female">
+								<Name First="Patrick" Middle="Rowan" Last="McCann" />
+							</Person>
+						</Children>
 					</Marriage>
 				</Person>
 				<Person Gender="Female">
