@@ -239,7 +239,7 @@
 
 		<xsl:choose>
 			<xsl:when test="Birth/@Date and Birth/@Date != ''">
-				<xsl:value-of select="translate(Birth/@Date, '/', '-')" />
+				<xsl:value-of select="translate(translate(Birth/@Date, '/', '-'), '?', '0')" />
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>01-01-0001</xsl:text>

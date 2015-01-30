@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -21,7 +22,7 @@ namespace FamilyTree.Controllers
 
 			var dateOfBirth = string.IsNullOrEmpty(dob) || dob == "-"
 				? DateTime.MinValue
-				: DateTime.ParseExact(dob, "dd-MM-yyyy", null);
+				: _TryParseExact(dob, "d-M-yyyy");
 			var fileName = string.Format("~/Photos/{0}{1}-{2}_{3:ddMMyyyy}.jpg", firstName, middleNamePart, family, dateOfBirth);
 			var photoFile = new FileInfo(Server.MapPath(fileName));
 			if (!photoFile.Exists)
@@ -31,6 +32,14 @@ namespace FamilyTree.Controllers
 				return File(photoFile.FullName, "image/jpeg");
 
 			return _ResizePhoto(photoFile, size);
+		}
+
+		private static DateTime _TryParseExact(string dateString, string format)
+		{
+			DateTime date;
+			return DateTime.TryParseExact(dateString, format, null, DateTimeStyles.None, out date)
+				? date
+				: DateTime.MinValue;
 		}
 
 		private ActionResult _ResizePhoto(FileInfo photoFile, string size)
