@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
@@ -28,8 +29,14 @@ namespace FamilyTree.Controllers
 			if (!photoFile.Exists)
 				photoFile = new FileInfo(Server.MapPath(_defaultPhotoPath));
 
+			if (_NotModified(photoFile, Request.Headers["If-None-Match"], size))
+				return new HttpStatusCodeResult(HttpStatusCode.NotModified);
+
 			if (string.IsNullOrEmpty(size))
+			{
+				_AddETagHeader(photoFile, size);
 				return File(photoFile.FullName, "image/jpeg");
+			}
 
 			return _ResizePhoto(photoFile, size);
 		}
@@ -69,9 +76,39 @@ namespace FamilyTree.Controllers
 						resizedImage.Height);
 
 					resizedImage.Save(stream, ImageFormat.Jpeg);
+
+					_AddETagHeader(photoFile, size);
 					return File(stream.ToArray(), "image/jpeg");
 				}
 			}
+		}
+
+		private static bool _NotModified(FileInfo photoFile, string matchEtag, string customEtagSuffix)
+		{
+			if (string.IsNullOrEmpty(matchEtag))
+				return false;
+
+			var currentEtag = _GenerateEtag(photoFile, customEtagSuffix);
+			return currentEtag == matchEtag;
+		}
+
+		private void _AddETagHeader(FileInfo photoFile, string customEtagSuffix)
+		{
+			var etag = _GenerateEtag(photoFile, customEtagSuffix);
+			Response.AddHeader("ETag", etag);
+		}
+
+		private static string _GenerateEtag(FileInfo photoFile, string customEtagSuffix)
+		{
+			var lastWriteTime = photoFile.LastWriteTimeUtc;
+			var size = photoFile.Length;
+			var fileName = photoFile.FullName;
+			var customEtagSuffixHashCode = (customEtagSuffix ?? "").GetHashCode();
+
+			var etag = string.Format(
+				"\"{0}\"",
+				lastWriteTime.GetHashCode() + size.GetHashCode() + fileName.GetHashCode() + customEtagSuffixHashCode);
+			return etag;
 		}
 
 		private static Size _ParseSize(string size, SizeF originalImageSize)
