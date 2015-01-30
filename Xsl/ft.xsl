@@ -271,7 +271,20 @@
       </xsl:choose>
      </xsl:attribute>
 
-     <span class="first-name"><xsl:value-of select="Name/@First" /></span>
+			<xsl:variable name="known-name">
+				<xsl:choose>
+					<xsl:when test="Name/@Nickname != ''">
+						<xsl:text>'</xsl:text>
+						<xsl:value-of select="Name/@Nickname" />
+						<xsl:text>'</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="Name/@First" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+     <span class="first-name"><xsl:value-of select="$known-name" /></span>
      <span class="last-name"><xsl:value-of select="Name/@Last" /></span>
      <span class="date-of-birth"><xsl:value-of select="Birth/@Date" /><br /></span>
      <span class="date-of-death hidden"><xsl:value-of select="Death/@Date" /><br /></span>
