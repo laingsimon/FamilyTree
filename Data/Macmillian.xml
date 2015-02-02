@@ -7,10 +7,10 @@
 			<To>
 				<Person Gender="Female">
 					<Name First="Antonia" Last="Aldous" />
-					<Birth Date="?/09/1975" />
+					<Birth Date="11/09/1975" />
 				</Person>
 			</To>
-			<Children EntryPoint="Antonia-Aldous_?091975+Angus-Macmillian">
+			<Children EntryPoint="Antonia-Aldous_11091975+Angus-Macmillian">
 			</Children>
 		</Marriage>
 	</Person>

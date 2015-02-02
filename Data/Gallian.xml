@@ -7,21 +7,21 @@
 			<To>
 				<Person Gender="Female">
 					<Name First="Charlotte" Last="Aldous" />
-					<Birth Date="?/06/1973" />
+					<Birth Date="11/06/1973" />
 				</Person>
 			</To>
-			<Children EntryPoint="Charlotte-Aldous_?061973+Jason-Gallian">
+			<Children EntryPoint="Charlotte-Aldous_11061973+Jason-Gallian">
 				<Person Gender="Male">
-					<Name First="Tom" Last="Gallian" />
-					<Birth Date="?/05/2001" />
+					<Name First="Thomas" Last="Gallian" />
+					<Birth Date="12/05/2001" />
 				</Person>
 				<Person Gender="Male">
 					<Name First="Harry" Last="Gallian" />
-					<Birth Date="?/09/2003" />
+					<Birth Date="08/09/2003" />
 				</Person>
 				<Person Gender="Female">
 					<Name First="Emily" Last="Gallian" />
-					<Birth Date="?/?/2006" />
+					<Birth Date="06/10/2006" />
 				</Person>
 			</Children>
 		</Marriage>

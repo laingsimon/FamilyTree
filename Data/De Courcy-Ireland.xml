@@ -40,7 +40,7 @@
         </Person>
         <Person Gender="Female">
           <Name First="Hermione" Nickname="Sara" Middle="Sara" Last="De Courcy-Ireland" />
-          <Birth Date="?/05/1944" Location="" />
+          <Birth Date="13/05/1944" Location="" />
           <Marriage Date="?/05/1969">
             <To>
               <Person Gender="Male">
