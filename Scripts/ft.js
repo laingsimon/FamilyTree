@@ -1,18 +1,23 @@
-$(document).ready(function () {
+$(document).ready(function ()
+{
 	var highlight = window.location.hash;
-	if (highlight) {
+	if (highlight)
+	{
 		var highlightElement = $("a[name = '" + highlight.replace("#", "") + "']");
 
-		if (highlightElement.length > 0) {
+		if (highlightElement.length > 0)
+		{
 			highlightElement.next()[0].scrollIntoView();
 			highlightElement.next().addClass("highlight");
 		}
-		else {
+		else
+		{
 			alert("Cannot find person to highlight " + highlight);
 		}
 	}
 
-	var doAlert = function (message, title, callback, image) {
+	var doAlert = function (message, title, callback, image)
+	{
 		if (domMessage)
 			return domMessage({
 				message: message,
@@ -28,7 +33,8 @@ $(document).ready(function () {
 			callback();
 	};
 
-	var doConfirm = function (message, title, okCallback, cancelCallback, image) {
+	var doConfirm = function (message, title, okCallback, cancelCallback, image)
+	{
 		if (domMessage)
 			return domMessage({
 				message: message,
@@ -40,17 +46,20 @@ $(document).ready(function () {
 				cancelText: "No"
 			});
 
-		if (confirm(message)) {
+		if (confirm(message))
+		{
 			if (okCallback)
 				okCallback();
 		}
-		else {
+		else
+		{
 			if (cancelCallback)
 				cancelCallback();
 		}
 	};
 
-	$(".particulars").click(function (event) {
+	$(".particulars").click(function (event)
+	{
 		var fullName = $(this).attr("fullName");
 		var details = "";
 		var thisFamily = $("body").attr("family");
@@ -72,7 +81,8 @@ $(document).ready(function () {
 		if ($(event.target).hasClass("hint"))
 			return;
 
-		if (!(lastName != thisFamily && lastName != "?" && treeAvailable)) {
+		if (!(lastName != thisFamily && lastName != "?" && treeAvailable))
+		{
 			if (event.ctrlKey)
 				editMember($(this));
 			else
@@ -83,19 +93,22 @@ $(document).ready(function () {
 		if (event.ctrlKey)
 			editMember($(this));
 		else
-			doConfirm(details + "\n Open the " + lastName + " family tree?", fullName, function () {
-			//var dateHandle = dateOfBirth ? "_" + dateOfBirth : "";
-			//var handle = fullName.replace(/\ /g, "-") + dateHandle.replace(/\//g, "");
+			doConfirm(details + "\n Open the " + lastName + " family tree?", fullName, function ()
+			{
+				//var dateHandle = dateOfBirth ? "_" + dateOfBirth : "";
+				//var handle = fullName.replace(/\ /g, "-") + dateHandle.replace(/\//g, "");
 
-			document.location = lastName + "#" + handle.attr("name");
-		}, function () { }, photoUri);
+				document.location = lastName + "#" + handle.attr("name");
+			}, function () { }, photoUri);
 	});
 
-	function editMember(particulars) {
+	function editMember(particulars)
+	{
 		window.editMember(particulars.prev(".handle"));
 	}
 
-	$(".marriage").click(function (event) {
+	$(".marriage").click(function (event)
+	{
 		var date = $(this).attr("date");
 		var person = $(this).find(".people .person:first-child div.particulars").attr("fullName");
 		var spouse = $(this).find(".people .person:last-child div.particulars").attr("fullName");

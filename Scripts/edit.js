@@ -1,10 +1,12 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function ()
+{
 	var editMemberElement = $("#editMember");
 	var context = null;
 
-	window.editMember = function (context) {
+	window.editMember = function (context)
+	{
 		_context = context;
-		
+
 		_setData(_context);
 
 		editMemberElement.show();
@@ -21,18 +23,21 @@
 		editMemberElement.find("input[name='DateOfBirth']").val(context.data("date-of-birth"));
 	}
 
-	$("#editMember button[data-button-type='cancel']").click(function () {
+	$("#editMember button[data-button-type='cancel']").click(function ()
+	{
 		editMemberElement.hide();
 	});
 
-	$("#editMember button[data-button-type='submit']").click(function () {
+	$("#editMember button[data-button-type='submit']").click(function ()
+	{
 		var family = _context.data("last-name");
 		var path = encodeURI(_context.data("xpath"));
 
 		var form = $("<form target='_blank' action=\"/FamilyTree/Person/Update/" + family + "/?path=" + path + "\" method='post' />");
 		form.html(editMemberElement.html());
 
-		editMemberElement.find("input[name]").each(function () {
+		editMemberElement.find("input[name]").each(function ()
+		{
 			var formElement = form.find("input[name='" + $(this).attr("name") + "']");
 			formElement.val($(this).val());
 		});
