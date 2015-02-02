@@ -65,6 +65,61 @@ div.particulars{
  min-width: 60px;
 }
 
+div.particulars-container.full-details
+{
+	display: none;
+	position: relative;
+	height: 0px;
+	z-index: 100;
+	left: 0px;
+}
+
+div.particulars-container.full-details div.particulars
+{
+	min-height: 57px;
+	box-shadow: 5px 5px 20px #444444;
+	border: 2px solid #000000;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-top: 80px;
+	background-position-y: 5px;
+	text-align: left;
+}
+
+div.particulars-container.full-details div.particulars span
+{
+	text-align: left;
+}
+
+body.view-full-details div.particulars-container.full-details.visible
+{
+	display: block;
+	opacity: 1;
+}
+
+body.view-full-details div.particulars-container
+{
+	opacity: 0.3;
+}
+
+div.particulars-container.full-details div.operations
+{
+	padding-top: 10px;
+}
+
+div.particulars-container.full-details div.operations a
+{
+	text-decoration: none;
+	color: #0000ff;
+	font-size: smaller;
+}
+
+div.particulars-container.full-details div.operations a:hover
+{
+	text-decoration: underline;
+}
+
 div.particulars span{
  display: block;
  text-align: center;
@@ -206,7 +261,7 @@ td:last-child > div.mid-line{
 }
 
 td{
- overflow: hidden;
+ overflow: visible;
 }
 
 td.only-child > div.mid-line{
@@ -216,4 +271,3 @@ td.only-child > div.mid-line{
 body div.particulars .hidden{
  display: none;
 }
-

@@ -247,44 +247,75 @@
 				</xsl:otherwise>
 			</xsl:choose>
 
-			<xsl:text>/h50</xsl:text>
+			<xsl:text></xsl:text>
 		</xsl:variable>
 
 		<xsl:variable name="xpath">
 			<xsl:apply-templates mode="XPath" select="." />
 		</xsl:variable>
 
-		<div class="particulars-container">
-			<a name="{$handle}"
-				 class="handle"
-				 data-xpath="{$xpath}"
-				 data-first-name="{Name/@First}"
-				 data-last-name="{Name/@Last}"
-				 data-middle-name="{Name/@Middle}"
-				 data-nick-name="{Name/@Nick}"
-				 data-date-of-birth="{Birth/@Date}"></a>
-			<div class="{@Gender}{$deadClass} particulars" fullName="{$fullName}" style="background-image: url('{translate($photo, '?', '')}')">
-				<xsl:attribute name="tree-available">
-					<xsl:choose>
-						<xsl:when test="count(document($path)/Tree) > 0">
-							<xsl:text>true</xsl:text>
-						</xsl:when>
-					</xsl:choose>
-				</xsl:attribute>
+		<xsl:variable name="known-name">
+			<xsl:choose>
+				<xsl:when test="Name/@Nickname != ''">
+					<xsl:text>'</xsl:text>
+					<xsl:value-of select="Name/@Nickname" />
+					<xsl:text>'</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="Name/@First" />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 
-				<xsl:variable name="known-name">
-					<xsl:choose>
-						<xsl:when test="Name/@Nickname != ''">
-							<xsl:text>'</xsl:text>
-							<xsl:value-of select="Name/@Nickname" />
-							<xsl:text>'</xsl:text>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="Name/@First" />
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:variable>
+		<div class="particulars-container full-details">
+			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h75')">
+				<span>
+					<xsl:text>First name: </xsl:text>
+					<xsl:value-of select="Name/@First"/>
 
+					<xsl:if test="Name/@Nickname != ''">
+						<xsl:text> - Known as: </xsl:text>
+						<xsl:value-of select="Name/@Nickname"/>
+					</xsl:if>
+				</span>
+				<xsl:if test="Name/@Middle != ''">
+					<span>
+						<xsl:text>Middle name(s): </xsl:text>
+						<xsl:value-of select="Name/@Middle"/>
+					</span>
+				</xsl:if>
+				<span>
+					<xsl:text>Last name: </xsl:text>
+					<xsl:value-of select="Name/@Last"/>
+				</span>
+				<xsl:if test="Birth/@Date != ''">
+					<span>
+						<xsl:text>Date of birth: </xsl:text>
+						<xsl:value-of select="Birth/@Date"/>
+					</span>
+				</xsl:if>
+				<xsl:if test="Death/@Date != ''">
+					<span>
+						<xsl:text>Date of death: </xsl:text>
+						<xsl:value-of select="Death/@Date"/>
+					</span>
+				</xsl:if>
+
+				<div class="operations">
+					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != /Tree/@Family)">
+						<a href="../../Tree/Family/{Name/@Last}#{$handle}">
+							<xsl:text>Open '</xsl:text>
+							<xsl:value-of select="Name/@Last"/>
+							<xsl:text>' tree</xsl:text>
+						</a>
+					</xsl:if>
+				</div>
+			</div>
+		</div>
+
+		<div class="particulars-container summary-details">
+			<a name="{$handle}" class="handle"></a>
+			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h50')">
 				<span class="first-name">
 					<xsl:value-of select="$known-name" />
 				</span>
@@ -293,10 +324,6 @@
 				</span>
 				<span class="date-of-birth">
 					<xsl:value-of select="Birth/@Date" />
-					<br />
-				</span>
-				<span class="date-of-death hidden">
-					<xsl:value-of select="Death/@Date" />
 					<br />
 				</span>
 			</div>
