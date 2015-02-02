@@ -1,147 +1,147 @@
 <?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
 
 <Tree Family="McCann">
-  <Person Gender="Male">
-    <Name First="Francis" Middle="Patrick" Last="McCann" />
-    <Birth Date="" />
-    <Death Date="?" />
-    <Marriage>
-      <To>
-        <Person Gender="Female">
-          <Name First="Bernice" Last="Baker" />
-          <Birth Date="" />
-        </Person>
-      </To>
-      <Children EntryPoint="Bernice-Baker+Francis-Patrick-McCann">
-        <Person Gender="Male">
-          <Name First="Shaun" Last="McCann" />
-          <Birth Date="" />
-          <Death Date="?" />
-          <Marriage>
-            <To>
-              <Person Gender="Female">
-                <Name First="Marie-Christine" Nickname="Kiki" Last="Poither" />
-                <Death Date="?" />
-             </Person>
-            </To>
-            <Children>
-              <Person Gender="Female">
-                <Name First="Alice" Last="McCann" />
-                <Marriage>
-                  <To>
-                    <Person Gender="Male">
-                      <Name First="Remi" Last="Kowalik" />
-                    </Person>
-                  </To>
-                  <Children>
-                    <Person Gender="Male">
-                      <Name First="Robin" Last="Kowalik" />
-                    </Person>
-                  </Children>
-                </Marriage>
-              </Person>
-            </Children>
-          </Marriage>
-        </Person>
-        <Person Gender="Male">
-          <Name First="Kevin" Last="McCann" />
-          <Birth Date="" />
-          <Death Date="?" />
-		  <Marriage>
+	<Person Gender="Male">
+		<Name First="Francis" Middle="Patrick" Last="McCann" />
+		<Birth Date="" />
+		<Death Date="?" />
+		<Marriage>
 			<To>
 				<Person Gender="Female">
-					<Name First="Rose" Last="Eastman" />
-         <Death Date="?" />
+					<Name First="Bernice" Last="Baker" />
+					<Birth Date="" />
 				</Person>
 			</To>
-		  </Marriage>
-         <Children>
-            <Person Gender="Female">
-              <Name First="Michelle" Last="McCann" />
-		    </Person>
-		  </Children>
-		  <Marriage>
-			<To>
-				<Person Gender="Female">
-					<Name First="Sue" Last="Pearce" />
-				</Person>
-			</To>
-			<Children>
+			<Children EntryPoint="Bernice-Baker+Francis-Patrick-McCann">
 				<Person Gender="Male">
-					<Name First="Kieran" Last="McCann" />
+					<Name First="Shaun" Last="McCann" />
+					<Birth Date="" />
+					<Death Date="?" />
 					<Marriage>
 						<To>
 							<Person Gender="Female">
-								<Name First="Vicky" Last="Gibson" />
+								<Name First="Marie-Christine" Nickname="Kiki" Last="Poither" />
+								<Death Date="?" />
 							</Person>
 						</To>
 						<Children>
 							<Person Gender="Female">
-								<Name First="Patrick" Middle="Rowan" Last="McCann" />
+								<Name First="Alice" Last="McCann" />
+								<Marriage>
+									<To>
+										<Person Gender="Male">
+											<Name First="Remi" Last="Kowalik" />
+										</Person>
+									</To>
+									<Children>
+										<Person Gender="Male">
+											<Name First="Robin" Last="Kowalik" />
+										</Person>
+									</Children>
+								</Marriage>
 							</Person>
 						</Children>
 					</Marriage>
 				</Person>
-				<Person Gender="Female">
-					<Name First="Catherine" Last="McCann" />
+				<Person Gender="Male">
+					<Name First="Kevin" Last="McCann" />
+					<Birth Date="" />
+					<Death Date="?" />
+					<Marriage>
+						<To>
+							<Person Gender="Female">
+								<Name First="Rose" Last="Eastman" />
+								<Death Date="?" />
+							</Person>
+						</To>
+					</Marriage>
+					<Children>
+						<Person Gender="Female">
+							<Name First="Michelle" Last="McCann" />
+						</Person>
+					</Children>
+					<Marriage>
+						<To>
+							<Person Gender="Female">
+								<Name First="Sue" Last="Pearce" />
+							</Person>
+						</To>
+						<Children>
+							<Person Gender="Male">
+								<Name First="Kieran" Last="McCann" />
+								<Marriage>
+									<To>
+										<Person Gender="Female">
+											<Name First="Vicky" Last="Gibson" />
+										</Person>
+									</To>
+									<Children>
+										<Person Gender="Female">
+											<Name First="Patrick" Middle="Rowan" Last="McCann" />
+										</Person>
+									</Children>
+								</Marriage>
+							</Person>
+							<Person Gender="Female">
+								<Name First="Catherine" Last="McCann" />
+							</Person>
+						</Children>
+					</Marriage>
+				</Person>
+				<Person Gender="Male">
+					<Name First="Michael" Last="McCann" />
+					<Birth Date="19/11/1953" />
+					<Marriage>
+						<To>
+							<Person Gender="Female">
+								<Name First="Janet" Last="Stone" />
+								<Birth Date="24/09/1956" />
+							</Person>
+						</To>
+						<Children>
+							<Person Gender="Female">
+								<Name First="Sarah" Middle="Louise" Last="McCann" />
+								<Birth Date="18/09/1976" />
+								<Marriage>
+									<To>
+										<Person Gender="Male">
+											<Name First="Simon" Middle="Robert" Last="Laing" />
+											<Birth Date="30/03/1983" />
+										</Person>
+									</To>
+									<Children SeeOtherTree="Laing" />
+								</Marriage>
+							</Person>
+							<Person Gender="Male">
+								<Name First="Andrew" Nickname="Bill" Last="McCann" />
+								<Birth Date="17/07/1979" />
+								<Marriage>
+									<To>
+										<Person Gender="Female">
+											<Name First="Patricia" Last="Court" />
+											<Birth Date="" />
+										</Person>
+									</To>
+								</Marriage>
+								<Marriage>
+									<To>
+										<Person Gender="Female">
+											<Name First="Denise" Last="Lucy" />
+											<Birth Date="" />
+										</Person>
+									</To>
+									<Children>
+										<Person Gender="Female">
+											<Name First="Lily" Last="McCann" />
+											<Birth Date="04/12/2004" />
+										</Person>
+									</Children>
+								</Marriage>
+							</Person>
+						</Children>
+					</Marriage>
 				</Person>
 			</Children>
-		  </Marriage>
-        </Person>
-        <Person Gender="Male">
-          <Name First="Michael" Last="McCann" />
-          <Birth Date="19/11/1953" />
-          <Marriage>
-            <To>
-              <Person Gender="Female">
-                <Name First="Janet" Last="Stone" />
-                <Birth Date="24/09/1956" />
-              </Person>
-            </To>
-            <Children>
-              <Person Gender="Female">
-                <Name First="Sarah" Middle="Louise" Last="McCann" />
-                <Birth Date="18/09/1976" />
-                <Marriage>
-                  <To>
-                    <Person Gender="Male">
-                      <Name First="Simon" Middle="Robert" Last="Laing" />
-                      <Birth Date="30/03/1983" />
-                    </Person>
-                  </To>
-                  <Children SeeOtherTree="Laing" />
-                </Marriage>
-              </Person>
-              <Person Gender="Male">
-                <Name First="Andrew" Nickname="Bill" Last="McCann" />
-                <Birth Date="17/07/1979" />
-                <Marriage>
-                  <To>
-                    <Person Gender="Female">
-                      <Name First="Patricia" Last="Court" />
-                      <Birth Date="" />
-                    </Person>
-                  </To>
-                </Marriage>
-                <Marriage>
-                  <To>
-                    <Person Gender="Female">
-                      <Name First="Denise" Last="Lucy" />
-                      <Birth Date="" />
-                    </Person>
-                  </To>
-                  <Children>
-                    <Person Gender="Female">
-                      <Name First="Lily" Last="McCann" />
-                      <Birth Date="04/12/2004" />
-                    </Person>
-                  </Children>
-                </Marriage>
-              </Person>
-            </Children>
-          </Marriage>
-        </Person>
-      </Children>
-    </Marriage>
-  </Person>
+		</Marriage>
+	</Person>
 </Tree>

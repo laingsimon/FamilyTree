@@ -1,83 +1,83 @@
 <?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
 
 <Tree Family="Sclater">
-  <Person Gender="Male">
-    <Name First="Edward" Nickname="Guy" Middle="Guy Lutley" Last="Sclater" />
-    <Birth Date="" Location="" />
-    <Marriage Date="?/?/1963">
-      <To>
-        <Person Gender="Female">
-          <Name First="Elizabeth" Nickname="Eleanor" Middle="Eleanor" Last="De Courcy-Ireland" />
-		  <Birth Date="?/?/1941" Location="" />
-        </Person>
-      </To>
-      <Children EntryPoint="Elizabeth-Eleanor-De-Courcy-Ireland_??1941+Edward-Guy-Lutley-Sclater">
-        <Person Gender="Female">
-          <Name First="Alice" Last="Sclater" />
-		  <Birth Date="?/10/1965" />
-		  <Marriage Date="?/?/1991">
+	<Person Gender="Male">
+		<Name First="Edward" Nickname="Guy" Middle="Guy Lutley" Last="Sclater" />
+		<Birth Date="" Location="" />
+		<Marriage Date="?/?/1963">
 			<To>
+				<Person Gender="Female">
+					<Name First="Elizabeth" Nickname="Eleanor" Middle="Eleanor" Last="De Courcy-Ireland" />
+					<Birth Date="?/?/1941" Location="" />
+				</Person>
+			</To>
+			<Children EntryPoint="Elizabeth-Eleanor-De-Courcy-Ireland_??1941+Edward-Guy-Lutley-Sclater">
+				<Person Gender="Female">
+					<Name First="Alice" Last="Sclater" />
+					<Birth Date="?/10/1965" />
+					<Marriage Date="?/?/1991">
+						<To>
+							<Person Gender="Male">
+								<Name First="David" Last="Roblyn" />
+							</Person>
+						</To>
+						<Children SeeOtherTree="Roblyn" />
+					</Marriage>
+				</Person>
 				<Person Gender="Male">
-					<Name First="David" Last="Roblyn" />
+					<Name First="Rupert" Last="Sclater" />
+					<Birth Date="?/12/1967" />
+					<Marriage Status="Divorced">
+						<To>
+							<Person Gender="Female">
+								<Name First="Elizabeth" Last="Steel" />
+							</Person>
+						</To>
+						<Children>
+							<Person Gender="Male">
+								<Name First="Monty" Last="Sclater" />
+								<Birth Date="?/06/1998" />
+							</Person>
+							<Person Gender="Female">
+								<Name First="Charlotte" Last="Sclater" />
+								<Birth Date="?/06/1999" />
+							</Person>
+						</Children>
+					</Marriage>
+					<Marriage Date="?/07/2014">
+						<To>
+							<Person Gender="Female">
+								<Name First="Josephine" Last="Jenkins" />
+							</Person>
+						</To>
+					</Marriage>
 				</Person>
-			</To>
-			<Children SeeOtherTree="Roblyn" />
-		  </Marriage>
-        </Person>
-        <Person Gender="Male">
-          <Name First="Rupert" Last="Sclater" />
-		  <Birth Date="?/12/1967" />
-		  <Marriage Status="Divorced">
-			<To>
-				<Person Gender="Female">
-					<Name First="Elizabeth" Last="Steel" />
-				</Person>
-			</To>
-			<Children>
- 				<Person Gender="Male">
-					<Name First="Monty" Last="Sclater" />
-					<Birth Date="?/06/1998" />
-				</Person>
-				<Person Gender="Female">
-					<Name First="Charlotte" Last="Sclater" />
-					<Birth Date="?/06/1999" />
-				</Person>
-			</Children>
-		  </Marriage>
-		  <Marriage Date="?/07/2014">
-			<To>
-				<Person Gender="Female">
-					<Name First="Josephine" Last="Jenkins" />
-				</Person>
-			</To>
-		  </Marriage>
-        </Person>
-        <Person Gender="Male">
-          <Name First="Charles" Last="Sclater" />
-		  <Birth Date="?/11/1970" />
-		  <Marriage Date="?/09/2002">
-			<To>
-				<Person Gender="Female">
-					<Name First="Henretta" Last="Haythornthwaite" />
-				</Person>
-			</To>
-			<Children>
-				<Person Gender="Female">
-					<Name First="Iona" Last="Sclater" />
-					<Birth Date="?/12/2003" />
-				</Person>
-				<Person Gender="Female">
-					<Name First="Laura" Last="Sclater" />
-					<Birth Date="?/05/2005" />
-				</Person>
-				<Person Gender="Female">
-					<Name First="Alicia" Last="Sclater" />
-					<Birth Date="?/10/2006" />
+				<Person Gender="Male">
+					<Name First="Charles" Last="Sclater" />
+					<Birth Date="?/11/1970" />
+					<Marriage Date="?/09/2002">
+						<To>
+							<Person Gender="Female">
+								<Name First="Henretta" Last="Haythornthwaite" />
+							</Person>
+						</To>
+						<Children>
+							<Person Gender="Female">
+								<Name First="Iona" Last="Sclater" />
+								<Birth Date="?/12/2003" />
+							</Person>
+							<Person Gender="Female">
+								<Name First="Laura" Last="Sclater" />
+								<Birth Date="?/05/2005" />
+							</Person>
+							<Person Gender="Female">
+								<Name First="Alicia" Last="Sclater" />
+								<Birth Date="?/10/2006" />
+							</Person>
+						</Children>
+					</Marriage>
 				</Person>
 			</Children>
-		  </Marriage>
-        </Person>
-      </Children>
-    </Marriage>
-  </Person>
+		</Marriage>
+	</Person>
 </Tree>

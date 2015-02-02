@@ -1,71 +1,71 @@
 <?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
 
 <Tree Family="Baker">
-  <Person Gender="Male">
-    <Name First="Edward" Middle="Ted" Last="Baker" />
-    <Birth Date="" />
-    <Marriage>
-      <To>
-        <Person Gender="Female">
-          <Name First="Anne" Last="?" />
-          <Birth Date="" />
-        </Person>
-      </To>
-      <Children>
-		<Person Gender="Female">
-			<Name First="Barbara" Last="Baker" />
-			<Marriage>
-				<To>
-					<Person Gender="Male">
-						<Name First="?" Last="Flower" />
-					</Person>
-				</To>
-				<Children>
-					<Person Gender="Male">
-						<Name First="Graham" Last="Flower" />
-					</Person>
-					<Person Gender="Male">
-						<Name First="Andrew" Last="Flower" />
-						<Marriage>
-							<To>
-								<Person Gender="Female">
-									<Name First="?" Last="?" />
-								</Person>
-							</To>
-							<Children>
-								<Person Gender="Female">
-									<Name First="Lorraine" Last="Flower" />
-								</Person>
-							</Children>
-						</Marriage>
-					</Person>
-				</Children>
-			</Marriage>
-		</Person>
-        <Person Gender="Female">
-          <Name First="Bernice" Last="Baker" />
-          <Birth Date="" />
-		  <Marriage>
-		    <To>
-				<Person Gender="Male">
-					<Name First="Francis" Middle="Patrick" Last="McCann" />
-				</Person>
-			</To>
-            <Children SeeOtherTree="McCann" />
-		  </Marriage>
-        </Person>
-        <Person Gender="Male">
-          <Name First="Edward" Last="Baker" />
-          <Birth Date="" />
-		  <Marriage>
+	<Person Gender="Male">
+		<Name First="Edward" Middle="Ted" Last="Baker" />
+		<Birth Date="" />
+		<Marriage>
 			<To>
 				<Person Gender="Female">
-					<Name First="Ros" Last="Harris" />
+					<Name First="Anne" Last="?" />
+					<Birth Date="" />
 				</Person>
 			</To>
-		  </Marriage>
-        </Person>
-      </Children>
-    </Marriage>
-  </Person>
+			<Children>
+				<Person Gender="Female">
+					<Name First="Barbara" Last="Baker" />
+					<Marriage>
+						<To>
+							<Person Gender="Male">
+								<Name First="?" Last="Flower" />
+							</Person>
+						</To>
+						<Children>
+							<Person Gender="Male">
+								<Name First="Graham" Last="Flower" />
+							</Person>
+							<Person Gender="Male">
+								<Name First="Andrew" Last="Flower" />
+								<Marriage>
+									<To>
+										<Person Gender="Female">
+											<Name First="?" Last="?" />
+										</Person>
+									</To>
+									<Children>
+										<Person Gender="Female">
+											<Name First="Lorraine" Last="Flower" />
+										</Person>
+									</Children>
+								</Marriage>
+							</Person>
+						</Children>
+					</Marriage>
+				</Person>
+				<Person Gender="Female">
+					<Name First="Bernice" Last="Baker" />
+					<Birth Date="" />
+					<Marriage>
+						<To>
+							<Person Gender="Male">
+								<Name First="Francis" Middle="Patrick" Last="McCann" />
+							</Person>
+						</To>
+						<Children SeeOtherTree="McCann" />
+					</Marriage>
+				</Person>
+				<Person Gender="Male">
+					<Name First="Edward" Last="Baker" />
+					<Birth Date="" />
+					<Marriage>
+						<To>
+							<Person Gender="Female">
+								<Name First="Ros" Last="Harris" />
+							</Person>
+						</To>
+					</Marriage>
+				</Person>
+			</Children>
+		</Marriage>
+	</Person>
 </Tree>
