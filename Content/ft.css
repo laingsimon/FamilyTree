@@ -70,7 +70,7 @@ div.particulars-container.full-details
 	display: none;
 	position: relative;
 	height: 0px;
-	z-index: 100;
+	z-index: 101;
 	left: 0px;
 }
 
