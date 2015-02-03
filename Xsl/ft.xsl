@@ -155,7 +155,7 @@
 	<xsl:template mode="Symbol" match="Marriage">
 		<xsl:choose>
 			<xsl:when test="@Status = 'Divorced'">
-				<xsl:text>#</xsl:text>
+				<xsl:text>&#8800;</xsl:text>
 			</xsl:when>
 			<xsl:when test="@Type = 'CommonLaw'">
 				<xsl:text>-</xsl:text>
