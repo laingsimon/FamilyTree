@@ -68,12 +68,7 @@
 											<Birth Date="09/05/1977" />
 										</Person>
 									</To>
-									<Children>
-										<Person Gender="Male">
-											<Name First="Nathan" Last="Laing" />
-											<Birth Date="22/04/2011" />
-										</Person>
-									</Children>
+									<Children SeeOtherTree="Laing" />
 								</Marriage>
 							</Person>
 							<Person Gender="Male">
