@@ -47,7 +47,7 @@
 					<Name First="Kevin" Last="McCann" />
 					<Birth Date="" />
 					<Death Date="?" />
-					<Marriage>
+					<Marriage Status="Divorced">
 						<To>
 							<Person Gender="Female">
 								<Name First="Rose" Last="Eastman" />
@@ -115,7 +115,7 @@
 							<Person Gender="Male">
 								<Name First="Andrew" Nickname="Bill" Last="McCann" />
 								<Birth Date="17/07/1979" />
-								<Marriage>
+								<Marriage Status="Divorced">
 									<To>
 										<Person Gender="Female">
 											<Name First="Patricia" Last="Court" />
