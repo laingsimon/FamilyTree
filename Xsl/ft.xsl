@@ -90,6 +90,7 @@
 					</div>
 					<div class="symbol">
 						<xsl:apply-templates mode="Symbol" select="." />
+						<xsl:apply-templates mode="MarriageDetails" select="." />
 					</div>
 					<div class="person">
 						<xsl:variable name="allMarriages">
@@ -152,6 +153,61 @@
 		</td>
 	</xsl:template>
 
+	<xsl:template mode="MarriageDetails" match="Marriage">
+		<xsl:variable name="marriageFromPhoto">
+			<xsl:apply-templates mode="Photo" select=".." />
+			<xsl:text>/h75</xsl:text>
+		</xsl:variable>
+
+		<xsl:variable name="marriageToPhoto">
+			<xsl:apply-templates mode="Photo" select="To/Person" />
+			<xsl:text>/h75</xsl:text>
+		</xsl:variable>
+
+		<xsl:variable name="marriageToLink">
+			<xsl:text>../../Tree/Family/</xsl:text>
+			<xsl:value-of select="To/Person/Name/@Last" />
+			<xsl:text>#</xsl:text>
+			<xsl:apply-templates select="To/Person" mode="Handle" />
+		</xsl:variable>
+		
+		<div class="marriage-details">
+			<img src="{$marriageFromPhoto}" class="marriage-from"/>
+			<a href="{$marriageToLink}" class="marriage-to">
+				<img src="{$marriageToPhoto}" />
+			</a>
+			<span>
+				<xsl:text>Marriage of </xsl:text>
+				<xsl:value-of select="../Name/@First"/>
+				<xsl:text> and </xsl:text>
+				<xsl:value-of select="To/Person/Name/@First"/>
+				<xsl:if test="@Date != ''">
+					<br />
+					<xsl:text>on </xsl:text>
+					<xsl:value-of select="@Date" />
+				</xsl:if>
+				<xsl:if test="@Location != ''">
+					<br />
+					<xsl:text>at </xsl:text>
+					<xsl:value-of select="@Location" />
+				</xsl:if>
+				<xsl:if test="@Status != ''">
+					<br />
+					<xsl:text> now </xsl:text>
+					<xsl:value-of select="@Status" />
+				</xsl:if>
+			</span>
+
+			<div class="operations">
+				<a href="{$marriageToLink}" class="open-tree">
+					<xsl:text>Open </xsl:text>
+					<xsl:value-of select="To/Person/Name/@Last"/>
+					<xsl:text> tree</xsl:text>
+				</a>
+			</div>
+		</div>
+	</xsl:template>
+
 	<xsl:template mode="Symbol" match="Marriage">
 		<xsl:choose>
 			<xsl:when test="@Status = 'Divorced'">
@@ -201,6 +257,32 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template mode="Photo" match="Person">
+		<xsl:text>../../Photo/Index/</xsl:text>
+		<xsl:value-of select="Name/@Last"/>
+		<xsl:text>/</xsl:text>
+		<xsl:value-of select="Name/@First" />
+		<xsl:text>/</xsl:text>
+		<xsl:choose>
+			<xsl:when test="Name/@Middle">
+				<xsl:value-of select="Name/@Middle" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>-</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:text>/</xsl:text>
+
+		<xsl:choose>
+			<xsl:when test="Birth/@Date and Birth/@Date != ''">
+				<xsl:value-of select="translate(translate(Birth/@Date, '/', '-'), '?', '0')" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>01-01-0001</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 	<xsl:template match="Person" mode="Particulars">
 		<xsl:variable name="fullName">
 			<xsl:apply-templates select="Name" mode="FullName" />
@@ -223,31 +305,7 @@
 		</xsl:variable>
 
 		<xsl:variable name="photo">
-			<xsl:text>../../Photo/Index/</xsl:text>
-			<xsl:value-of select="Name/@Last"/>
-			<xsl:text>/</xsl:text>
-			<xsl:value-of select="Name/@First" />
-			<xsl:text>/</xsl:text>
-			<xsl:choose>
-				<xsl:when test="Name/@Middle">
-					<xsl:value-of select="Name/@Middle" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>-</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
-			<xsl:text>/</xsl:text>
-
-			<xsl:choose>
-				<xsl:when test="Birth/@Date and Birth/@Date != ''">
-					<xsl:value-of select="translate(translate(Birth/@Date, '/', '-'), '?', '0')" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>01-01-0001</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
-
-			<xsl:text></xsl:text>
+			<xsl:apply-templates mode="Photo" select="." />
 		</xsl:variable>
 
 		<xsl:variable name="xpath">

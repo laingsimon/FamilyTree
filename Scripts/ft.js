@@ -54,17 +54,37 @@ $(document).ready(function ()
 		}
 	}
 
-	$(".marriage").click(function (event)
+	$(".marriage .symbol").click(function (event)
 	{
 		event.stopPropagation();
 
+		if ($(event.target).parent().hasClass("operations"))
+			return;
+
+		if ($(event.target).parent().hasClass("marriage-to"))
+			return;
+
 		if (!closeAnyVisibleParticulars())
-		{
-			alert("not implemented");
-		}
+			toggleMarriageDetails($(this));
 
 		return false;
 	});
+
+	function toggleMarriageDetails(element)
+	{
+		var details = $(element).closest(".symbol").find(".marriage-details");
+
+		if (details.hasClass("visible"))
+		{
+			$(document.body).removeClass("view-full-details");
+			details.removeClass("visible");
+		}
+		else
+		{
+			$(document.body).addClass("view-full-details");
+			details.addClass("visible");
+		}
+	}
 
 	function closeAnyVisibleParticulars()
 	{
@@ -72,7 +92,13 @@ $(document).ready(function ()
 			return false;
 
 		var visibleFullDetails = $(".particulars-container.full-details.visible");
-		toggleFullDetails(visibleFullDetails);
+		if (visibleFullDetails.length > 0)
+			toggleFullDetails(visibleFullDetails);
+
+		var visibleMarriageDetails = $(document.body).find(".marriage-details.visible");
+		if (visibleMarriageDetails.length > 0)
+			toggleMarriageDetails(visibleMarriageDetails);
+
 		return true;
 	}
 

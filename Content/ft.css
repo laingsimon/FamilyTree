@@ -199,6 +199,8 @@ div.marriage div.symbol{
  display: inline-block;
  vertical-align: text-bottom;
  cursor: pointer;
+ position: relative;
+ z-index: 100;
 }
 
 div.children{
@@ -283,4 +285,66 @@ td.only-child > div.mid-line{
 
 body div.particulars .hidden{
  display: none;
+}
+
+div.marriage-details
+{
+	display: none;
+	position: absolute;
+	margin-top: -10px;
+	margin-left: -10px;
+	background: #ffff88;
+	padding:2px;
+	border: 2px solid #000000;
+	border-radius: 4px;
+	min-width: 250px;
+	cursor: default;
+}
+
+div.marriage-details.visible
+{
+	display: block;
+}
+
+div.marriage-details img.marriage-from
+{
+	float: left;
+	margin: 5px;
+}
+
+div.marriage-details a.marriage-to
+{
+	float: right;
+}
+
+div.marriage-details a.marriage-to img
+{
+	border: 0px;
+	margin: 5px;
+}
+
+div.marriage-details span
+{
+	white-space: normal;
+	font-size: smaller;
+}
+
+div.marriage-details div.operations
+{
+	clear: both;
+	overflow: auto;
+}
+
+div.marriage-details div.operations a.open-tree
+{
+	float: right;
+	color: #0000ff;
+	cursor: pointer;
+	font-size: smaller;
+	text-decoration: none;
+}
+
+div.marriage-details div.operations a.open-tree:hover
+{
+	text-decoration: underline;
 }
