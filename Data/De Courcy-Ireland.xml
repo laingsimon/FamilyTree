@@ -4,13 +4,13 @@
 	<Person Gender="Male">
 		<Name First="Montague" Nickname="Monty" Last="De Courcy-Ireland" />
 		<Birth Date="" Location="" />
-		<Death Date="?" />
+		<Death Date="?/08/1987" />
 		<Marriage>
 			<To>
 				<Person Gender="Female">
 					<Name First="Eleanor" Nickname="Diana" Middle="Diana" Last="Laing" />
 					<Birth Date="19/08/1904" Location="" />
-					<Death Date="?" />
+					<Death Date="?/07/1988" />
 				</Person>
 			</To>
 			<Children EntryPoint="Montague-De-Courcy-Ireland+Eleanor-Diana-Laing_19081904">

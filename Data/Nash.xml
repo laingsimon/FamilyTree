@@ -13,7 +13,7 @@
 			</To>
 			<Children EntryPoint="Rosamond-Diana-De-Courcy-Ireland_?091942+Llewellyn-James-Richard-Nash">
 				<Person Gender="Female">
-					<Name First="Rosamond" Middle="Emma" Last="Nash" />
+					<Name Nickname="Emma" First="Rosamond" Middle="Emma" Last="Nash" />
 					<Birth Date="?/03/1974" />
 					<Marriage Date="?/09/2002">
 						<To>
@@ -37,7 +37,7 @@
 					</Marriage>
 				</Person>
 				<Person Gender="Female">
-					<Name First="Juliette" Middle="Diana" Last="Nash" />
+					<Name First="Juliet" Middle="Diana" Last="Nash" />
 					<Birth Date="01/03/1981" />
 					<Marriage Date="?/05/2011">
 						<To>
