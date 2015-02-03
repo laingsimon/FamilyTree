@@ -268,39 +268,41 @@
 		</xsl:variable>
 
 		<div class="particulars-container full-details">
-			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h75')">
-				<span>
-					<xsl:text>First name: </xsl:text>
-					<xsl:value-of select="Name/@First"/>
+			<div class="{@Gender}{$deadClass} particulars">
+				<table>
+					<tr>
+						<td>
+							<img src="{translate($photo, '?', '')}/h75" height="75px" style="background-image: url('{translate($photo, '?', '')}/h50')" />
+						</td>
+						<td>
+							<xsl:text>First name: </xsl:text>
+							<xsl:value-of select="Name/@First"/>
 
-					<xsl:if test="Name/@Nickname != ''">
-						<xsl:text> - Known as: </xsl:text>
-						<xsl:value-of select="Name/@Nickname"/>
-					</xsl:if>
-				</span>
-				<xsl:if test="Name/@Middle != ''">
-					<span>
-						<xsl:text>Middle name(s): </xsl:text>
-						<xsl:value-of select="Name/@Middle"/>
-					</span>
-				</xsl:if>
-				<span>
-					<xsl:text>Last name: </xsl:text>
-					<xsl:value-of select="Name/@Last"/>
-				</span>
-				<xsl:if test="Birth/@Date != ''">
-					<span>
-						<xsl:text>Date of birth: </xsl:text>
-						<xsl:value-of select="Birth/@Date"/>
-					</span>
-				</xsl:if>
-				<xsl:if test="Death/@Date != ''">
-					<span>
-						<xsl:text>Date of death: </xsl:text>
-						<xsl:value-of select="Death/@Date"/>
-					</span>
-				</xsl:if>
-
+							<xsl:if test="Name/@Nickname != ''">
+								<xsl:text> - known as: </xsl:text>
+								<xsl:value-of select="Name/@Nickname"/>
+							</xsl:if>
+							<xsl:if test="Name/@Middle != ''">
+								<br />
+								<xsl:text>Middle name(s): </xsl:text>
+								<xsl:value-of select="Name/@Middle"/>
+							</xsl:if>
+							<br />
+							<xsl:text>Last name: </xsl:text>
+							<xsl:value-of select="Name/@Last"/>
+							<xsl:if test="Birth/@Date != ''">
+								<br />
+								<xsl:text>Date of birth: </xsl:text>
+								<xsl:value-of select="Birth/@Date"/>
+							</xsl:if>
+							<xsl:if test="Death/@Date != ''">
+								<br />
+								<xsl:text>Date of death: </xsl:text>
+								<xsl:value-of select="Death/@Date"/>
+							</xsl:if>
+						</td>
+					</tr>
+				</table>
 				<div class="operations">
 					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != /Tree/@Family)">
 						<a href="../../Tree/Family/{Name/@Last}#{$handle}">

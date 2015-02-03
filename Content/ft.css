@@ -82,14 +82,26 @@ div.particulars-container.full-details div.particulars
 	padding-bottom: 5px;
 	padding-right: 5px;
 	padding-left: 5px;
-	padding-top: 80px;
+	padding-top: 5px;
 	background-position-y: 5px;
-	text-align: left;
 }
 
-div.particulars-container.full-details div.particulars span
+div.particulars-container.full-details table
 {
+	padding: 0px;
+}
+
+div.particulars-container.full-details table tr td
+{
+	white-space: nowrap;
 	text-align: left;
+	vertical-align: top;
+}
+
+div.particulars-container.full-details table tr td img
+{
+	margin-right: 5px;
+	border-radius: 2px;
 }
 
 body.view-full-details div.particulars-container.full-details.visible
@@ -105,6 +117,7 @@ body.view-full-details div.particulars-container
 
 div.particulars-container.full-details div.operations
 {
+	clear: both;
 	padding-top: 10px;
 }
 
