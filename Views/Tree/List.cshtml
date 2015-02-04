@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FileInfo>
+
+@section Head
+{
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/TreeList.css")" />
+}
+
+<ul>
+	@foreach (var file in Model)
+	{
+		<li>
+			<a href="@Url.Action("Family", "Tree", new { family = Path.GetFileNameWithoutExtension(file.Name) } )">@(Path.GetFileNameWithoutExtension(file.Name))</a>
+		</li>
+	}
+</ul>

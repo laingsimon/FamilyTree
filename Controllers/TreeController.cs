@@ -1,4 +1,6 @@
 ﻿using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using FamilyTree.Models;
 
@@ -20,10 +22,16 @@ namespace FamilyTree.Controllers
 			if (!System.IO.File.Exists(familyFilePath))
 			{
 				Response.AddHeader("FilePath", relativePath);
-				return new HttpNotFoundResult();
+				return RedirectToAction("List");
 			}
 
 			return new XslTransformResult(familyFilePath);
+		}
+
+		public ActionResult List()
+		{
+			var files = Directory.GetFiles(Server.MapPath("~/Data"), "*.xml");
+			return View(files.Select(fn => new FileInfo(fn)).ToArray());
 		}
 	}
 }

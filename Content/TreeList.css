@@ -1,0 +1,28 @@
+﻿ul
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+ul li
+{
+	display: inline-block;
+	padding: 10px;
+	background: #cccccc;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	margin: 5px;
+}
+
+ul li a
+{
+	text-decoration: none;
+	padding-top: 20px;
+	display: block;
+	white-space: nowrap;
+}
+
+ul li a:hover
+{
+	text-decoration: underline;
+}
