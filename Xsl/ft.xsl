@@ -326,7 +326,7 @@
 		</xsl:variable>
 
 		<div class="particulars-container full-details">
-			<div class="{@Gender}{$deadClass} particulars">
+			<div class="{@Gender} particulars">
 				<table>
 					<tr>
 						<td>
