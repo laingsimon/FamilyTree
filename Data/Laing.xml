@@ -43,7 +43,7 @@
 						<To>
 							<Person Gender="Female">
 								<Name First="Elizabeth" Last="Rudd" />
-								<Birth Date="-/-/1785" />
+								<Birth Date="?/?/1785" />
 								<Death Date="?" />
 							</Person>
 						</To>

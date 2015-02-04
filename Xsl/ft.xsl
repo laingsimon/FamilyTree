@@ -275,12 +275,12 @@
 
 	<xsl:template mode="Photo" match="Person">
 		<xsl:text>../../Photo/Index/</xsl:text>
-		<xsl:value-of select="Name/@Last"/>
+		<xsl:value-of select="translate(Name/@Last, '?', '-')"/>
 		<xsl:text>/</xsl:text>
-		<xsl:value-of select="Name/@First" />
+		<xsl:value-of select="translate(Name/@First, '?', '-')" />
 		<xsl:text>/</xsl:text>
 		<xsl:choose>
-			<xsl:when test="Name/@Middle">
+			<xsl:when test="Name/@Middle and Name/@Middle != ''">
 				<xsl:value-of select="Name/@Middle" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -290,7 +290,7 @@
 		<xsl:text>/</xsl:text>
 
 		<xsl:choose>
-			<xsl:when test="Birth/@Date and Birth/@Date != ''">
+			<xsl:when test="Birth/@Date and Birth/@Date != '' and Birth/@Date != '?'">
 				<xsl:value-of select="translate(translate(Birth/@Date, '/', '-'), '?', '0')" />
 			</xsl:when>
 			<xsl:otherwise>
