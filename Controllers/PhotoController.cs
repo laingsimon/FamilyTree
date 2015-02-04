@@ -80,6 +80,8 @@ namespace FamilyTree.Controllers
 				using (var graphics = Graphics.FromImage(resizedImage))
 				{
 					graphics.InterpolationMode = InterpolationMode.Bicubic;
+					graphics.SmoothingMode = SmoothingMode.HighQuality;
+					graphics.CompositingQuality = CompositingQuality.HighQuality;
 					graphics.DrawImage(
 						bitmap,
 						0, 0,
