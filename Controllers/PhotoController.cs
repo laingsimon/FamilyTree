@@ -27,8 +27,19 @@ namespace FamilyTree.Controllers
 			var fileName = string.Format("~/Photos/{0}{1}-{2}_{3:ddMMyyyy}.jpg", firstName, middleNamePart, family, dateOfBirth);
 			var photoFile = new FileInfo(Server.MapPath(fileName));
 			if (!photoFile.Exists)
-				photoFile = new FileInfo(Server.MapPath(_defaultPhotoPath));
+				return RedirectToAction("Unknown", new { size });
 
+			return _ProcessPhoto(size, photoFile);
+		}
+
+		public ActionResult Unknown(string size)
+		{
+			var photoFile = new FileInfo(Server.MapPath(_defaultPhotoPath));
+			return _ProcessPhoto(size, photoFile);
+		}
+
+		private ActionResult _ProcessPhoto(string size, FileInfo photoFile)
+		{
 			if (_NotModified(photoFile, Request.Headers["If-None-Match"], size))
 				return new HttpStatusCodeResult(HttpStatusCode.NotModified);
 
