@@ -164,11 +164,25 @@
 			<xsl:text>/h75</xsl:text>
 		</xsl:variable>
 
+		<xsl:variable name="marriageToTreeAvailable">
+			<xsl:variable name="path">
+				<xsl:text>~/Data/</xsl:text>
+				<xsl:value-of select="To/Person/Name/@Last" />
+				<xsl:text>.xml</xsl:text>
+			</xsl:variable>
+			<xsl:value-of select="count(document($path)/Tree) > 0" />
+		</xsl:variable>
+
 		<xsl:variable name="marriageToLink">
-			<xsl:text>../../Tree/Family/</xsl:text>
-			<xsl:value-of select="To/Person/Name/@Last" />
-			<xsl:text>#</xsl:text>
-			<xsl:apply-templates select="To/Person" mode="Handle" />
+			<xsl:choose>
+				<xsl:when test="$marriageToTreeAvailable = 'true'">
+					<xsl:text>../../Tree/Family/</xsl:text>
+					<xsl:value-of select="To/Person/Name/@Last" />
+					<xsl:text>#</xsl:text>
+					<xsl:apply-templates select="To/Person" mode="Handle" />
+				</xsl:when>
+				<xsl:otherwise />
+			</xsl:choose>
 		</xsl:variable>
 		
 		<div class="marriage-details">
@@ -198,13 +212,15 @@
 				</xsl:if>
 			</span>
 
-			<div class="operations">
-				<a href="{$marriageToLink}" class="open-tree">
-					<xsl:text>Open </xsl:text>
-					<xsl:value-of select="To/Person/Name/@Last"/>
-					<xsl:text> tree</xsl:text>
-				</a>
-			</div>
+			<xsl:if test="$marriageToTreeAvailable = 'true'">
+				<div class="operations">
+					<a href="{$marriageToLink}" class="open-tree">
+						<xsl:text>Open </xsl:text>
+						<xsl:value-of select="To/Person/Name/@Last"/>
+						<xsl:text> tree</xsl:text>
+					</a>
+				</div>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
