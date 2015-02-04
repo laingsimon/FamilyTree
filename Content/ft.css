@@ -101,7 +101,7 @@ div.particulars-container.full-details table tr td
 div.particulars-container.full-details table tr td img
 {
 	margin-right: 5px;
-	border-radius: 2px;
+	border-radius: 6px;
 }
 
 body.view-full-details div.particulars-container.full-details.visible
@@ -310,6 +310,7 @@ div.marriage-details img.marriage-from
 {
 	float: left;
 	margin: 5px;
+	border-radius: 6px;
 }
 
 div.marriage-details a.marriage-to
@@ -321,6 +322,7 @@ div.marriage-details a.marriage-to img
 {
 	border: 0px;
 	margin: 5px;
+	border-radius: 6px;
 }
 
 div.marriage-details span
