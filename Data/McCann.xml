@@ -2,7 +2,7 @@
 
 <Tree Family="McCann">
 	<Person Gender="Male">
-		<Name First="Francis" Middle="Patrick" Last="McCann" />
+		<Name First="Francis" Nickname="Paddy" Middle="Patrick" Last="McCann" />
 		<Birth Date="" />
 		<Death Date="?" />
 		<Marriage>
