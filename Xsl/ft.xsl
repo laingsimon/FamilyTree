@@ -299,28 +299,12 @@
 			<xsl:apply-templates select="Name" mode="FullName" />
 		</xsl:variable>
 
-		<xsl:variable name="deadClass">
-			<xsl:if test="Death/@Date">
-				<xsl:text> dead</xsl:text>
-			</xsl:if>
-		</xsl:variable>
-
-		<xsl:variable name="path">
-			<xsl:text>~/Data/</xsl:text>
-			<xsl:value-of select="Name/@Last" />
-			<xsl:text>.xml</xsl:text>
-		</xsl:variable>
-
 		<xsl:variable name="handle">
 			<xsl:apply-templates select="." mode="Handle" />
 		</xsl:variable>
 
 		<xsl:variable name="photo">
 			<xsl:apply-templates mode="Photo" select="." />
-		</xsl:variable>
-
-		<xsl:variable name="xpath">
-			<xsl:apply-templates mode="XPath" select="." />
 		</xsl:variable>
 
 		<xsl:variable name="known-name">
@@ -334,6 +318,62 @@
 					<xsl:value-of select="Name/@First" />
 				</xsl:otherwise>
 			</xsl:choose>
+		</xsl:variable>
+
+		<xsl:apply-templates mode="FullDetails" select=".">
+			<xsl:with-param name="known-name" select="$known-name" />
+			<xsl:with-param name="handle" select="$handle" />
+			<xsl:with-param name="photo" select="$photo" />
+		</xsl:apply-templates>
+		<xsl:apply-templates mode="SummaryDetails" select=".">
+			<xsl:with-param name="known-name" select="$known-name" />
+			<xsl:with-param name="handle" select="$handle" />
+			<xsl:with-param name="photo" select="$photo" />
+		</xsl:apply-templates>
+	</xsl:template>
+	
+	<xsl:template mode="SummaryDetails" match="Person">
+		<xsl:param name="known-name" />
+		<xsl:param name="handle" />
+		<xsl:param name="photo" />
+			
+		<xsl:variable name="deadClass">
+			<xsl:if test="Death/@Date">
+				<xsl:text> dead</xsl:text>
+			</xsl:if>
+		</xsl:variable>
+
+		<div class="particulars-container summary-details">
+			<a name="{$handle}" class="handle"></a>
+			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h50')">
+				<span class="first-name">
+					<xsl:value-of select="$known-name" />
+				</span>
+				<span class="last-name">
+					<xsl:value-of select="Name/@Last" />
+				</span>
+				<span class="date-of-birth">
+					<xsl:value-of select="Birth/@Date" />
+					<br />
+				</span>
+			</div>
+		</div>
+	</xsl:template>
+
+	<xsl:template mode="FullDetails" match="Person">
+		<xsl:param name="known-name" />
+		<xsl:param name="handle" />
+		<xsl:param name="photo" />
+		
+		<!-- not currently used -->
+		<xsl:variable name="xpath">
+			<xsl:apply-templates mode="XPath" select="." />
+		</xsl:variable>
+
+		<xsl:variable name="path">
+			<xsl:text>~/Data/</xsl:text>
+			<xsl:value-of select="Name/@Last" />
+			<xsl:text>.xml</xsl:text>
 		</xsl:variable>
 
 		<div class="particulars-container full-details">
@@ -383,24 +423,8 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="particulars-container summary-details">
-			<a name="{$handle}" class="handle"></a>
-			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h50')">
-				<span class="first-name">
-					<xsl:value-of select="$known-name" />
-				</span>
-				<span class="last-name">
-					<xsl:value-of select="Name/@Last" />
-				</span>
-				<span class="date-of-birth">
-					<xsl:value-of select="Birth/@Date" />
-					<br />
-				</span>
-			</div>
-		</div>
 	</xsl:template>
-
+		
 	<xsl:template match="Person" mode="XPath">
 		<xsl:text>//Person[Name/@First='</xsl:text>
 		<xsl:value-of select="Name/@First" />
