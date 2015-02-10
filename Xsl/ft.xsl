@@ -384,29 +384,38 @@
 							<img src="{translate($photo, '?', '')}/h75" height="75px" style="background-image: url('{translate($photo, '?', '')}/h50')" />
 						</td>
 						<td>
-							<xsl:text>First name: </xsl:text>
-							<xsl:value-of select="Name/@First"/>
-
+							<label>
+								<xsl:choose>
+									<xsl:when test="Name/@Nickname != ''">
+										<xsl:text>'</xsl:text>
+										<xsl:value-of select="Name/@Nickname"/>
+										<xsl:text>'</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="Name/@First"/>
+									</xsl:otherwise>
+								</xsl:choose>
+								<xsl:text> </xsl:text>							
+								<xsl:value-of select="Name/@Last"/>
+							</label>
 							<xsl:if test="Name/@Nickname != ''">
-								<xsl:text> - known as: </xsl:text>
-								<xsl:value-of select="Name/@Nickname"/>
+								<xsl:text>First name: </xsl:text>
+								<xsl:value-of select="Name/@First"/>
 							</xsl:if>
+								
 							<xsl:if test="Name/@Middle != ''">
 								<br />
-								<xsl:text>Middle name(s): </xsl:text>
+								<xsl:text>Other name(s): </xsl:text>
 								<xsl:value-of select="Name/@Middle"/>
 							</xsl:if>
-							<br />
-							<xsl:text>Last name: </xsl:text>
-							<xsl:value-of select="Name/@Last"/>
 							<xsl:if test="Birth/@Date != ''">
 								<br />
-								<xsl:text>Date of birth: </xsl:text>
+								<xsl:text>Born: </xsl:text>
 								<xsl:value-of select="Birth/@Date"/>
 							</xsl:if>
-							<xsl:if test="Death/@Date != ''">
+							<xsl:if test="Death/@Date != '' and Death/@Date != '?'">
 								<br />
-								<xsl:text>Date of death: </xsl:text>
+								<xsl:text>Died: </xsl:text>
 								<xsl:value-of select="Death/@Date"/>
 							</xsl:if>
 						</td>

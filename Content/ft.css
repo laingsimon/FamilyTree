@@ -98,6 +98,13 @@ div.particulars-container.full-details table tr td
 	vertical-align: top;
 }
 
+div.particulars-container.full-details table tr td label
+{
+	font-weight: bold;
+	display: block;
+	font-size: larger;
+}
+
 div.particulars-container.full-details table tr td img
 {
 	margin-right: 5px;
@@ -126,6 +133,8 @@ div.particulars-container.full-details div.operations a
 	text-decoration: none;
 	color: #0000ff;
 	font-size: smaller;
+	padding: 10px 5px;
+	display: inline-block;
 }
 
 div.particulars-container.full-details div.operations a:hover
