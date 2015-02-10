@@ -299,6 +299,7 @@ div.marriage-details
 	border-radius: 4px;
 	min-width: 250px;
 	cursor: default;
+	color: #000000;
 }
 
 div.marriage-details.visible
@@ -349,4 +350,29 @@ div.marriage-details div.operations a.open-tree
 div.marriage-details div.operations a.open-tree:hover
 {
 	text-decoration: underline;
+}
+
+body.view-full-details td > div.marriage,
+body.view-full-details td:last-child > div.marriage > div.people > div.person > div.child-connector > div.vertical,
+body.view-full-details td:first-child > div.marriage > div.people > div.person > div.child-connector > div.vertical,
+body.view-full-details td > div.marriage > div.people > div.person > div.child-connector > div.vertical,
+body.view-full-details div.children > div.connector,
+body.view-full-details div.children td > div.child-connector,
+body.view-full-details div.children td > div.child-connector div.vertical,
+body.view-full-details div.children td.only-child:first-child > div.child-connector div.vertical,
+body.view-full-details div.children td.only-child:last-child > div.child-connector div.vertical,
+body.view-full-details div.children td:first-child > div.child-connector div.vertical,
+body.view-full-details div.children td:last-child > div.child-connector div.vertical,
+body.view-full-details td:first-child > div.mid-line,
+body.view-full-details td:last-child > div.mid-line
+{
+	border-left-color: #bbbbbb;
+	border-right-color: #bbbbbb;
+	border-top-color: #bbbbbb;
+	border-bottom-color: #bbbbbb;
+}
+
+body.view-full-details div.symbol
+{
+	color: #bbbbbb;
 }
