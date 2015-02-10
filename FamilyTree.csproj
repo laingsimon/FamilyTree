@@ -83,9 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\edit.css" />
     <Content Include="Content\ft.css" />
-    <Content Include="Content\pop-up.css" />
     <Content Include="Content\TreeList.css" />
     <Content Include="Data\Aldous.xml" />
     <Content Include="Data\Baker.xml" />
@@ -151,11 +149,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Tree\List.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Xsl\edit.xsl" />
     <Content Include="Xsl\ft.xsl">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Xsl\pop-up.xsl" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

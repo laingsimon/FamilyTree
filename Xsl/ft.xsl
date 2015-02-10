@@ -1,6 +1,4 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:include href="pop-up.xsl" />
-	<xsl:include href="edit.xsl" />
 	<xsl:output method="html" omit-xml-declaration="yes" />
 
 	<xsl:template match="Tree">
@@ -22,9 +20,6 @@
 						<xsl:apply-templates select="Person" />
 					</tr>
 				</table>
-
-				<xsl:call-template name="pop-up" />
-				<xsl:call-template name="edit" />
 			</body>
 		</html>
 	</xsl:template>
