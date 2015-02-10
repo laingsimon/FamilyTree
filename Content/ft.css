@@ -70,7 +70,7 @@ div.particulars-container.full-details
 	display: none;
 	position: relative;
 	height: 0px;
-	z-index: 101;
+	z-index: 2;
 	left: 0px;
 }
 
@@ -209,7 +209,7 @@ div.marriage div.symbol{
  vertical-align: text-bottom;
  cursor: pointer;
  position: relative;
- z-index: 100;
+ z-index: 1;
 }
 
 div.children{
