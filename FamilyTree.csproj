@@ -77,8 +77,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MarriageChildren.cs" />
+    <Compile Include="Models\Date.cs" />
     <Compile Include="Models\FileNotFoundSwallowingXmlResolver.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\Marriage.cs" />
+    <Compile Include="Models\MarriageTo.cs" />
+    <Compile Include="Models\Name.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\Tree.cs" />
     <Compile Include="Models\XslTransformResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
