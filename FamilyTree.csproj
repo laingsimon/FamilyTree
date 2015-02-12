@@ -80,6 +80,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\JsonResult.cs" />
     <Compile Include="Models\MarriageChildren.cs" />
     <Compile Include="Models\Date.cs" />
     <Compile Include="Models\FileNotFoundSwallowingXmlResolver.cs" />

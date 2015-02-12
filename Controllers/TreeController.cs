@@ -50,11 +50,7 @@ namespace FamilyTree.Controllers
 					var serialiser = new System.Xml.Serialization.XmlSerializer(typeof(Tree));
 					var tree = (Tree)serialiser.Deserialize(fileStream);
 
-					return new JsonResult
-					{
-						JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-						Data = tree
-					};
+					return new FamilyTree.Models.JsonResult(tree);
 				}
 			}
 			catch (Exception exc)
