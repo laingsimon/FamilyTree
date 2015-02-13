@@ -4,13 +4,28 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using FamilyTree.Models;
+using FamilyTree.Models.Responses;
 
 namespace FamilyTree.Controllers
 {
 	public class TreeController : Controller
 	{
 		private static readonly string _defaultFamily = ConfigurationManager.AppSettings["DefaultFamily"];
-		
+		private readonly ContentNegotiation _contentNegotiation;
+
+		public TreeController()
+		{
+			var htmlResponder = new HtmlContentResponder();
+			_contentNegotiation = new ContentNegotiation(htmlResponder)
+			{
+				{ "text/html", htmlResponder },
+				{ "application/xhtml+xml", htmlResponder },
+				{ "text/xml", new XmlContentResponder() },
+				{ "application/xml", new XmlContentResponder() },
+				{ "application/json", new JsonContentResponder() }
+			};
+		}
+
 		public ActionResult Index(string family)
 		{
 			return RedirectToAction("Family", new { family = family ?? _defaultFamily });
@@ -22,36 +37,15 @@ namespace FamilyTree.Controllers
 			var familyFilePath = Server.MapPath(relativePath);
 			if (!System.IO.File.Exists(familyFilePath))
 			{
-				Response.AddHeader("FilePath", relativePath);
 				return RedirectToAction("List");
 			}
 
-			return new XslTransformResult(familyFilePath);
-		}
-
-		public ActionResult List()
-		{
-			var files = Directory.GetFiles(Server.MapPath("~/Data"), "*.xml");
-			return View(files.Select(fn => new FileInfo(fn)).ToArray());
-		}
-
-		public ActionResult Json(string family)
-		{
-			var fileName = Server.MapPath(string.Format("~/Data/{0}.xml", family));
-
-			Response.AddHeader("FileName", fileName);
-			if (!System.IO.File.Exists(fileName))
-				return HttpNotFound();
-
 			try
 			{
-				using (var fileStream = new StreamReader(fileName))
-				{
-					var serialiser = new System.Xml.Serialization.XmlSerializer(typeof(Tree));
-					var tree = (Tree)serialiser.Deserialize(fileStream);
+				var contentTypePreference = new ContentTypePreference(Request.Headers["Accept"]);
+				var responder = _contentNegotiation.GetMostAppropriateResponder(contentTypePreference);
 
-					return new FamilyTree.Models.JsonResult(tree);
-				}
+				return responder.GetResponse(familyFilePath, HttpContext);
 			}
 			catch (Exception exc)
 			{
@@ -63,6 +57,12 @@ namespace FamilyTree.Controllers
 					ContentType = "text/plain"
 				};
 			}
+		}
+
+		public ActionResult List()
+		{
+			var files = Directory.GetFiles(Server.MapPath("~/Data"), "*.xml");
+			return View(files.Select(fn => new FileInfo(fn)).ToArray());
 		}
 	}
 }
