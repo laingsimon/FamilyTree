@@ -3,7 +3,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using FamilyTree.Models;
 using FamilyTree.Models.Responses;
 
 namespace FamilyTree.Controllers
@@ -42,7 +41,7 @@ namespace FamilyTree.Controllers
 
 			try
 			{
-				var contentTypePreference = new ContentTypePreference(Request.Headers["Accept"]);
+				var contentTypePreference = new ContentTypePreference(Request);
 				var responder = _contentNegotiation.GetMostAppropriateResponder(contentTypePreference);
 
 				return responder.GetResponse(familyFilePath, HttpContext);

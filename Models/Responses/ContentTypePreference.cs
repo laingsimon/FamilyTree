@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace FamilyTree.Models.Responses
 {
@@ -10,9 +11,12 @@ namespace FamilyTree.Models.Responses
 	{
 		private readonly string _acceptHeader;
 
-		public ContentTypePreference(string acceptHeader)
+		public ContentTypePreference(HttpRequestBase request)
 		{
-			_acceptHeader = acceptHeader;
+			if (!string.IsNullOrEmpty(request.QueryString["format"]))
+				_acceptHeader = request.QueryString["format"];
+			else
+				_acceptHeader = request.Headers["Accept"];
 		}
 
 		public bool HasPreference
