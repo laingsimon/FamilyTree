@@ -1,0 +1,23 @@
+<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
+
+<Tree Family="Baidoo">
+	<Person Gender="Male">
+		<Name First="Isaac" Last="Baidoo" />
+		<Marriage>
+			<To>
+				<Person Gender="Female">
+					<Name First="Karen" Last="Blakeley" />
+					<Birth Date="27/09/1982" />
+				</Person>
+			</To>
+			<Children EntryPoint="Karen-Blakeley_27091982+Isaac-Baidoo">
+				<Person Gender="Female">
+					<Name First="Emily" Last="Baidoo" />
+				</Person>
+				<Person Gender="Male">
+					<Name First="?" Last="Baidoo" />
+				</Person>
+			</Children>
+		</Marriage>
+	</Person>
+</Tree>

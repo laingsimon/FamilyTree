@@ -16,6 +16,7 @@
 			<Children>
 				<Person Gender="Female">
 					<Name First="Susan" Last="Cooke" />
+					<Birth Date="12/03/1946" />
 					<Marriage Status="Divorced">
 						<To>
 							<Person Gender="Male">
@@ -25,6 +26,13 @@
 						<Children>
 							<Person Gender="Female">
 								<Name First="Katherine" Last="Burton" />
+								<Marriage Type="CommonLaw">
+									<To>
+										<Person Gender="Male">
+											<Name First="Nick" Last="?" />
+										</Person>
+									</To>
+								</Marriage>
 							</Person>
 							<Person Gender="Female">
 								<Name First="Ruth" Last="Burton" />
@@ -39,7 +47,7 @@
 											<Name First="Jaylen" Last="Jupp" />
 										</Person>
 										<Person Gender="Female">
-											<Name First="Jessica" Last="Jupp" />
+											<Name First="Jazmin" Last="Jupp" />
 										</Person>
 									</Children>
 								</Marriage>
@@ -94,27 +102,40 @@
 				</Person>
 				<Person Gender="Male">
 					<Name First="Roy" Last="Cooke" />
+					<Birth Date="07/09/1950" />
 					<Marriage Type="CommonLaw">
 						<To>
 							<Person Gender="Female">
-								<Name First="Evelyn" Last="?" />
+								<Name First="Evelyn" Last="Maloney?" />
 							</Person>
 						</To>
 						<Children>
+							<Person Gender="Female">
+								<Name First="Pam" Last="Maloney" />
+								<Marriage>
+									<To>
+										<Person Gender="Male">
+											<Name First="Stephen" Last="Whitehead" />
+										</Person>
+									</To>
+									<Children SeeOtherTree="Whitehead" />
+								</Marriage>
+							</Person>
 							<Person Gender="Male">
 								<Name First="Keith" Last="Cooke" />
 								<Birth Date="?" />
 							</Person>
 							<Person Gender="Male">
 								<Name First="David" Last="Cooke" />
-								<Birth Date="?" />
-								<Death Date="?" />
+								<Birth Date="17/10/1990" />
+								<Death Date="24/10/1993" />
 							</Person>
 						</Children>
 					</Marriage>
 				</Person>
 				<Person Gender="Female">
 					<Name First="Gillian" Last="Cooke" />
+					<Birth Date="05/11/1958" />
 					<Marriage Status="Divorced">
 						<To>
 							<Person Gender="Male">
@@ -124,32 +145,49 @@
 						<Children>
 							<Person Gender="Male">
 								<Name First="Phillip" Last="Blakeley" />
+								<Birth Date="06/11/1979" />
 								<Marriage>
 									<To>
 										<Person Gender="Female">
-											<Name First="Coleen" Last="?" />
+											<Name First="Colleen" Last="?" />
 										</Person>
 									</To>
 									<Children>
+										<Person Gender="Male">
+											<Name First="?" Last="Blakeley" />
+											<Birth Date="08/03/2007" />
+										</Person>
+										<Person Gender="Male">
+											<Name First="?" Last="Blakeley" />
+											<Birth Date="08/03/2007" />
+										</Person>
 									</Children>
 								</Marriage>
 							</Person>
 							<Person Gender="Female">
 								<Name First="Karen" Last="Blakeley" />
-								<Marriage>
+								<Birth Date="27/09/1982" />
+								<Marriage Date="?/01/2006">
 									<To>
 										<Person Gender="Male">
-											<Name First="?" Last="?" />
+											<Name First="Isaac" Last="Baidoo" />
 										</Person>
 									</To>
-									<Children>
-									</Children>
+									<Children SeeOtherTree="Baidoo" />
 								</Marriage>
 							</Person>
 							<Person Gender="Female">
 								<Name First="Chrissie" Last="Blakeley" />
+								<Birth Date="04/10/1990" />
 							</Person>
 						</Children>
+					</Marriage>
+					<Marriage Type="CommonLaw">
+						<To>
+							<Person Gender="Male">
+								<Name First="Alan" Last="?" />
+							</Person>
+						</To>
 					</Marriage>
 				</Person>
 			</Children>
