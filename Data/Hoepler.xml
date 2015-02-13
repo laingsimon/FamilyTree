@@ -1,5 +1,3 @@
-<?xml-stylesheet type="text/xsl" href="Render/ft.xsl"?>
-
 <Tree Family="Hoepler">
 	<Person Gender="Male">
 		<Name First="Christof" Last="Hoepler" />
