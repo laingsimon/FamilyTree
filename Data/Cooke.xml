@@ -87,12 +87,7 @@
 											<Birth Date="18/09/1976" />
 										</Person>
 									</To>
-									<Children SeeOtherTree="Laing">
-										<!-- <Person Gender="Male">
-									<Name First="Ryan" Middle="James" Last="Laing" />
-									<Birth Date="05/12/2011" />
-								</Person> -->
-									</Children>
+									<Children SeeOtherTree="Laing" />
 								</Marriage>
 							</Person>
 						</Children>
