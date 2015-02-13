@@ -12,7 +12,11 @@ namespace FamilyTree.Models
 		[XmlAttribute]
 		public string Location { get; set; }
 
-		public string Status { get; set; }
+		[XmlAttribute]
+		public MarriageStatus Status { get; set; }
+
+		[XmlAttribute]
+		public MarriageType Type { get; set; }
 
 		public MarriageTo To { get; set; }
 
