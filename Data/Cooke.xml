@@ -1,14 +1,14 @@
 <Tree Family="Cooke">
 	<Person Gender="Male">
 		<Name First="John" Nickname="Jack" Last="Cooke" />
-		<Birth Date="" />
-		<Death Date="?" />
+		<Birth Date="15/10/1919" />
+		<Death Date="13/07/2007" />
 		<Marriage>
 			<To>
 				<Person Gender="Female">
 					<Name First="Margaret" Middle="Ethel" Last="Wearn" />
-					<Birth Date="" />
-					<Death Date="?" />
+					<Birth Date="08/11/1919" />
+					<Death Date="04/12/1998" />
 				</Person>
 			</To>
 			<Children>
