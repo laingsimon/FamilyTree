@@ -9,12 +9,19 @@ namespace FamilyTree.Controllers
 {
 	public class TreeController : Controller
 	{
+		private static readonly Lazy<DateTime> _assemblyDate = new Lazy<DateTime>(_GetAssemblyDate);
 		private static readonly string _defaultFamily = ConfigurationManager.AppSettings["DefaultFamily"];
 		private readonly ContentNegotiation _contentNegotiation;
 
+		private static DateTime _GetAssemblyDate()
+		{
+			var path = typeof(ContentNegotiation).Assembly.Location;
+			return System.IO.File.GetLastWriteTimeUtc(path);
+		}
+
 		public TreeController()
 		{
-			var htmlResponder = new HtmlContentResponder();
+			var htmlResponder = new HtmlContentResponder((s) => Server.MapPath(s));
 			_contentNegotiation = new ContentNegotiation(htmlResponder)
 			{
 				{ "text/html", htmlResponder },
@@ -44,6 +51,14 @@ namespace FamilyTree.Controllers
 				var contentTypePreference = new ContentTypePreference(Request);
 				var responder = _contentNegotiation.GetMostAppropriateResponder(contentTypePreference);
 
+				var ifNoneMatch = Request.Headers["If-None-Match"];
+				var etag = responder.GetEtag(_assemblyDate.Value, familyFilePath);
+
+				if (!string.IsNullOrEmpty(ifNoneMatch) && "\"" + etag + "\"" == ifNoneMatch)
+					return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotModified);
+
+				if (!string.IsNullOrEmpty(etag))
+					Response.Headers.Add("ETag", etag);
 				return responder.GetResponse(familyFilePath, HttpContext);
 			}
 			catch (Exception exc)

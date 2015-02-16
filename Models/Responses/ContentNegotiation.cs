@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -57,15 +58,20 @@ namespace FamilyTree.Models.Responses
 			}
 
 			public ActionResult GetResponse(string fileName, HttpContextBase context)
-		{
-			context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
-
-			return new ContentResult
 			{
-				ContentType = "text/plain",
-				Content = string.Format("Acceptable content types: {0}", string.Join(", ", _acceptableContentTypes))
-			};
-		}
+				context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
+
+				return new ContentResult
+				{
+					ContentType = "text/plain",
+					Content = string.Format("Acceptable content types: {0}", string.Join(", ", _acceptableContentTypes))
+				};
+			}
+
+			public string GetEtag(DateTime assemblyDate, string fileName)
+			{
+				return null;
+			}
 		}
 	}
 }

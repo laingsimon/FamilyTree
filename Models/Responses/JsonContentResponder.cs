@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,11 @@ namespace FamilyTree.Models.Responses
 
 				return new JsonResult(tree);
 			}
+		}
+
+		public string GetEtag(DateTime assemblyDate, string fileName)
+		{
+			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customDateTimePart: assemblyDate);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FamilyTree.Models;
+using System;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -113,15 +114,9 @@ namespace FamilyTree.Controllers
 
 		private static string _GenerateEtag(FileInfo photoFile, string customEtagSuffix)
 		{
-			var lastWriteTime = photoFile.LastWriteTimeUtc;
-			var size = photoFile.Length;
-			var fileName = photoFile.FullName;
-			var customEtagSuffixHashCode = (customEtagSuffix ?? "").GetHashCode();
-
-			var etag = string.Format(
+			return string.Format(
 				"\"{0}\"",
-				lastWriteTime.GetHashCode() + size.GetHashCode() + fileName.GetHashCode() + customEtagSuffixHashCode);
-			return etag;
+				ETagHelper.GetEtagFromFile(photoFile, customEtagSuffix));
 		}
 
 		private static Size _ParseSize(string size, SizeF originalImageSize)
