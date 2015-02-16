@@ -69,7 +69,10 @@ namespace FamilyTree.Controllers
 			{
 				var desiredSize = _ParseSize(size, bitmap.Size);
 				if (desiredSize.IsEmpty)
+				{
+					_AddETagHeader(photoFile, size);
 					return new HttpStatusCodeResult(204);
+				}
 
 				var stream = new MemoryStream();
 
