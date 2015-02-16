@@ -350,6 +350,8 @@ div.marriage-details div.operations a.open-tree
 	cursor: pointer;
 	font-size: smaller;
 	text-decoration: none;
+	padding: 10px 5px;
+	display: inline-block;
 }
 
 div.marriage-details div.operations a.open-tree:hover
