@@ -182,9 +182,7 @@
 		
 		<div class="marriage-details">
 			<img src="{$marriageFromPhoto}" class="marriage-from"/>
-			<a href="{$marriageToLink}" class="marriage-to">
-				<img src="{$marriageToPhoto}" />
-			</a>
+			<img src="{$marriageToPhoto}" class="marriage-to" />
 			<span>
 				<xsl:text>Marriage of </xsl:text>
 				<xsl:value-of select="../Name/@First"/>

@@ -323,13 +323,9 @@ div.marriage-details img.marriage-from
 	border-radius: 6px;
 }
 
-div.marriage-details a.marriage-to
+div.marriage-details img.marriage-to
 {
 	float: right;
-}
-
-div.marriage-details a.marriage-to img
-{
 	border: 0px;
 	margin: 5px;
 	border-radius: 6px;

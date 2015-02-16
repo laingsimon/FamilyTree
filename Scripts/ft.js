@@ -31,6 +31,28 @@ $(document).ready(function ()
 		return false;
 	});
 
+	$(".particulars img").click(function (event) {
+		event.stopPropagation();
+
+		var url = $(this).attr("src");
+		url = url.replace(/h\d+$/g, "");
+
+		window.open(url, "full-photo", "", true);
+
+		return false;
+	});
+
+	$(".marriage img").click(function (event) {
+		event.stopPropagation();
+
+		var url = $(this).attr("src");
+		url = url.replace(/h\d+$/g, "");
+
+		window.open(url, "full-photo", "", true);
+
+		return false;
+	});
+
 	function toggleFullDetails(element)
 	{
 		var isFullDetails = element.closest(".particulars-container").hasClass("full-details");
