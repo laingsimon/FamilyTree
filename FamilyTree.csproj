@@ -75,7 +75,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -115,7 +114,6 @@
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
     <Compile Include="Models\XmlTransformation\FileNotFoundSwallowingXmlResolver.cs" />
-    <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
     <Compile Include="Models\Responses\HtmlContentResponder.cs" />
     <Compile Include="Models\Responses\IContentResponder.cs" />
@@ -197,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
