@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	[DebuggerDisplay("{Persons.Count}")]
 	public class MarriageChildren

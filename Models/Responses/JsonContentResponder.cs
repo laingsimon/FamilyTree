@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using FamilyTree.Models.DTO;
 
 namespace FamilyTree.Models.Responses
 {

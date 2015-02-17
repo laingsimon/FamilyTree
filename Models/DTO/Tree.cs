@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	public class Tree
 	{

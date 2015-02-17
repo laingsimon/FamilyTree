@@ -81,26 +81,46 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\Date.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\Gender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\Marriage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\MarriageChildren.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\MarriageStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\MarriageTo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\MarriageType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\Name.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\Person.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DTO\Tree.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\ETagHelper.cs" />
-    <Compile Include="Models\MarriageStatus.cs" />
-    <Compile Include="Models\MarriageType.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
-    <Compile Include="Models\MarriageChildren.cs" />
-    <Compile Include="Models\Date.cs" />
     <Compile Include="Models\FileNotFoundSwallowingXmlResolver.cs" />
-    <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\Marriage.cs" />
-    <Compile Include="Models\MarriageTo.cs" />
-    <Compile Include="Models\Name.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
     <Compile Include="Models\Responses\HtmlContentResponder.cs" />
     <Compile Include="Models\Responses\IContentResponder.cs" />
     <Compile Include="Models\Responses\JsonContentResponder.cs" />
     <Compile Include="Models\Responses\XmlContentResponder.cs" />
-    <Compile Include="Models\Tree.cs" />
     <Compile Include="Models\XslTransformResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

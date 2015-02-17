@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	[DebuggerDisplay("{First,nq} {Last,nq}")]
 	public class Name

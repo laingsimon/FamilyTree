@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	[DebuggerDisplay("To {MarriageTo.Name.First,nq} {MarriageTo.Name.Last,nq}")]
 	public class Marriage

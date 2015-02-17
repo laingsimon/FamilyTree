@@ -1,4 +1,4 @@
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	public enum MarriageStatus
 	{

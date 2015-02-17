@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.DTO
 {
 	[DebuggerDisplay("{Person.First,nq} {Person.Last,nq}")]
 	public class MarriageTo
