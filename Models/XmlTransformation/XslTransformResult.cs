@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Xsl;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.XmlTransformation
 {
 	public class XslTransformResult : ActionResult
 	{

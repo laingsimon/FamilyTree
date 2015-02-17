@@ -114,14 +114,14 @@
     <Compile Include="Models\ETagHelper.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
-    <Compile Include="Models\FileNotFoundSwallowingXmlResolver.cs" />
+    <Compile Include="Models\XmlTransformation\FileNotFoundSwallowingXmlResolver.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
     <Compile Include="Models\Responses\HtmlContentResponder.cs" />
     <Compile Include="Models\Responses\IContentResponder.cs" />
     <Compile Include="Models\Responses\JsonContentResponder.cs" />
     <Compile Include="Models\Responses\XmlContentResponder.cs" />
-    <Compile Include="Models\XslTransformResult.cs" />
+    <Compile Include="Models\XmlTransformation\XslTransformResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

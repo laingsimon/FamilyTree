@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace FamilyTree.Models
+namespace FamilyTree.Models.XmlTransformation
 {
 	public class FileNotFoundSwallowingXmlResolver : XmlResolver
 	{
