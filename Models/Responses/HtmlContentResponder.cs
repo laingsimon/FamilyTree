@@ -20,12 +20,12 @@ namespace FamilyTree.Models.Responses
 			return new XslTransformResult(fileName);
 		}
 
-		public string GetEtag(DateTime assemblyDate, string fileName)
+		public string GetEtag(string fileName)
 		{
 			var xslFile = new FileInfo(_mapPath("~/Xsl/ft.xsl"));
 			var xslFileDateString = xslFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
 
-			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customEtagSuffix: xslFileDateString, customDateTimePart: assemblyDate);
+			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
 		}
 	}
 }

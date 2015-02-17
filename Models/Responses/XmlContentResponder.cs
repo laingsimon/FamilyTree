@@ -12,7 +12,7 @@ namespace FamilyTree.Models.Responses
 			return new FileContentResult(File.ReadAllBytes(fileName), "text/xml");
 		}
 
-		public string GetEtag(DateTime assemblyDate, string fileName)
+		public string GetEtag(string fileName)
 		{
 			return ETagHelper.GetEtagFromFile(new FileInfo(fileName));
 		}

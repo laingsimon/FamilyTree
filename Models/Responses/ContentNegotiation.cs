@@ -67,7 +67,7 @@ namespace FamilyTree.Models.Responses
 				};
 			}
 
-			public string GetEtag(DateTime assemblyDate, string fileName)
+			public string GetEtag(string fileName)
 			{
 				return null;
 			}

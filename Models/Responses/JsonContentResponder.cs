@@ -19,9 +19,9 @@ namespace FamilyTree.Models.Responses
 			}
 		}
 
-		public string GetEtag(DateTime assemblyDate, string fileName)
+		public string GetEtag(string fileName)
 		{
-			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customDateTimePart: assemblyDate);
+			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), includeAssemblyDate: true);
 		}
 	}
 }

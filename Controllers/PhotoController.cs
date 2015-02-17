@@ -41,12 +41,16 @@ namespace FamilyTree.Controllers
 
 		private ActionResult _ProcessPhoto(string size, FileInfo photoFile)
 		{
-			if (_NotModified(photoFile, Request.Headers["If-None-Match"], size))
+			if (!photoFile.Exists)
+				return HttpNotFound();
+
+			var currentEtag = ETagHelper.GetEtagFromFile(photoFile, size);
+			if (!ETagHelper.HasChanged(Request, currentEtag))
 				return new HttpStatusCodeResult(HttpStatusCode.NotModified);
 
 			if (string.IsNullOrEmpty(size))
 			{
-				_AddETagHeader(photoFile, size);
+				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
 				return File(photoFile.FullName, "image/jpeg");
 			}
 
@@ -63,17 +67,14 @@ namespace FamilyTree.Controllers
 
 		private ActionResult _ResizePhoto(FileInfo photoFile, string size)
 		{
-			if (!photoFile.Exists)
-				return HttpNotFound();
-			
 			using (var bitmap = Image.FromFile(photoFile.FullName))
 			{
+				var currentEtag = ETagHelper.GetEtagFromFile(photoFile, size);
+				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
+
 				var desiredSize = _ParseSize(size, bitmap.Size);
 				if (desiredSize.IsEmpty)
-				{
-					_AddETagHeader(photoFile, size);
 					return new HttpStatusCodeResult(204);
-				}
 
 				var stream = new MemoryStream();
 
@@ -91,32 +92,9 @@ namespace FamilyTree.Controllers
 
 					resizedImage.Save(stream, ImageFormat.Jpeg);
 
-					_AddETagHeader(photoFile, size);
 					return File(stream.ToArray(), "image/jpeg");
 				}
 			}
-		}
-
-		private static bool _NotModified(FileInfo photoFile, string matchEtag, string customEtagSuffix)
-		{
-			if (string.IsNullOrEmpty(matchEtag))
-				return false;
-
-			var currentEtag = _GenerateEtag(photoFile, customEtagSuffix);
-			return currentEtag == matchEtag;
-		}
-
-		private void _AddETagHeader(FileInfo photoFile, string customEtagSuffix)
-		{
-			var etag = _GenerateEtag(photoFile, customEtagSuffix);
-			Response.AddHeader("ETag", etag);
-		}
-
-		private static string _GenerateEtag(FileInfo photoFile, string customEtagSuffix)
-		{
-			return string.Format(
-				"\"{0}\"",
-				ETagHelper.GetEtagFromFile(photoFile, customEtagSuffix));
 		}
 
 		private static Size _ParseSize(string size, SizeF originalImageSize)
