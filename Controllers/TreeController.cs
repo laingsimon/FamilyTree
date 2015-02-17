@@ -21,7 +21,7 @@ namespace FamilyTree.Controllers
 
 		public TreeController()
 		{
-			var htmlResponder = new HtmlContentResponder((s) => Server.MapPath(s));
+			var htmlResponder = new HtmlContentResponder(s => Server.MapPath(s));
 			_contentNegotiation = new ContentNegotiation(htmlResponder)
 			{
 				{ "text/html", htmlResponder },

@@ -16,21 +16,6 @@ $(document).ready(function ()
 		}
 	}
 
-	$(".particulars").click(function (event)
-	{
-		if ($(event.target).parent().hasClass("operations"))
-		{
-			event.stopPropagation();
-			return;
-		}
-
-		if (!closeAnyVisibleParticulars())
-			toggleFullDetails($(this));
-
-		event.stopPropagation();
-		return false;
-	});
-
 	$(".particulars img").click(function (event) {
 		event.stopPropagation();
 
@@ -76,22 +61,6 @@ $(document).ready(function ()
 		}
 	}
 
-	$(".marriage .symbol").click(function (event)
-	{
-		event.stopPropagation();
-
-		if ($(event.target).parent().hasClass("operations"))
-			return;
-
-		if ($(event.target).parent().hasClass("marriage-to"))
-			return;
-
-		if (!closeAnyVisibleParticulars())
-			toggleMarriageDetails($(this));
-
-		return false;
-	});
-
 	function toggleMarriageDetails(element)
 	{
 		var details = $(element).closest(".symbol").find(".marriage-details");
@@ -124,7 +93,35 @@ $(document).ready(function ()
 		return true;
 	}
 
-	$(document.body).click(function (event)
+	$(".particulars").click(function (event)
+	{
+		if ($(event.target).parent().hasClass("operations"))
+		{
+			event.stopPropagation();
+			return false;
+		}
+
+		if (!closeAnyVisibleParticulars())
+			toggleFullDetails($(this));
+
+		event.stopPropagation();
+		return false;
+	});
+
+	$(".marriage .symbol").click(function (event)
+	{
+		event.stopPropagation();
+
+		if ($(event.target).parent().hasClass("operations"))
+			return false;
+
+		if (!closeAnyVisibleParticulars())
+			toggleMarriageDetails($(this));
+
+		return false;
+	});
+
+	$(document.body).click(function ()
 	{
 		closeAnyVisibleParticulars();
 	});

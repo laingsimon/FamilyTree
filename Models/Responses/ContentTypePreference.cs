@@ -13,10 +13,9 @@ namespace FamilyTree.Models.Responses
 
 		public ContentTypePreference(HttpRequestBase request)
 		{
-			if (!string.IsNullOrEmpty(request.QueryString["format"]))
-				_acceptHeader = request.QueryString["format"];
-			else
-				_acceptHeader = request.Headers["Accept"];
+			_acceptHeader = string.IsNullOrEmpty(request.QueryString["format"])
+				? request.Headers["Accept"]
+				: request.QueryString["format"];
 		}
 
 		public bool HasPreference
@@ -40,29 +39,17 @@ namespace FamilyTree.Models.Responses
 
 		private IEnumerable<MediaTypeWithQualityHeaderValue> _GetAcceptableContentTypes()
 		{
-			foreach (var acceptableContentType in _acceptHeader.Split(','))
-			{
-				var match = Regex.Match(acceptableContentType, @"^(?<mimeType>.+?)(\s*;\s*q\=(?<preference>.*))?$");
-			
-				if (!match.Success)
-					continue;
-
-				var mimeType = match.Groups["mimeType"].Value;
-				if (mimeType == "*/*")
-					continue;
-			
-				var preferenceValue = match.Groups["preference"].Value;
-				var preference = _GetPreference(preferenceValue);
-				yield return new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
-			}
+			return from acceptableContentType in _acceptHeader.Split(',')
+				   let match = Regex.Match(acceptableContentType, @"^(?<mimeType>.+?)(\s*;\s*q\=(?<preference>.*))?$")
+				   let mimeType = match.Groups["mimeType"].Value
+				   where match.Success && mimeType != "*/*"
+				   let preference = _GetPreference(match.Groups["preference"].Value)
+				   select new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
 		}
 
 		private static double _GetPreference(string value)
 		{
-			if (string.IsNullOrEmpty(value))
-				return 1;
-			
-			if (value == "*")
+			if (string.IsNullOrEmpty(value) || value == "*")
 				return 1;
 			
 			return double.Parse(value);
