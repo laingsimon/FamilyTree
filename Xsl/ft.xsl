@@ -1,6 +1,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="html" omit-xml-declaration="yes" />
 
+	<xsl:param name="viewContext" />
+
 	<xsl:template match="Tree">
 		<html>
 			<head>
@@ -420,7 +422,7 @@
 					</tr>
 				</table>
 				<div class="operations">
-					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != /Tree/@Family)">
+					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != $viewContext)">
 						<a href="../../Tree/Family/{Name/@Last}#{$handle}">
 							<xsl:text>Open </xsl:text>
 							<xsl:value-of select="Name/@Last"/>

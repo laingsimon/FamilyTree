@@ -37,8 +37,11 @@ namespace FamilyTree.Models.XmlTransformation
 			using (var writer = new StringWriter())
 			using (var xmlWriter = XmlWriter.Create(writer, transform.OutputSettings))
 			{
+				var xslArguments = new XsltArgumentList();
+				xslArguments.AddParam("viewContext", "", Path.GetFileNameWithoutExtension(_filePath));
+
 				using (var reader = XmlReader.Create(_filePath))
-					transform.Transform(reader, new XsltArgumentList(), xmlWriter, resolver);
+					transform.Transform(reader, xslArguments, xmlWriter, resolver);
 
 				response.StatusCode = 200;
 
