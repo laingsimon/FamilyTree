@@ -422,9 +422,9 @@
 				<div class="operations">
 					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != /Tree/@Family)">
 						<a href="../../Tree/Family/{Name/@Last}#{$handle}">
-							<xsl:text>Open '</xsl:text>
+							<xsl:text>Open </xsl:text>
 							<xsl:value-of select="Name/@Last"/>
-							<xsl:text>' tree</xsl:text>
+							<xsl:text> tree</xsl:text>
 						</a>
 					</xsl:if>
 				</div>
