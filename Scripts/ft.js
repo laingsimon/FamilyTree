@@ -96,10 +96,7 @@ $(document).ready(function ()
 	$(".particulars").click(function (event)
 	{
 		if ($(event.target).parent().hasClass("operations"))
-		{
-			event.stopPropagation();
-			return false;
-		}
+			return true;
 
 		if (!closeAnyVisibleParticulars())
 			toggleFullDetails($(this));
