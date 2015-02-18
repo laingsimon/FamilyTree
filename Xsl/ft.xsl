@@ -179,7 +179,7 @@
 				<xsl:otherwise />
 			</xsl:choose>
 		</xsl:variable>
-		
+
 		<div class="marriage-details">
 			<img src="{$marriageFromPhoto}" class="marriage-from"/>
 			<img src="{$marriageToPhoto}" class="marriage-to" />
@@ -329,12 +329,12 @@
 			<xsl:with-param name="photo" select="$photo" />
 		</xsl:apply-templates>
 	</xsl:template>
-	
+
 	<xsl:template mode="SummaryDetails" match="Person">
 		<xsl:param name="known-name" />
 		<xsl:param name="handle" />
 		<xsl:param name="photo" />
-			
+
 		<xsl:variable name="deadClass">
 			<xsl:if test="Death/@Date">
 				<xsl:text> dead</xsl:text>
@@ -362,7 +362,7 @@
 		<xsl:param name="known-name" />
 		<xsl:param name="handle" />
 		<xsl:param name="photo" />
-		
+
 		<!-- not currently used -->
 		<xsl:variable name="xpath">
 			<xsl:apply-templates mode="XPath" select="." />
@@ -393,14 +393,14 @@
 										<xsl:value-of select="Name/@First"/>
 									</xsl:otherwise>
 								</xsl:choose>
-								<xsl:text> </xsl:text>							
+								<xsl:text> </xsl:text>
 								<xsl:value-of select="Name/@Last"/>
 							</label>
 							<xsl:if test="Name/@Nickname != ''">
 								<xsl:text>First name: </xsl:text>
 								<xsl:value-of select="Name/@First"/>
 							</xsl:if>
-								
+
 							<xsl:if test="Name/@Middle != ''">
 								<br />
 								<xsl:text>Other name(s): </xsl:text>
@@ -431,7 +431,7 @@
 			</div>
 		</div>
 	</xsl:template>
-		
+
 	<xsl:template match="Person" mode="XPath">
 		<xsl:text>//Person[Name/@First='</xsl:text>
 		<xsl:value-of select="Name/@First" />
