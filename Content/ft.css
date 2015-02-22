@@ -275,13 +275,15 @@ td:first-child > div.mid-line{
  border-top: 1px solid #000000;
  position: relative;
  left: 50%;
+ margin-right: 70px;
 }
 
 td:last-child > div.mid-line{
  border-top: 1px solid #000000;
  position: relative;
  width: 50%;
- left: -55px;
+ left: -70px;
+ right: -65px;
 }
 
 td{
