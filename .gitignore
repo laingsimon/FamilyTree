@@ -1,5 +1,5 @@
 *.suo
 *.user
-[bB]in/
 [oO]bj/
 packages/
+bin/FamilyTree.*
