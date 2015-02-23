@@ -310,6 +310,7 @@ td:first-child > div.mid-line
 	position: relative;
 	left: 50%;
 	margin-right: 70px;
+	width: 50%;
 }
 
 td:last-child > div.mid-line
