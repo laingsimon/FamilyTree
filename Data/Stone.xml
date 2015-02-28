@@ -25,35 +25,7 @@
 										<Name First="Victor" Last="Starr" />
 									</Person>
 								</To>
-								<Children>
-									<Person Gender="Male">
-										<Name First="Peter" Last="Starr" />
-										<Marriage>
-											<To>
-												<Person Gender="Female">
-													<Name First="?" Last="?" />
-												</Person>
-											</To>
-											<Children>
-												<Person Gender="Female">
-													<Name First="Natasha" Last="Starr" />
-												</Person>
-											</Children>
-										</Marriage>
-									</Person>
-									<Person Gender="Male">
-										<Name First="Ronald" Last="Starr" />
-										<Marriage>
-											<To>
-												<Person Gender="Female">
-													<Name First="Cheryl" Last="?" />
-												</Person>
-											</To>
-											<Children>
-											</Children>
-										</Marriage>
-									</Person>
-								</Children>
+								<Children SeeOtherTree="Starr" />
 							</Marriage>
 						</Person>
 						<Person Gender="Male">
@@ -88,31 +60,37 @@
 											<Children>
 												<Person Gender="Female">
 													<Name First="Natasha" Last="Stone" />
-												</Person>									
+													<Birth Date="?/?/1978" />
+												</Person>
 												<Person Gender="Male">
 													<Name First="Nicholas" Last="Stone" />
-												</Person>									
+													<Birth Date="?/?/1981" />
+												</Person>
 											</Children>
 										</Marriage>
 										<Marriage>
 											<To>
 												<Person Gender="Female">
 													<Name First="Gillian" Last="Martineau" />
+													<Birth Date="27/08/?" />
 												</Person>
 											</To>
 											<Children>
 												<Person Gender="Male">
 													<Name First="Daniel" Last="Stone" />
-												</Person>									
+													<Birth Date="23/04/1989" />
+												</Person>
 											</Children>
 										</Marriage>
 									</Person>
 									<Person Gender="Male">
 										<Name First="Phillip" Last="Stone" />
+										<Birth Date="30/05/1949" />
 										<Marriage>
 											<To>
 												<Person Gender="Female">
 													<Name First="Hilary" Last="Grantham" />
+													<Birth Date="26/05/1952" />
 												</Person>
 											</To>
 											<Children>
@@ -121,10 +99,12 @@
 												</Person>
 												<Person Gender="Male">
 													<Name First="Mark" Last="Stone" />
+													<Birth Date="14/04/1981" />
 													<Marriage>
 														<To>
 															<Person Gender="Female">
 																<Name First="Tracy" Last="Curling" />
+																<Birth Date="13/05/1978" />
 															</Person>
 														</To>
 													</Marriage>
