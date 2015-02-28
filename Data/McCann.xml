@@ -87,7 +87,7 @@
 					</Marriage>
 				</Person>
 				<Person Gender="Male">
-					<Name First="Michael" Last="McCann" />
+					<Name First="Michael" Middle="James" Last="McCann" />
 					<Birth Date="19/11/1953" />
 					<Marriage>
 						<To>
