@@ -6,9 +6,9 @@ namespace FamilyTree.Models
 {
 	public class ETagHelper
 	{
-		private static readonly Lazy<DateTime> _assemblyDate = new Lazy<DateTime>(_GetAssemblyDate);
+		private static readonly Lazy<DateTime> _assemblyDate = new Lazy<DateTime>(GetAssemblyDate);
 
-		private static DateTime _GetAssemblyDate()
+		public static DateTime GetAssemblyDate()
 		{
 			var path = typeof(ETagHelper).Assembly.Location;
 			return System.IO.File.GetLastWriteTimeUtc(path);

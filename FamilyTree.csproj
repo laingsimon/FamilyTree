@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Global.asax.cs">
