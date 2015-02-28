@@ -97,6 +97,7 @@
 											<Children>
 												<Person Gender="Male">
 													<Name First="Christopher" Last="Stone" />
+													<Birth Date="25/06/1979" />
 												</Person>
 												<Person Gender="Male">
 													<Name First="Mark" Last="Stone" />
