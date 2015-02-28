@@ -1,0 +1,177 @@
+<Tree Family="Stone">
+	<Person>
+		<Name First="?" Last="?" />
+		<Death Date="?" />
+		<Children>
+			<Person Gender="Male">
+				<Name First="Thomas" Last="Stone" />
+				<Birth Date="" />
+				<Death Date="?" />
+				<Marriage Status="Widowed">
+					<To>
+						<Person Gender="Female">
+							<Name First="Mabel" Last="?" />
+							<Death Date="?/?/1923" />
+						</Person>
+					</To>
+					<Children>
+						<Person Gender="Female">
+							<Name First="Iris" Last="Stone" />
+							<Birth Date="" />
+							<Death Date="?" />
+							<Marriage>
+								<To>
+									<Person Gender="Male">
+										<Name First="Victor" Last="Starr" />
+									</Person>
+								</To>
+								<Children>
+									<Person Gender="Male">
+										<Name First="Peter" Last="Starr" />
+										<Marriage>
+											<To>
+												<Person Gender="Female">
+													<Name First="?" Last="?" />
+												</Person>
+											</To>
+											<Children>
+												<Person Gender="Female">
+													<Name First="Natasha" Last="Starr" />
+												</Person>
+											</Children>
+										</Marriage>
+									</Person>
+									<Person Gender="Male">
+										<Name First="Ronald" Last="Starr" />
+										<Marriage>
+											<To>
+												<Person Gender="Female">
+													<Name First="Cheryl" Last="?" />
+												</Person>
+											</To>
+											<Children>
+											</Children>
+										</Marriage>
+									</Person>
+								</Children>
+							</Marriage>
+						</Person>
+						<Person Gender="Male">
+							<Name First="Ronald" Middle="Martin" Last="Stone" />
+							<Birth Date="22/09/1921" />
+							<Death Date="22/09/2012" />
+							<Marriage>
+								<To>
+									<Person Gender="Female">
+										<Name First="Greta" Middle="Joyce" Last="Clarke" />
+										<Birth Date="19/08/1922" />
+										<Death Date="09/04/2011" />
+									</Person>
+								</To>
+								<Children>
+									<Person Gender="Male">
+										<Name First="David" Middle="?" Last="Stone" />
+										<Birth Date="" />
+										<Marriage Status="Divorced">
+											<To>
+												<Person Gender="Female">
+													<Name First="Rose" Last="?" />
+												</Person>
+											</To>
+										</Marriage>
+										<Marriage Status="Divorced">
+											<To>
+												<Person Gender="Female">
+													<Name First="Sue" Last="Catlow" />
+												</Person>
+											</To>
+											<Children>
+												<Person Gender="Female">
+													<Name First="Natasha" Last="Stone" />
+												</Person>									
+												<Person Gender="Male">
+													<Name First="Nicholas" Last="Stone" />
+												</Person>									
+											</Children>
+										</Marriage>
+										<Marriage>
+											<To>
+												<Person Gender="Female">
+													<Name First="Gillian" Last="Martineau" />
+												</Person>
+											</To>
+											<Children>
+												<Person Gender="Male">
+													<Name First="Daniel" Last="Stone" />
+												</Person>									
+											</Children>
+										</Marriage>
+									</Person>
+									<Person Gender="Male">
+										<Name First="Phillip" Last="Stone" />
+										<Marriage>
+											<To>
+												<Person Gender="Female">
+													<Name First="Hilary" Last="Grantham" />
+												</Person>
+											</To>
+											<Children>
+												<Person Gender="Male">
+													<Name First="Christopher" Last="Stone" />
+												</Person>
+												<Person Gender="Male">
+													<Name First="Mark" Last="Stone" />
+													<Marriage>
+														<To>
+															<Person Gender="Female">
+																<Name First="Tracy" Last="Curling" />
+															</Person>
+														</To>
+													</Marriage>
+												</Person>
+											</Children>
+										</Marriage>
+									</Person>
+									<Person Gender="Female">
+										<Name First="Janet" Middle="Elizabeth" Last="Stone" />
+										<Birth Date="24/09/1956" />
+										<Marriage>
+											<To>
+												<Person Gender="Male">
+													<Name First="Michael" Middle="James" Last="McCann" />
+													<Birth Date="19/11/1953" />
+												</Person>
+											</To>
+											<Children SeeOtherTree="McCann" />
+										</Marriage>
+									</Person>
+								</Children>
+							</Marriage>
+						</Person>
+					</Children>
+				</Marriage>
+				<Marriage>
+					<To>
+						<Person Gender="Female">
+							<Name First="?" Last="?" />
+							<Death Date="?" />
+						</Person>
+					</To>
+					<Children>
+						<Person Gender="Female">
+							<Name First="Jennifer" Last="?" />
+							<Marriage>
+								<To>
+									<Person Gender="Male">
+										<Name First="Paul" Last="Watkins" />
+									</Person>
+								</To>
+								<Children SeeOtherTree="Watkins" />
+							</Marriage>
+						</Person>
+					</Children>
+				</Marriage>
+			</Person>
+		</Children>
+	</Person>
+</Tree>

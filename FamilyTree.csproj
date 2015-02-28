@@ -128,6 +128,8 @@
     <Content Include="Data\Aldous.xml" />
     <Content Include="Data\Baker.xml" />
     <Content Include="Data\Baidoo.xml" />
+    <Content Include="Data\Stone.xml" />
+    <Content Include="Data\Watkins.xml" />
     <Content Include="Data\Whitehead.xml" />
     <Content Include="Data\Cooke.xml" />
     <Content Include="Data\Cowan.xml" />

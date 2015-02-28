@@ -92,11 +92,11 @@
 					<Marriage>
 						<To>
 							<Person Gender="Female">
-								<Name First="Janet" Last="Stone" />
+								<Name First="Janet" Middle="Elizabeth" Last="Stone" />
 								<Birth Date="24/09/1956" />
 							</Person>
 						</To>
-						<Children>
+						<Children EntryPoint="Janet-Elizabeth-Stone_24091956+Michael-James-McCann_19111953">
 							<Person Gender="Female">
 								<Name First="Sarah" Middle="Louise" Last="McCann" />
 								<Birth Date="18/09/1976" />

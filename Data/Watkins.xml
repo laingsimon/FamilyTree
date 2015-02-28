@@ -1,0 +1,24 @@
+<Tree Family="Watkins">
+	<Person Gender="Male">
+		<Name First="Paul" Last="Watkins" />
+		<Birth Date="" />
+		<Marriage>
+			<To>
+				<Person Gender="Female">
+					<Name First="Jennifer" Last="?" />
+				</Person>
+			</To>
+			<Children EntryPoint="Jennifer-?+Paul-Watkins">
+				<Person Gender="Male">
+					<Name First="Trent" Last="Watkins" />
+				</Person>
+				<Person Gender="Male">
+					<Name First="?" Last="Watkins" />
+				</Person>
+				<Person Gender="Female">
+					<Name First="Emma" Last="Watkins" />
+				</Person>
+			</Children>
+		</Marriage>
+	</Person>
+</Tree>
