@@ -10,8 +10,9 @@
 				<Marriage Status="Widowed">
 					<To>
 						<Person Gender="Female">
-							<Name First="Mabel" Last="?" />
+							<Name First="Mabel" Last="Paul" />
 							<Death Date="?/?/1923" />
+							<Death Date="?" />
 						</Person>
 					</To>
 					<Children>
@@ -30,8 +31,8 @@
 						</Person>
 						<Person Gender="Male">
 							<Name First="Ronald" Middle="Martin" Last="Stone" />
-							<Birth Date="22/09/1921" />
-							<Death Date="22/09/2012" />
+							<Birth Date="21/09/1921" />
+							<Death Date="21/09/2012" />
 							<Marriage>
 								<To>
 									<Person Gender="Female">
@@ -43,7 +44,7 @@
 								<Children>
 									<Person Gender="Male">
 										<Name First="David" Middle="?" Last="Stone" />
-										<Birth Date="" />
+										<Birth Date="14/08/1947" />
 										<Marriage Status="Divorced">
 											<To>
 												<Person Gender="Female">
