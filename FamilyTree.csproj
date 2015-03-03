@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -112,8 +112,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ETagHelper.cs" />
+    <Compile Include="Models\ITreeVisitee.cs" />
+    <Compile Include="Models\Responses\CacheDetailResponder.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
+    <Compile Include="Models\TreeDateVisitee.cs" />
+    <Compile Include="Models\TreeVisitor.cs" />
     <Compile Include="Models\XmlTransformation\FileNotFoundSwallowingXmlResolver.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
     <Compile Include="Models\Responses\HtmlContentResponder.cs" />

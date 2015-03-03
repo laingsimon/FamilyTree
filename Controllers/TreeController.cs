@@ -22,7 +22,8 @@ namespace FamilyTree.Controllers
 				{ "application/xhtml+xml", htmlResponder },
 				{ "text/xml", new XmlContentResponder() },
 				{ "application/xml", new XmlContentResponder() },
-				{ "application/json", new JsonContentResponder() }
+				{ "application/json", new JsonContentResponder() },
+				{ "text/cache", new CacheDetailResponder(s => Server.MapPath((s))) }
 			};
 		}
 

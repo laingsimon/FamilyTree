@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace FamilyTree.Models
@@ -11,12 +13,12 @@ namespace FamilyTree.Models
 		public static DateTime GetAssemblyDate()
 		{
 			var path = typeof(ETagHelper).Assembly.Location;
-			return System.IO.File.GetLastWriteTimeUtc(path);
+			return File.GetLastWriteTimeUtc(path);
 		}
 
 		public static string GetEtagFromFile(FileInfo fileInfo, string customEtagSuffix = null, bool includeAssemblyDate = false)
 		{
-			var lastWriteTime = fileInfo.LastWriteTimeUtc;
+			var lastWriteTime = GetFileWriteTimes(fileInfo).Max(fileDate => fileDate.Value);
 			var size = fileInfo.Length;
 			var fileName = fileInfo.FullName;
 			var customEtagSuffixHashCode = customEtagSuffix == null ? "" : customEtagSuffix.GetHashCode().ToString();
@@ -44,6 +46,16 @@ namespace FamilyTree.Models
 				return;
 
 			response.AddHeader("ETag", "\"" + etag + "\"");
+		}
+
+		public static Dictionary<string, DateTime> GetFileWriteTimes(FileInfo rootFile)
+		{
+			var visitor = new TreeVisitor("//Children[@SeeOtherTree]", "@SeeOtherTree");
+
+			var treeDateVisitee = new TreeDateVisitee();
+			visitor.Visit(rootFile, treeDateVisitee);
+
+			return treeDateVisitee.FileDates;
 		}
 	}
 }
