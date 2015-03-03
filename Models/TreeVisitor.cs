@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -9,14 +10,12 @@ namespace FamilyTree.Models
 {
 	public class TreeVisitor
 	{
-		private readonly string _xPath;
-		private readonly string _subTreeSelector;
+		private readonly IReadOnlyCollection<TreeVisit> _visits;
 		private readonly HashSet<string> _visitedFiles = new HashSet<string>();
 
-		public TreeVisitor(string xPath, string subTreeSelector)
+		public TreeVisitor(params TreeVisit[] visits)
 		{
-			_xPath = xPath;
-			_subTreeSelector = subTreeSelector;
+			_visits = visits;
 		}
 
 		public void Visit(FileInfo treeFile, ITreeVisitee visitee)
@@ -31,14 +30,24 @@ namespace FamilyTree.Models
 			_visitedFiles.Add(treeFile.FullName);
 
 			var xDocument = XDocument.Load(treeFile.FullName);
-			foreach (var node in xDocument.XPathSelectElements(_xPath))
+			foreach (var visit in _visits)
 			{
-				var subTreeName = ((IEnumerable)node.XPathEvaluate(_subTreeSelector)).Cast<XAttribute>().Single().Value;
-				if (string.IsNullOrEmpty(subTreeName))
-					continue;
+				foreach (var node in xDocument.XPathSelectElements(visit.XPath))
+				{
+					var subTreeName = ((IEnumerable)node.XPathEvaluate(visit.TreeNameSelector)).Cast<XAttribute>().Single().Value;
+					if (string.IsNullOrEmpty(subTreeName) || subTreeName.Contains('?'))
+						continue;
 
-				var subTreeFile = new FileInfo(Path.Combine(treeFile.DirectoryName, subTreeName + ".xml"));
-				Visit(subTreeFile, visitee);
+					try
+					{
+						var subTreeFile = new FileInfo(Path.Combine(treeFile.DirectoryName, subTreeName + ".xml"));
+						Visit(subTreeFile, visitee);
+					}
+					catch (ArgumentException exc)
+					{
+						throw new ArgumentException("Error accessing subTree '" + subTreeName + "' from " + treeFile.Name, exc);
+					}
+				}
 			}
 		}
 	}

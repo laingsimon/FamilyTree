@@ -58,7 +58,10 @@ namespace FamilyTree.Models
 				};
 			}
 
-			var visitor = new TreeVisitor("//Children[@SeeOtherTree]", "@SeeOtherTree");
+			var visitor = new TreeVisitor(
+				new TreeVisit("//Children[@SeeOtherTree]", "@SeeOtherTree"),
+				new TreeVisit("//Marriage/To", "Person/Name/@Last")
+			);
 
 			var treeDateVisitee = new TreeDateVisitee();
 			visitor.Visit(rootFile, treeDateVisitee);

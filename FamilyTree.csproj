@@ -117,6 +117,7 @@
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
     <Compile Include="Models\TreeDateVisitee.cs" />
+    <Compile Include="Models\TreeVisit.cs" />
     <Compile Include="Models\TreeVisitor.cs" />
     <Compile Include="Models\XmlTransformation\FileNotFoundSwallowingXmlResolver.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
