@@ -50,6 +50,14 @@ namespace FamilyTree.Models
 
 		public static Dictionary<string, DateTime> GetFileWriteTimes(FileInfo rootFile)
 		{
+			if (rootFile.Extension.ToLower() != ".xml")
+			{
+				return new Dictionary<string, DateTime>
+				{
+					{ rootFile.Name, rootFile.LastWriteTimeUtc }
+				};
+			}
+
 			var visitor = new TreeVisitor("//Children[@SeeOtherTree]", "@SeeOtherTree");
 
 			var treeDateVisitee = new TreeDateVisitee();
