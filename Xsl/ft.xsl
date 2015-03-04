@@ -276,7 +276,7 @@
 		<xsl:text>/</xsl:text>
 		<xsl:choose>
 			<xsl:when test="Name/@Middle and Name/@Middle != ''">
-				<xsl:value-of select="Name/@Middle" />
+				<xsl:value-of select="translate(Name/@Middle, '?', '-')" />
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>-</xsl:text>
@@ -345,7 +345,7 @@
 
 		<div class="particulars-container summary-details">
 			<a name="{$handle}" class="handle"></a>
-			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '')}/h50')">
+			<div class="{@Gender}{$deadClass} particulars" style="background-image: url('{translate($photo, '?', '-')}/h50')">
 				<span class="first-name">
 					<xsl:value-of select="$known-name" />
 				</span>
@@ -381,7 +381,7 @@
 				<table>
 					<tr>
 						<td>
-							<img src="{translate($photo, '?', '')}/h75" height="75px" style="background-image: url('{translate($photo, '?', '')}/h50')" />
+							<img src="{translate($photo, '?', '-')}/h75" height="75px" style="background-image: url('{translate($photo, '?', '-')}/h50')" />
 						</td>
 						<td>
 							<label>
