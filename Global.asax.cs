@@ -15,6 +15,8 @@ namespace FamilyTree
 
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+			MvcHandler.DisableMvcResponseHeader = true;
 		}
 	}
 }
