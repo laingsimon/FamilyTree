@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web.Mvc;
 using FamilyTree.Models.Responses;
 using FamilyTree.Models;
+using FamilyTree.Models.DTO;
+using FamilyTree.ViewModels;
 
 namespace FamilyTree.Controllers
 {
@@ -23,13 +25,34 @@ namespace FamilyTree.Controllers
 				{ "text/xml", new XmlContentResponder() },
 				{ "application/xml", new XmlContentResponder() },
 				{ "application/json", new JsonContentResponder() },
-				{ "text/cache", new CacheDetailResponder(s => Server.MapPath((s))) }
+				{ "text/cache", new CacheDetailResponder(s => Server.MapPath(s)) },
+				{ "text/razor", new RazorContentResponder(s => Server.MapPath(s), this) }
 			};
 		}
 
 		public ActionResult Index(string family)
 		{
 			return RedirectToAction("Family", new { family = family ?? _defaultFamily });
+		}
+
+		public ActionResult SubTree(string family, string fromHandle, string toHandle)
+		{
+			var relativePath = string.Format("~/Data/{0}.xml", family);
+			var familyFilePath = Server.MapPath(relativePath);
+
+			if (!System.IO.File.Exists(familyFilePath))
+				return Content("");
+
+			var responder = new RazorContentResponder(s => Server.MapPath(s), this);
+			var result = (ViewResult)responder.GetResponse(familyFilePath, HttpContext);
+
+			var tree = (Tree)result.Model;
+			var children = tree.FindChildren(fromHandle, toHandle);
+
+			if (children == null)
+				return View("EntryPointNotFound", new OtherTreeViewModel(fromHandle, toHandle, relativePath));
+
+			return View("~/Views/Tree/DisplayTemplates/ShowChildren.cshtml", children);
 		}
 
 		public ActionResult Family(string family)

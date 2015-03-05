@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using FamilyTree.ViewModels;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace FamilyTree.Models.DTO
 {
@@ -8,5 +10,11 @@ namespace FamilyTree.Models.DTO
 		public string Family { get; set; }
 
 		public Person Person { get; set; }
+
+		public IReadOnlyCollection<Person> FindChildren(string fromHandle, string toHandle)
+		{
+			var viewModel = new OtherTreeViewModel(fromHandle, toHandle, "");
+			return Person.FindChildren(viewModel);
+		}
 	}
 }

@@ -1,0 +1,21 @@
+﻿@model FamilyTree.Models.DTO.Tree
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.6" />
+
+	<title>
+		@Model.Family Family Tree
+	</title>
+	<link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/ft.css")" />
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.6.4.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/ft.js")"></script>
+</head>
+<body>
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			@Html.DisplayFor(m => m.Person)
+		</tr>
+	</table>
+</body>
+</html>
