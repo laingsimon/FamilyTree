@@ -120,7 +120,7 @@
     <Compile Include="Models\TreeVisitor.cs" />
     <Compile Include="Models\XmlTransformation\FileNotFoundSwallowingXmlResolver.cs" />
     <Compile Include="Models\Responses\ContentTypePreference.cs" />
-    <Compile Include="Models\Responses\HtmlContentResponder.cs" />
+    <Compile Include="Models\Responses\XslContentResponder.cs" />
     <Compile Include="Models\Responses\IContentResponder.cs" />
     <Compile Include="Models\Responses\JsonContentResponder.cs" />
     <Compile Include="Models\Responses\XmlContentResponder.cs" />

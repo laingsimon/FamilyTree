@@ -6,11 +6,11 @@ using FamilyTree.Models.XmlTransformation;
 
 namespace FamilyTree.Models.Responses
 {
-	public class HtmlContentResponder : IContentResponder
+	public class XslContentResponder : IContentResponder
 	{
 		private readonly Func<string, string> _mapPath;
 
-		public HtmlContentResponder(Func<string, string> mapPath)
+		public XslContentResponder(Func<string, string> mapPath)
 		{
 			_mapPath = mapPath;
 		}
