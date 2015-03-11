@@ -7,6 +7,9 @@ namespace FamilyTree.Models.DTO
 	public class Name
 	{
 		[XmlAttribute]
+		public string Title { get; set; }
+		
+		[XmlAttribute]
 		public string First { get; set; }
 
 		[XmlAttribute]
