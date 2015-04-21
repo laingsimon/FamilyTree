@@ -13,7 +13,7 @@ namespace FamilyTree.App_Start
 				name: "Photo",
 				url: "{controller}/{action}/{family}/{firstName}/{middleName}/{dob}/{size}",
 				defaults: new { controller = "Photo", action = "Index", middleName = UrlParameter.Optional, size = UrlParameter.Optional },
-				constraints: new { controller = "Photo", dob = @"^\d{1,2}-\d{1,2}-\d{4}$" }
+				constraints: new { controller = "Photo" }
 			);
 
 			routes.MapRoute(
