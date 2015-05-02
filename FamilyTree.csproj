@@ -115,6 +115,7 @@
     <Compile Include="Models\Responses\CacheDetailResponder.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
+    <Compile Include="Models\Responses\RazorContentResponder.cs" />
     <Compile Include="Models\TreeDateVisitee.cs" />
     <Compile Include="Models\TreeFactory.cs" />
     <Compile Include="Models\TreeParser.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="ViewModels\TreeViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Family.css" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
     <Content Include="Data\*.xml" />
@@ -162,6 +164,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tree\Family.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tree\DisplayTemplates\PersonViewModel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tree\DisplayTemplates\MarriageViewModel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tree\PersonDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

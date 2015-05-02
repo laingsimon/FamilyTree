@@ -1,0 +1,13 @@
+﻿@model FamilyTree.ViewModels.TreeViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@section Head
+{
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Family.css")" />
+}
+
+<div class="tree">
+	@Html.DisplayFor(m => m.Root)
+</div>

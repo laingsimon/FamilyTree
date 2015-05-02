@@ -20,6 +20,7 @@ namespace FamilyTree.Controllers
 			{
 				{ "text/html", htmlResponder },
 				{ "application/xhtml+xml", htmlResponder },
+				{ "text/html_razor", new RazorContentResponder(s => Server.MapPath(s)) },
 				{ "text/xml", new XmlContentResponder() },
 				{ "application/xml", new XmlContentResponder() },
 				{ "application/json", new JsonContentResponder(JsonContentResponder.Value.DTO) },

@@ -1,0 +1,36 @@
+﻿@model FamilyTree.ViewModels.PersonViewModel
+
+@if (!Model.Children.Any() && !Model.Marriages.Any())
+{
+	@Html.Partial("PersonDetail", Model)
+}
+
+@if (Model.Children.Any())
+{
+	<div class="person" id="@Model.GetHandle()">
+		@if (Model.Children.Any())
+		{
+			<div class="illegitimate-children">
+				@Html.Partial("PersonDetail", Model)
+				<div class="children">
+					@foreach (var child in Model.Children)
+					{
+						@Html.DisplayFor(_ => child)
+					}
+				</div>
+			</div>
+		}
+	</div>
+}
+
+@if (Model.Marriages.Any())
+{
+	foreach (var marriage in Model.Marriages)
+	{
+		<div class="person" id="@Model.GetHandle()">
+			<div class="marriages">
+				@Html.DisplayFor(_ => marriage)
+			</div>
+		</div>
+	}
+}

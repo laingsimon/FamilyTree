@@ -1,0 +1,16 @@
+﻿@model FamilyTree.ViewModels.MarriageViewModel
+
+<div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Count() == 1 ? "single-child" : "")">
+	@Html.Partial("PersonDetail", Model.From)
+	<div class="marriage-marker">=</div>
+	@Html.Partial("PersonDetail", Model.To)
+</div>
+@if (Model.Children.Any())
+{
+	<div class="children">
+		@foreach (var child in Model.Children)
+		{
+			@Html.DisplayFor(_ => child)
+		}
+	</div>
+}

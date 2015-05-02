@@ -1,0 +1,197 @@
+﻿body
+{
+
+}
+
+div.tree
+{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+div.person
+{
+	text-align: left;
+	flex-shrink: 0;
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+div.person label
+{
+	display: inline-block;
+	padding: 5px;
+	border: 1px solid red;
+	margin: 2px;
+}
+
+div.person div.children
+{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	position: relative;
+}
+
+div.children > div.person
+{
+	margin: 0px 0px;
+	padding-top: 10px;
+}
+
+div.children > div.person:before
+{
+	content: "";
+	height: 11px;
+	position: absolute;
+	top: 0px;
+	border-top: 1px solid black;
+	left: 0px;
+	right: 0px;
+}
+
+div.children > div.person:first-child:before
+{
+	right: 0px;
+	left: 50%;
+}
+
+div.children > div.person.no-marriages:not(:only-child):first-child:before
+{
+	border-left: 1px solid black;
+}
+
+div.children > div.person:last-child:before
+{
+	right: 50%;
+	left: 0px;
+}
+
+div.children > div.person.no-marriages:last-child:before
+{
+	border-right: 1px solid black;
+}
+
+div.marriage.single-child + div.children > div.person.no-marriages:last-child:before
+{
+	border-left: 1px solid black;
+	border-right: none;
+	left: 50%;
+	right: 25%;
+	border-top: 1px solid black;
+}
+
+div.children > div.person:only-child:before
+{
+	border-top: none;
+	border-left: none;
+}
+
+div.person > div.illegitimate-children
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+div.illegitimate-children > div.children
+{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+div.person > div.marriages
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+div.marriages > div.marriage
+{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	position: relative;
+}
+
+div.marriage:before
+{
+	content: "";
+	position: absolute;
+	top: -10px;
+	width: 25%;
+	left: 25%;
+	border-top: 1px solid black;
+}
+
+div.marriage > div.marriage-marker
+{
+	padding: 8px 3px;
+	position: relative;
+}
+
+div.marriage.has-children > div.marriage-marker:after
+{
+	content: "";
+	position: absolute;
+	left: 50%;
+	border-left: 1px solid black;
+	height: 20px;
+	top: 24px;
+}
+
+div.marriage.has-children.single-child > div.marriage-marker:after
+{
+	border-bottom: 1px solid white;
+	width: 50px; /* eek, arbitary width to cover half of the width of the child */
+	z-index: 1;
+}
+
+div.marriage + div.children
+{
+	padding-top: 10px;
+}
+
+div.marriage > div.person:first-child:before
+{
+	content: "";
+	position: absolute;
+	top: -10px;
+	height: 10px;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	left: 50%;
+	right: 0px;
+}
+
+div.children > div.person:last-child:not(:only-child) > div.marriages > div.marriage > div.person:first-child:before
+{
+	right: 50%;
+	left: 0px;
+	border-left: none;
+	border-right: 1px solid black;
+}
+
+div.children > div.person:last-child:not(:only-child) > div.marriages > div.marriage > div.person:first-child:after
+{
+	content: "";
+	position: absolute;
+	top: -10px;
+	height: 10px;
+	border-top: 1px solid white;
+	left: 50%;
+	right: 0px;
+}

@@ -1,0 +1,5 @@
+﻿@model FamilyTree.ViewModels.PersonViewModel
+
+<div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandle()">
+	<label>@Model.FirstName @Model.LastName</label>
+</div>
