@@ -55,32 +55,38 @@ namespace FamilyTree.ViewModels
 			{
 				var toPersonViewModel = _BuildPerson(tree, marriage.To.Person);
 
+				var marriageAndChildrenDetail = _BuildChildrenForMarriage(tree, marriage.Children, person, toPersonViewModel);
+				var wedding = marriageAndChildrenDetail.GetWeddingViewModel(marriageAndChildrenDetail.Marriage ?? marriage);
+
 				yield return new MarriageViewModel(person, toPersonViewModel)
 				{
-					Wedding = new EventViewModel
-					{
-						Date = _ParseDate(marriage.Date),
-						Location = marriage.Location
-					},
+					Wedding = wedding,
 					Status = marriage.Status.ToString(), //TODO: Use the enum here?
-					Children = _BuildChildren(tree, marriage.Children, person, toPersonViewModel).ToArray(),
+					Children = marriageAndChildrenDetail.Children.ToArray(),
 				};
 			}
 		}
 
-		private IEnumerable<PersonViewModel> _BuildChildren(
+		private _OtherTreeMarriage _BuildChildrenForMarriage(
 			Tree tree,
 			MarriageChildren marriageChildren,
 			PersonViewModel from,
 			PersonViewModel to)
 		{
 			if (marriageChildren == null)
-				return new PersonViewModel[0];
+				return new _OtherTreeMarriage
+				{
+					Children = new PersonViewModel[0]
+				};
 
 			if (!string.IsNullOrEmpty(marriageChildren.SeeOtherTree))
 				return _BuildChildrenFromOtherTree(marriageChildren.SeeOtherTree, from, to);
 
-			return _BuildChildrenFromSameTree(tree, marriageChildren);
+			var children = _BuildChildrenFromSameTree(tree, marriageChildren);
+			return new _OtherTreeMarriage
+			{
+				Children = children
+			};
 		}
 
 		private IEnumerable<PersonViewModel> _BuildChildren(
@@ -102,7 +108,25 @@ namespace FamilyTree.ViewModels
 				yield return _BuildPerson(tree, child);
 		}
 
-		private IEnumerable<PersonViewModel> _BuildChildrenFromOtherTree(string otherTree, PersonViewModel from, PersonViewModel to)
+		private class _OtherTreeMarriage
+		{
+			public Marriage Marriage { get; set; }
+			public IEnumerable<PersonViewModel> Children { get; set; }
+
+			public EventViewModel GetWeddingViewModel(Models.DTO.Marriage marriage)
+			{
+				if (marriage == null)
+					return null;
+
+				return new EventViewModel
+				{
+					Date = _ParseDate(marriage.Date),
+					Location = marriage.Location
+				};
+			}
+		}
+
+		private _OtherTreeMarriage _BuildChildrenFromOtherTree(string otherTree, PersonViewModel from, PersonViewModel to)
 		{
 			var subTree = _treeFactory.Load(otherTree);
 			var marriage = _FindMarriage(subTree, from, to)
@@ -111,10 +135,17 @@ namespace FamilyTree.ViewModels
 			if (marriage == null)
 			{
 				//couldn't find entry point
-				return new PersonViewModel[0];
+				return new _OtherTreeMarriage
+				{
+					Children = new PersonViewModel[0]
+				};
 			}
 
-			return _BuildChildrenFromSameTree(subTree, marriage.Children);
+			return new _OtherTreeMarriage
+			{
+				Children = _BuildChildrenFromSameTree(subTree, marriage.Children),
+				Marriage = marriage
+			};
 		}
 
 		private Marriage _FindMarriage(Tree tree, PersonViewModel from, PersonViewModel to)
@@ -128,7 +159,7 @@ namespace FamilyTree.ViewModels
 			return allMarriages.SingleOrDefault(m => m.Children.EntryPoint == findEntryPoint);
 		}
 
-		private EventViewModel _BuildEvent(Event @event)
+		private static EventViewModel _BuildEvent(Event @event)
 		{
 			if (@event == null)
 				return null;
@@ -140,7 +171,7 @@ namespace FamilyTree.ViewModels
 			};
 		}
 
-		private DateTime? _ParseDate(string dateString)
+		private static DateTime? _ParseDate(string dateString)
 		{
 			DateTime date;
 			if (DateTime.TryParseExact(dateString, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out date))
