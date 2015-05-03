@@ -2,4 +2,4 @@
 *.user
 [oO]bj/
 packages/
-bin/FamilyTree.*
+bin/
