@@ -4,6 +4,7 @@ namespace FamilyTree.Models.DTO
 	{
 		Married,
 		Divorced,
-		Widowed
+		Widowed,
+		CommonLaw
 	}
 }
