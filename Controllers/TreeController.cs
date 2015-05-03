@@ -20,11 +20,11 @@ namespace FamilyTree.Controllers
 			{
 				{ "text/html", htmlResponder },
 				{ "application/xhtml+xml", htmlResponder },
-				{ "text/html_razor", new RazorContentResponder(s => Server.MapPath(s)) },
+				{ "text/html+razor", new RazorContentResponder(s => Server.MapPath(s)) },
 				{ "text/xml", new XmlContentResponder() },
 				{ "application/xml", new XmlContentResponder() },
 				{ "application/json", new JsonContentResponder(JsonContentResponder.Value.DTO) },
-				{ "application/json_viewmodel", new JsonContentResponder(JsonContentResponder.Value.ViewModel) },
+				{ "application/json+viewmodel", new JsonContentResponder(JsonContentResponder.Value.ViewModel) },
 				{ "text/cache", new CacheDetailResponder(s => Server.MapPath((s))) }
 			};
 		}

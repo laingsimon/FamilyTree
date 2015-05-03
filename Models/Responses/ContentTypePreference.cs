@@ -15,7 +15,15 @@ namespace FamilyTree.Models.Responses
 		{
 			_acceptHeader = string.IsNullOrEmpty(request.QueryString["format"])
 				? request.Headers["Accept"]
-				: request.QueryString["format"];
+				: _ReplaceSpaceWithPlus(request.QueryString["format"]);
+		}
+
+		private static string _ReplaceSpaceWithPlus(string queryString)
+		{
+			if (queryString == null)
+				return null;
+
+			return queryString.Replace(" ", "+");
 		}
 
 		public bool HasPreference
