@@ -193,5 +193,5 @@ div.children > div.person:last-child:not(:only-child) > div.marriages > div.marr
 	height: 10px;
 	border-top: 1px solid white;
 	left: 50%;
-	right: 0px;
+	right: -50%;
 }
