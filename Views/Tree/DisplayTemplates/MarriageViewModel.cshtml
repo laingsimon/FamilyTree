@@ -1,9 +1,9 @@
 ﻿@model FamilyTree.ViewModels.MarriageViewModel
 
 <div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Count() == 1 ? "single-child" : "")">
-	@Html.Partial("PersonDetail", Model.From)
+	@Html.Partial("_PersonDetail", Model.From)
 	<div class="marriage-marker">=</div>
-	@Html.Partial("PersonDetail", Model.To)
+	@Html.Partial("_PersonDetail", Model.To)
 </div>
 @if (Model.Children.Any())
 {

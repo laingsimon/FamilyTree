@@ -2,7 +2,7 @@
 
 @if (!Model.Children.Any() && !Model.Marriages.Any())
 {
-	@Html.Partial("PersonDetail", Model)
+	@Html.Partial("_PersonDetail", Model)
 }
 
 @if (Model.Children.Any())
@@ -11,7 +11,7 @@
 		@if (Model.Children.Any())
 		{
 			<div class="illegitimate-children">
-				@Html.Partial("PersonDetail", Model)
+				@Html.Partial("_PersonDetail", Model)
 				<div class="children">
 					@foreach (var child in Model.Children)
 					{

@@ -139,7 +139,7 @@
     <Compile Include="ViewModels\TreeViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Family.css" />
+    <None Include="Content\Family.less" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
     <Content Include="Data\*.xml" />
@@ -178,7 +178,7 @@
     <Content Include="Views\Tree\DisplayTemplates\MarriageViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tree\PersonDetail.cshtml" />
+    <Content Include="Views\Tree\_PersonDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
