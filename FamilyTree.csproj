@@ -139,7 +139,7 @@
     <Compile Include="ViewModels\TreeViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Family.less" />
+    <Content Include="Content\Family.less" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
     <Content Include="Data\*.xml" />
