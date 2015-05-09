@@ -1,4 +1,10 @@
-﻿div.tree
+﻿body
+{
+	font-family: Arial;
+	font-size: 12px;
+}
+
+div.tree
 {
 	display: flex;
 	flex-direction: row;
@@ -17,12 +23,34 @@ div.person
 	align-items: flex-start;
 	justify-content: center;
 	
-	label
+	div.details
 	{
-		display: inline-block;
 		padding: 5px;
-		border: 1px solid red;
+		border: 1px solid #888888;
+		border-radius: 4px;
 		margin: 2px;
+		background: #cccccc;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		align-items: center;
+
+		&.female
+		{
+			border-color: #ff0000;
+			background: #ff8888;
+		}
+
+		&.male
+		{
+			border-color: #0000ff;
+			background: #00ccff;
+		}
+
+		img
+		{
+			border-radius: 4px;
+		}
 	}
 
 	div.children
@@ -111,7 +139,7 @@ div.marriages > div.marriage
 {
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
+	align-items: stretch;
 	justify-content: center;
 	position: relative;
 }
@@ -159,7 +187,7 @@ div.marriage
 			position: absolute;
 			left: 50%;
 			border-left: 1px solid black;
-			height: 20px;
+			bottom: -10px;
 			top: 24px;
 		}
 
@@ -168,15 +196,6 @@ div.marriage
 			border-bottom: 1px solid white;
 			width: 50px; /* eek, arbitary width to cover half of the width of the child */
 			z-index: 1;
-		}
-		
-		&.single-child + div.children > div.person.no-marriages:last-child:before
-		{
-			border-left: 1px solid black;
-			border-right: none;
-			left: 50%;
-			right: 25%;
-			border-top: 1px solid black;
 		}	
 	}
 }

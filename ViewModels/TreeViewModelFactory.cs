@@ -35,10 +35,12 @@ namespace FamilyTree.ViewModels
 				LastName = person.Name.Last,
 				MiddleName = person.Name.Middle,
 				Nickname = person.Name.Nickname,
+				Gender = person.Gender,
 				Title = person.Name.Title,
 				Birth = _BuildEvent(person.Birth),
 				Death = _BuildEvent(person.Death),
-				Children = _BuildChildren(tree, person.Children).ToArray()
+				Children = _BuildChildren(tree, person.Children).ToArray(),
+				HasOtherTree = _treeFactory.OtherTreeExists(person.Name.Last)
 			};
 
 			viewModel.Marriages = _BuildMarriages(tree, viewModel, person.Marriages).ToArray();

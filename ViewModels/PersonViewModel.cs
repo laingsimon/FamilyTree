@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FamilyTree.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FamilyTree.ViewModels
 {
@@ -13,6 +15,8 @@ namespace FamilyTree.ViewModels
 		public string MiddleName { get; set; }
 		public string Title { get; set; }
 		public string Nickname { get; set; }
+		public Gender Gender { get; set; }
+		public bool HasOtherTree { get; set; }
 
 		public EventViewModel Birth { get; set; }
 		public EventViewModel Death { get; set; }
@@ -65,6 +69,47 @@ namespace FamilyTree.ViewModels
 			builder.Append(LastName);
 
 			return builder.ToString();
+		}
+
+		public string GetPhotoUri(UrlHelper url, int? height = 50, int? width = null)
+		{
+			var dob = Birth != null && Birth.Date.HasValue
+				? Birth.Date.Value.ToString("d-M-yyyy")
+				: "-";
+
+			return url.Action("Index", "Photo", new
+			{
+				family = this.LastName != null ? this.LastName.Replace("?", "") : null,
+				firstName = this.FirstName != null ? this.FirstName.Replace("?", "") : null,
+				middleName = this.MiddleName != null ? this.MiddleName.Replace("?", "") : null,
+				dob = dob,
+				size = _GetSize(width, height)
+			});
+		}
+
+		private string _GetSize(int? width, int? height)
+		{
+			if (width.HasValue && height.HasValue)
+				return string.Format("{0}x{1}", width.Value, height.Value);
+
+			if (width.HasValue)
+				return string.Format("w{0}", width.Value);
+
+			if (height.HasValue)
+				return string.Format("h{0}", height.Value);
+
+			return "-";
+		}
+
+		public string GenderCss
+		{
+			get { return this.Gender.ToString().ToLower(); }
+		}
+
+		public bool IsForAnotherFamily(UrlHelper url)
+		{
+			var requestedFamily = (string)url.RequestContext.RouteData.Values["family"];
+			return !requestedFamily.Equals(LastName, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }

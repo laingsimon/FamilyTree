@@ -30,5 +30,22 @@ namespace FamilyTree.Models
 				return (Tree)serialiser.Deserialize(fileStream);
 			}
 		}
+
+		public bool OtherTreeExists(string treeName)
+		{
+			if (string.IsNullOrEmpty(treeName))
+				return false;
+			if (_ContainsInvalidCharacters(treeName))
+				return false;
+
+			var fileName = _mapPath(string.Format("~/Data/{0}.xml", treeName));
+			return File.Exists(fileName);
+		}
+
+		private bool _ContainsInvalidCharacters(string treeName)
+		{
+			return Path.GetInvalidFileNameChars().Any(
+				ch => treeName.IndexOf(ch) != -1);
+		}
 	}
 }
