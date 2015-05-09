@@ -34,6 +34,7 @@ div.person
 		justify-content: flex-start;
 		flex-direction: column;
 		align-items: center;
+		align-content: center;
 
 		&.female
 		{
@@ -50,6 +51,19 @@ div.person
 		img
 		{
 			border-radius: 4px;
+		}
+	}
+
+	div.details-popup
+	{
+		position: absolute;
+		z-index: 1;
+		box-shadow: #888888 2px 2px 4px;
+		display: none;
+
+		span
+		{
+			white-space: nowrap;
 		}
 	}
 

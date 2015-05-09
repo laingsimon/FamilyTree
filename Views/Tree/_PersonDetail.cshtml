@@ -1,6 +1,20 @@
 ﻿@model FamilyTree.ViewModels.PersonViewModel
 
 <div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandle()">
+	<div class="details details-popup @Model.GenderCss">
+		<img src="@Model.GetPhotoUri(Url)" height="50" />
+		<span>@Model.FirstName</span>
+		@if (Model.HasOtherTree && Model.IsForAnotherFamily(Url))
+		{
+			<a href="@Url.Action("Family", "Tree", new { family = Model.LastName, format = "text/html+razor" })#@Model.GetHandle()">@Model.LastName</a>
+		}
+		else
+		{
+			<span>@Model.LastName</span>
+		}
+		@Html.Partial("_PersonEvent", Model.Birth)
+		@Html.Partial("_PersonEvent", Model.Death)
+	</div>
 	<div class="details @Model.GenderCss">
 		<img src="@Model.GetPhotoUri(Url)" height="50" />
 		<span>@Model.FirstName</span>
