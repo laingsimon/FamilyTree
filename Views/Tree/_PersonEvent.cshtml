@@ -1,16 +1,11 @@
-﻿@{
-	var viewModel = Model as FamilyTree.ViewModels.EventViewModel;
-}
+﻿@model FamilyTree.ViewModels.EventViewModel
 
-@if (viewModel != null)
-{
+<span>
+	@Model.DateFormatted
+	@if (Model.Location != null)
+	{
 	<span>
-		@viewModel.DateFormatted
-		@if (viewModel.Location != null)
-	  {
-		<span>
-			(@viewModel.Location)
-		</span>
-	  }
+		(@Model.Location)
 	</span>
-}
+	}
+</span>

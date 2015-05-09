@@ -12,8 +12,39 @@
 		{
 			<span>@Model.LastName</span>
 		}
-		@Html.Partial("_PersonEvent", Model.Birth)
-		@Html.Partial("_PersonEvent", Model.Death)
+
+		@if (Model.Birth != null && Model.Birth.Date.HasValue)
+		{
+			<span>
+				Birth:
+				@Model.Birth.DateFormatted
+				@if (Model.Birth.Location != null)
+				{
+					<span>
+						(@Model.Birth.Location)
+					</span>
+				}
+			</span>
+		}
+		@if (Model.Death != null && Model.Death.Date.HasValue)
+		{
+			<span>
+				Death:
+				@Model.Death.DateFormatted
+				@if (Model.Death.Location != null)
+				{
+					<span>
+						(@Model.Death.Location)
+					</span>
+				}
+			</span>
+		}
+		@foreach (var marriage in Model.Marriages)
+		{
+			<span>
+				Marriage to @marriage.To.FirstName @marriage.To.LastName
+			</span>
+		}
 	</div>
 	<div class="details @Model.GenderCss">
 		<img src="@Model.GetPhotoUri(Url)" height="50" />
