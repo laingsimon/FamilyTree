@@ -15,12 +15,14 @@ namespace FamilyTree.Controllers
 
 		public TreeController()
 		{
-			var htmlResponder = new XslContentResponder(s => Server.MapPath(s));
-			_contentNegotiation = new ContentNegotiation(htmlResponder)
+			var xslHtmlResponder = new XslContentResponder(s => Server.MapPath(s));
+			var razorHtmlResponder = new RazorContentResponder(s => Server.MapPath(s));
+			_contentNegotiation = new ContentNegotiation(razorHtmlResponder)
 			{
-				{ "text/html", htmlResponder },
-				{ "application/xhtml+xml", htmlResponder },
-				{ "text/html+razor", new RazorContentResponder(s => Server.MapPath(s)) },
+				{ "text/html", razorHtmlResponder },
+				{ "application/xhtml+xml", razorHtmlResponder },
+				{ "text/html+razor", razorHtmlResponder },
+				{ "text/html+xsl", xslHtmlResponder },
 				{ "text/xml", new XmlContentResponder() },
 				{ "application/xml", new XmlContentResponder() },
 				{ "application/json", new JsonContentResponder(JsonContentResponder.Value.DTO) },
