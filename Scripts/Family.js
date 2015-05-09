@@ -1,10 +1,14 @@
 ﻿$(document).ready(
 	function () {
 		$(".person .details").click(function () {
-			$(this).prev(".details-popup").css("display", "flex");
+			$(".details-popup.visible").removeClass("visible");
+
+			$(this).prev(".details-popup").addClass("visible");
+			$(document.body).addClass("popup-shown");
 		});
 
 		$(".person .details-popup").click(function () {
-			$(this).hide();
+			$(this).removeClass("visible");
+			$(document.body).removeClass("popup-shown");
 		});
 });

@@ -2,6 +2,30 @@
 {
 	font-family: Arial;
 	font-size: 12px;
+
+	&.popup-shown
+	{
+		div.details,
+		div.marriage-marker
+		{
+			opacity: 0.5;
+		}
+
+		div.children:before,
+		div.marriage:before,
+		div.children > div.person:before,
+		div.marriage > div.person:before,
+		div.children > div.person.no-marriages:not(:only-child):first-child:before,
+		div.children > div.person.no-marriages:last-child:before
+		{
+			border-color: #888888;
+		}
+
+		div.visible
+		{
+			opacity: 1;
+		}
+	}
 }
 
 div.tree
@@ -12,19 +36,16 @@ div.tree
 	justify-content: flex-start;
 }
 
-div.person
-{
+div.person {
 	text-align: left;
 	flex-shrink: 0;
 	position: relative;
-
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: center;
-	
-	div.details
-	{
+
+	div.details {
 		padding: 5px;
 		border: 1px solid #888888;
 		border-radius: 4px;
@@ -36,39 +57,37 @@ div.person
 		align-items: center;
 		align-content: center;
 
-		&.female
-		{
+		&.female {
 			border-color: #ff0000;
 			background: #ff8888;
 		}
 
-		&.male
-		{
+		&.male {
 			border-color: #0000ff;
 			background: #00ccff;
 		}
 
-		img
-		{
+		img {
 			border-radius: 4px;
 		}
 	}
 
-	div.details-popup
-	{
+	div.details-popup {
 		position: absolute;
 		z-index: 2;
 		box-shadow: #888888 2px 2px 4px;
 		display: none;
 
-		span
-		{
+		&.visible {
+			display: flex;
+		}
+
+		span {
 			white-space: nowrap;
 		}
 	}
 
-	div.children
-	{
+	div.children {
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
@@ -76,8 +95,7 @@ div.person
 		position: relative;
 	}
 
-	& > div.marriages
-	{
+	& > div.marriages {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
