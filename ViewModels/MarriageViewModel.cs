@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FamilyTree.Models.DTO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,26 @@ namespace FamilyTree.ViewModels
 		[JsonIgnore]
 		public PersonViewModel From { get; private set; }
 		public PersonViewModel To { get; private set; }
-		public string Status { get; set; }
+		public MarriageStatus Status { get; set; }
 		public EventViewModel Wedding { get; set; }
 
 		public PersonViewModel[] Children { get; set; }
+
+		public string MarriageSymbol
+		{
+			get
+			{
+				switch (Status)
+				{
+					case MarriageStatus.CommonLaw:
+						return "-";
+					case MarriageStatus.Divorced:
+					case MarriageStatus.Widowed:
+						return "&#8800;";
+					default:
+						return "=";
+				}
+			}
+		}
 	}
 }

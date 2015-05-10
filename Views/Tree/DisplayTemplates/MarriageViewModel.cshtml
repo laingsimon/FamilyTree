@@ -2,7 +2,9 @@
 
 <div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Count() == 1 ? "single-child" : "")">
 	@Html.Partial("_PersonDetail", Model.From)
-	<div class="marriage-marker">=</div>
+	<div class="marriage-marker">
+		@Html.Raw(Model.MarriageSymbol)
+	</div>
 	@Html.Partial("_PersonDetail", Model.To)
 </div>
 @if (Model.Children.Any())

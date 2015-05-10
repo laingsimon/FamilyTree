@@ -63,7 +63,7 @@ namespace FamilyTree.ViewModels
 				yield return new MarriageViewModel(person, toPersonViewModel)
 				{
 					Wedding = wedding,
-					Status = marriage.Status.ToString(), //TODO: Use the enum here?
+					Status = marriage.Status,
 					Children = marriageAndChildrenDetail.Children.ToArray(),
 				};
 			}
