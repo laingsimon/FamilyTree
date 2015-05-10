@@ -42,7 +42,17 @@
 		@foreach (var marriage in Model.Marriages)
 		{
 			<span>
-				Marriage to @marriage.To.FirstName @marriage.To.LastName
+				Married
+				@if (marriage.To.HasOtherTree && marriage.To.IsForAnotherFamily(Url))
+				{
+					<a href="@Url.Action("Family", "Tree", new { family = marriage.To.LastName, format = "text/html+razor" })#@marriage.To.GetHandle()">
+						@marriage.To.FirstName @marriage.To.LastName
+					</a>
+				}
+				else
+				{
+					<text>@marriage.To.FirstName @marriage.To.LastName</text>
+				}
 			</span>
 		}
 	</div>
