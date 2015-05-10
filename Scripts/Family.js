@@ -2,6 +2,7 @@
 	function () {
 		$(".person .details").click(function () {
 			$(".details-popup.visible").removeClass("visible");
+			$(".marriage-popup.visible").removeClass("visible");
 
 			$(this).prev(".details-popup").addClass("visible");
 			$(document.body).addClass("popup-shown");
@@ -11,4 +12,17 @@
 			$(this).removeClass("visible");
 			$(document.body).removeClass("popup-shown");
 		});
-});
+
+		$(".marriage-marker").click(function () {
+			$(".details-popup.visible").removeClass("visible");
+			$(".marriage-popup.visible").removeClass("visible");
+
+			$(this).prev(".marriage-popup").addClass("visible");
+			$(document.body).addClass("popup-shown");
+		});
+
+		$(".marriage-popup").click(function () {
+			$(this).removeClass("visible");
+			$(document.body).removeClass("popup-shown");
+		});
+	});

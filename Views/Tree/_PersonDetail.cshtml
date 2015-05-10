@@ -6,7 +6,7 @@
 		<span>@Model.FirstName</span>
 		@if (Model.HasOtherTree && Model.IsForAnotherFamily(Url))
 		{
-			<a href="@Url.Action("Family", "Tree", new { family = Model.LastName, format = "text/html+razor" })#@Model.GetHandle()">@Model.LastName</a>
+			<a href="@Model.GetUrl(Url)">@Model.LastName</a>
 		}
 		else
 		{
@@ -45,7 +45,7 @@
 				Married
 				@if (marriage.To.HasOtherTree && marriage.To.IsForAnotherFamily(Url))
 				{
-					<a href="@Url.Action("Family", "Tree", new { family = marriage.To.LastName, format = "text/html+razor" })#@marriage.To.GetHandle()">
+					<a href="@marriage.To.GetUrl(Url)">
 						@marriage.To.FirstName @marriage.To.LastName
 					</a>
 				}
@@ -61,7 +61,7 @@
 		<span>@Model.FirstName</span>
 		@if (Model.HasOtherTree && Model.IsForAnotherFamily(Url))
 		{
-			<a href="@Url.Action("Family", "Tree", new { family = Model.LastName, format = "text/html+razor" })#@Model.GetHandle()">@Model.LastName</a>
+			<a href="@Model.GetUrl(Url)">@Model.LastName</a>
 		}
 		else
 		{

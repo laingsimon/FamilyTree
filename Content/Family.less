@@ -5,10 +5,14 @@
 
 	&.popup-shown
 	{
-		div.details,
-		div.marriage-marker
+		div.details
 		{
 			opacity: 0.5;
+		}
+
+		div.marriage-marker
+		{
+			color: #888888;
 		}
 
 		div.children:before,
@@ -193,6 +197,46 @@ div.marriage
 	{
 		padding: 8px 3px;
 		position: relative;
+	}
+
+	& > div.marriage-popup
+	{
+		position: absolute;
+		border: 1px solid #ffff00;
+		background: #ffff88;
+		padding: 2px;
+		border-radius: 4px;
+		display: none;
+		z-index: 2;
+		flex-direction: column;
+		justify-content: center;
+
+		&.visible
+		{
+			display: flex;
+		}
+
+		div.photos
+		{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			> img, > a
+			{
+				margin: 3px;
+			}
+
+			img
+			{
+				border-radius: 4px;
+			}
+		}
+
+		span
+		{
+			white-space: nowrap;
+		}
 	}
 
 	& > div.person:first-child:before

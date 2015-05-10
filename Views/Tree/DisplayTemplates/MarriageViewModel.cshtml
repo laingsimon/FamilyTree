@@ -2,6 +2,27 @@
 
 <div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Count() == 1 ? "single-child" : "")">
 	@Html.Partial("_PersonDetail", Model.From)
+	<div class="marriage-popup">
+		<div class="photos">
+			<img src="@Model.From.GetPhotoUri(Url, height: 75)" />
+			<a href="@Model.To.GetUrl(Url)">
+				<img src="@Model.To.GetPhotoUri(Url, height: 75)" />
+			</a>
+		</div>
+		<span>
+			Marriage of @Model.From.FirstName to <a href="@Model.To.GetUrl(Url)">@Model.To.FirstName @Model.To.LastName</a>
+		</span>
+		@if (Model.Wedding != null)
+		{
+			<span>
+				@Model.Wedding.DateFormatted
+				@if (!string.IsNullOrEmpty(Model.Wedding.Location))
+				{
+					<text> (@Model.Wedding.Location)</text>
+				}
+			</span>
+		}
+	</div>
 	<div class="marriage-marker">
 		@Html.Raw(Model.MarriageSymbol)
 	</div>

@@ -111,5 +111,10 @@ namespace FamilyTree.ViewModels
 			var requestedFamily = (string)url.RequestContext.RouteData.Values["family"];
 			return !requestedFamily.Equals(LastName, StringComparison.OrdinalIgnoreCase);
 		}
+
+		public string GetUrl(UrlHelper url)
+		{
+			return url.Action("Family", "Tree", new { family = LastName, format = "text/html+razor" }) + "#" + GetHandle();
+		}
 	}
 }
