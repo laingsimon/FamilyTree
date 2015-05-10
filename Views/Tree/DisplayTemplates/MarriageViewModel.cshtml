@@ -13,11 +13,11 @@
 			Marriage of @Model.From.FirstName to
 			@if (Model.To.HasOtherTree && Model.To.IsForAnotherFamily(Url))
 			{
-				<a href="@Model.To.GetUrl(Url)">@Model.To.FirstName @Model.To.LastName</a>
+				<a href="@Model.To.GetUrl(Url)">@Model.To.DisplayName</a>
 			}
 			else
 			{
-				<text>@Model.To.FirstName @Model.To.LastName</text>
+				<text>@Model.To.DisplayName</text>
 			}
 		</span>
 		@if (Model.Wedding != null)

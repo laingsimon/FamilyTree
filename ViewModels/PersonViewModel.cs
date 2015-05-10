@@ -116,5 +116,16 @@ namespace FamilyTree.ViewModels
 		{
 			return url.Action("Family", "Tree", new { family = LastName, format = "text/html+razor" }) + "#" + GetHandle();
 		}
+
+		public string DisplayName
+		{
+			get
+			{
+				if (!string.IsNullOrEmpty(Nickname))
+					return string.Format("{0} '{1}' {2}", FirstName, Nickname, LastName);
+
+				return string.Format("{0} {1}", FirstName, LastName);
+			}
+		}
 	}
 }
