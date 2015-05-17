@@ -108,6 +108,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication\FailedLogin.cs" />
+    <Compile Include="Models\Authentication\FailedLoginService.cs" />
+    <Compile Include="Models\Authentication\HashingAndSaltingSecurityScheme.cs" />
+    <Compile Include="Models\Authentication\ISecurityScheme.cs" />
+    <Compile Include="Models\Authentication\LoginResult.cs" />
+    <Compile Include="Models\Authentication\SecurityScheme.cs" />
+    <Compile Include="Models\Authentication\User.cs" />
+    <Compile Include="Models\Authentication\UserAuthenticationStrategy.cs" />
     <Compile Include="Models\DTO\Date.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,6 +165,8 @@
     <Compile Include="Models\Responses\XmlContentResponder.cs" />
     <Compile Include="Models\XmlTransformation\XslTransformResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Authentication\FailedLoginRepository.cs" />
+    <Compile Include="Repositories\Authentication\UserRepository.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\MarriageViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
