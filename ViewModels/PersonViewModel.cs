@@ -71,7 +71,7 @@ namespace FamilyTree.ViewModels
 			return builder.ToString();
 		}
 
-		public string GetPhotoUri(UrlHelper url, int? height = 50, int? width = null)
+		public string GetPhotoUri(UrlHelper url, int? height = null, int? width = null)
 		{
 			var dob = Birth != null && Birth.Date.HasValue
 				? Birth.Date.Value.ToString("d-M-yyyy")
@@ -98,7 +98,7 @@ namespace FamilyTree.ViewModels
 			if (height.HasValue)
 				return string.Format("h{0}", height.Value);
 
-			return "-";
+			return "";
 		}
 
 		public string GenderCss

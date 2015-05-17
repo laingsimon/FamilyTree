@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
-	$(".person .details").click(function () {
+	$(".person .details").click(function (event) {
+		var details = $(event.target).closest(".details");
+		if (details.hasClass("visible"))
+			return;
+
 		$(".details-popup.visible").removeClass("visible");
 		$(".marriage-popup.visible").removeClass("visible");
 
@@ -7,7 +11,31 @@
 		$(document.body).addClass("popup-shown");
 	});
 
-	$(".person .details-popup").click(function () {
+	function _toggleImageSize(img)
+	{
+		var anchor = img.parent();
+		var imgUrl = img.attr("src");
+		var anchorUrl = anchor.attr("href");
+
+		if (imgUrl === anchorUrl && img.data("original-url"))
+			img.attr("src", img.data("original-url"));
+		else {
+			img.data("original-url", imgUrl);
+			img.attr("src", anchorUrl);
+			img.attr("height", null);
+			img.attr("width", null);
+		}
+
+		return false;
+	}
+
+	$(".person .details-popup").click(function (event) {
+		var target = $(event.target);
+
+		if (event.target.tagName === "IMG") {
+			return _toggleImageSize(target);
+		}
+
 		$(this).removeClass("visible");
 		$(document.body).removeClass("popup-shown");
 	});

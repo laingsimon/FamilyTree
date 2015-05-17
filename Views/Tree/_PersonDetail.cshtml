@@ -2,7 +2,9 @@
 
 <div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandle()">
 	<div class="details details-popup @Model.GenderCss">
-		<img src="@Model.GetPhotoUri(Url, height: 100)" height="100" />
+		<a href="@Model.GetPhotoUri(Url)" target="_photo">
+			<img src="@Model.GetPhotoUri(Url, height: 100)" height="100" />
+		</a>
 		<span>@Model.FirstName</span>
 		@if (!string.IsNullOrEmpty(Model.Nickname))
 		{
@@ -45,7 +47,7 @@
 		}
 	</div>
 	<div class="details @Model.GenderCss">
-		<img src="@Model.GetPhotoUri(Url)" height="50" />
+		<img src="@Model.GetPhotoUri(Url, height: 50)" height="50" />
 		@if (!string.IsNullOrEmpty(Model.Nickname))
 		{
 			<span>'@Model.Nickname'</span>
