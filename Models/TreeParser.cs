@@ -1,8 +1,6 @@
-﻿using FamilyTree.Models.DTO;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using FamilyTree.Models.DTO;
 
 namespace FamilyTree.Models
 {
@@ -10,13 +8,13 @@ namespace FamilyTree.Models
 	{
 		public IEnumerable<Marriage> GetAllMarriages(Tree tree)
 		{
-			return from person in GetAllPeople(tree)
+			return from person in _GetAllPeople(tree)
 				   where person.Marriages != null
 				   from marriage in person.Marriages
 				   select marriage;
 		}
 
-		public IEnumerable<Person> GetAllPeople(Tree tree)
+		private IEnumerable<Person> _GetAllPeople(Tree tree)
 		{
 			if (tree == null || tree.Person == null)
 				yield break;

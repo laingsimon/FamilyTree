@@ -1,15 +1,12 @@
-using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using FamilyTree.Models.DTO;
 using FamilyTree.ViewModels;
 
 namespace FamilyTree.Models.Responses
 {
 	public class JsonContentResponder : IContentResponder
 	{
-		private readonly TreeFactory _treeFactory;
 		private readonly Value _value;
 		private readonly TreeViewModelFactory _viewModelFactory;
 
@@ -18,14 +15,14 @@ namespace FamilyTree.Models.Responses
 			TreeFactory treeFactory = null,
 			TreeViewModelFactory viewModelFactory = null)
 		{
-			_treeFactory = treeFactory ?? new TreeFactory();
+			treeFactory = treeFactory ?? new TreeFactory();
 			_value = value;
-			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(_treeFactory, new TreeParser());
+			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(treeFactory, new TreeParser());
 		}
 
 		public enum Value
 		{
-			DTO,
+			Dto,
 			ViewModel
 		}
 
@@ -37,9 +34,9 @@ namespace FamilyTree.Models.Responses
 
 		private object _GetValue(string fileName)
 		{
-			var tree = _treeFactory.LoadFromFileName(fileName);
+			var tree = TreeFactory.LoadFromFileName(fileName);
 
-			if (_value == Value.DTO)
+			if (_value == Value.Dto)
 				return tree;
 
 			return _viewModelFactory.Create(tree);

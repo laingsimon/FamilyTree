@@ -1,9 +1,9 @@
-﻿using FamilyTree.Models.DTO;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
+using FamilyTree.Models.DTO;
 
 namespace FamilyTree.Models
 {
@@ -22,11 +22,11 @@ namespace FamilyTree.Models
 			return LoadFromFileName(fileName);
 		}
 
-		public Tree LoadFromFileName(string fileName)
+		public static Tree LoadFromFileName(string fileName)
 		{
 			using (var fileStream = new StreamReader(fileName))
 			{
-				var serialiser = new System.Xml.Serialization.XmlSerializer(typeof(Tree));
+				var serialiser = new XmlSerializer(typeof(Tree));
 				return (Tree)serialiser.Deserialize(fileStream);
 			}
 		}
@@ -42,7 +42,7 @@ namespace FamilyTree.Models
 			return File.Exists(fileName);
 		}
 
-		private bool _ContainsInvalidCharacters(string treeName)
+		private static bool _ContainsInvalidCharacters(string treeName)
 		{
 			return Path.GetInvalidFileNameChars().Any(
 				ch => treeName.IndexOf(ch) != -1);

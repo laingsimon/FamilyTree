@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace FamilyTree.Models.DTO
 {
-	[DebuggerDisplay("{Persons.Count}")]
+	[DebuggerDisplay("{People.Count}")]
 	public class MarriageChildren
 	{
 		[XmlAttribute]

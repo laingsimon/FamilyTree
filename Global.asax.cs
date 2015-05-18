@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using FamilyTree.App_Start;
 
 namespace FamilyTree
 {

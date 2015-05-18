@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FamilyTree.Models
+﻿namespace FamilyTree.Models
 {
 	public class TreeVisit
 	{

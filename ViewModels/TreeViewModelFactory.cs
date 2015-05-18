@@ -1,9 +1,9 @@
-﻿using FamilyTree.Models;
-using FamilyTree.Models.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
+using FamilyTree.Models;
+using FamilyTree.Models.DTO;
 
 namespace FamilyTree.ViewModels
 {
@@ -115,7 +115,7 @@ namespace FamilyTree.ViewModels
 			public Marriage Marriage { get; set; }
 			public IEnumerable<PersonViewModel> Children { get; set; }
 
-			public EventViewModel GetWeddingViewModel(Models.DTO.Marriage marriage)
+			public EventViewModel GetWeddingViewModel(Marriage marriage)
 			{
 				if (marriage == null)
 					return null;
@@ -176,7 +176,7 @@ namespace FamilyTree.ViewModels
 		private static DateTime? _ParseDate(string dateString)
 		{
 			DateTime date;
-			if (DateTime.TryParseExact(dateString, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out date))
+			if (DateTime.TryParseExact(dateString, "dd/MM/yyyy", null, DateTimeStyles.None, out date))
 				return date;
 
 			return null;

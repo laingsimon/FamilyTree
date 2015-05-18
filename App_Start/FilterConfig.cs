@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace FamilyTree.App_Start
+namespace FamilyTree
 {
 	public class FilterConfig
 	{

@@ -1,16 +1,13 @@
-﻿using FamilyTree.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FamilyTree.ViewModels;
 
 namespace FamilyTree.Models.Responses
 {
 	public class RazorContentResponder : IContentResponder
 	{
-		private readonly TreeFactory _treeFactory;
 		private readonly Func<string, string> _mapPath;
 		private readonly TreeViewModelFactory _viewModelFactory;
 
@@ -20,13 +17,13 @@ namespace FamilyTree.Models.Responses
 			TreeViewModelFactory viewModelFactory = null)
 		{
 			_mapPath = mapPath;
-			_treeFactory = treeFactory ?? new TreeFactory(mapPath);
-			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(_treeFactory, new TreeParser());
+			treeFactory = treeFactory ?? new TreeFactory(mapPath);
+			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(treeFactory, new TreeParser());
 		}
 
 		public ActionResult GetResponse(string fileName, HttpContextBase context)
 		{
-			var tree = _treeFactory.LoadFromFileName(fileName);
+			var tree = TreeFactory.LoadFromFileName(fileName);
 			var viewModel = _viewModelFactory.Create(tree);
 
 			return new ViewResult

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FamilyTree.App_Start
+namespace FamilyTree
 {
 	public class RouteConfig
 	{

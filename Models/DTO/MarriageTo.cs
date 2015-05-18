@@ -2,7 +2,7 @@
 
 namespace FamilyTree.Models.DTO
 {
-	[DebuggerDisplay("{Person.First,nq} {Person.Last,nq}")]
+	[DebuggerDisplay("{Person.Name.First,nq} {Person.Name.Last,nq}")]
 	public class MarriageTo
 	{
 		public Person Person { get; set; }

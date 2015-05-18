@@ -1,10 +1,7 @@
-﻿using FamilyTree.Models.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
+using FamilyTree.Models.DTO;
 
 namespace FamilyTree.ViewModels
 {
@@ -79,15 +76,15 @@ namespace FamilyTree.ViewModels
 
 			return url.Action("Index", "Photo", new
 			{
-				family = this.LastName != null ? this.LastName.Replace("?", "") : null,
-				firstName = this.FirstName != null ? this.FirstName.Replace("?", "") : null,
-				middleName = this.MiddleName != null ? this.MiddleName.Replace("?", "") : null,
-				dob = dob,
+				family = LastName != null ? LastName.Replace("?", "") : null,
+				firstName = FirstName != null ? FirstName.Replace("?", "") : null,
+				middleName = MiddleName != null ? MiddleName.Replace("?", "") : null,
+				dob,
 				size = _GetSize(width, height)
 			});
 		}
 
-		private string _GetSize(int? width, int? height)
+		private static string _GetSize(int? width, int? height)
 		{
 			if (width.HasValue && height.HasValue)
 				return string.Format("{0}x{1}", width.Value, height.Value);
@@ -103,7 +100,7 @@ namespace FamilyTree.ViewModels
 
 		public string GenderCss
 		{
-			get { return this.Gender.ToString().ToLower(); }
+			get { return Gender.ToString().ToLower(); }
 		}
 
 		public bool IsForAnotherFamily(UrlHelper url)

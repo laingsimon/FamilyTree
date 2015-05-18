@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace FamilyTree.Models.DTO
 {
-	[DebuggerDisplay("To {MarriageTo.Name.First,nq} {MarriageTo.Name.Last,nq}")]
+	[DebuggerDisplay("To {To.Person.Name.First,nq} {To.Person.Name.Last,nq}")]
 	public class Marriage
 	{
 		[XmlAttribute]

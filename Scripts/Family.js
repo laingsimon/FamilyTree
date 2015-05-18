@@ -38,6 +38,7 @@
 
 		$(this).removeClass("visible");
 		$(document.body).removeClass("popup-shown");
+		return true;
 	});
 
 	$(".marriage-marker").click(function () {
