@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Data.HashFunction;
+using System.Text;
 
 namespace FamilyTree.Models.Authentication
 {
 	public class HashingAndSaltingSecurityScheme : ISecurityScheme
 	{
+		private readonly HashFunctionAsyncBase _hasher = new ModifiedBernsteinHash();
+
 		public bool Validate(User user, string password)
 		{
 			var passwordHash = _GeneratePasswordHash(password, user.Salt);
@@ -13,10 +17,9 @@ namespace FamilyTree.Models.Authentication
 		public void SetData(User user, string password)
 		{
 			var salt = _GenerateSalt(user);
-			var passwordHash = _GeneratePasswordHash(password, salt);
 
 			user.Salt = salt;
-			user.PasswordHash = passwordHash;
+			user.PasswordHash = _GeneratePasswordHash(password, salt);
 			user.Scheme = SecurityScheme.SaltedHash;
 		}
 
@@ -25,14 +28,10 @@ namespace FamilyTree.Models.Authentication
 			return Guid.NewGuid().ToString();
 		}
 
-		private static string _GeneratePasswordHash(string password, string salt)
+		private string _GeneratePasswordHash(string password, string salt)
 		{
-			return _Md5Hash(salt + password);
-		}
-
-		private static string _Md5Hash(string data)
-		{
-			return "";
+			var passwordBytes = Encoding.UTF8.GetBytes(salt + password);
+			return Encoding.UTF8.GetString(_hasher.ComputeHash(passwordBytes));
 		}
 	}
 }
