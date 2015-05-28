@@ -147,6 +147,16 @@ div.children
 			border-right: 1px solid black;
 		}
 
+		&.no-marriages:not(:first-child):not(:last-child):after
+		{
+			content: "";
+			height: 11px;
+			position: absolute;
+			top: 0px;
+			border-left: 1px solid black;
+			left: 50%;
+		}
+
 		&:only-child:before
 		{
 			border-top: none;
