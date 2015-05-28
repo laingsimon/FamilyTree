@@ -152,8 +152,8 @@ namespace FamilyTree.ViewModels
 
 		private Marriage _FindMarriage(Tree tree, PersonViewModel from, PersonViewModel to)
 		{
-			var fromHandle = from.GetHandle();
-			var toHandle = to.GetHandle();
+			var fromHandle = from.GetHandle(useRawBirthDate: true);
+			var toHandle = to.GetHandle(useRawBirthDate: true);
 
 			var findEntryPoint = string.Format("{0}+{1}", fromHandle, toHandle);
 
@@ -169,7 +169,8 @@ namespace FamilyTree.ViewModels
 			return new EventViewModel
 			{
 				Location = @event.Location,
-				Date = _ParseDate(@event.Date)
+				Date = _ParseDate(@event.Date),
+				RawDate = @event.Date
 			};
 		}
 

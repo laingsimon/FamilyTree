@@ -28,10 +28,10 @@ namespace FamilyTree.ViewModels
 		/// </summary>
 		public MarriageViewModel[] Marriages { get; set; }
 
-		public string GetHandle()
+		public string GetHandle(bool useRawBirthDate = false)
 		{
 			var fullName = _FullName(false).Replace(" ", "-");
-			var birthDate = _BirthDate();
+			var birthDate = _BirthDate(useRawBirthDate);
 
 			if (string.IsNullOrEmpty(birthDate))
 				return fullName;
@@ -39,9 +39,18 @@ namespace FamilyTree.ViewModels
 			return fullName + "_" + birthDate;
 		}
 
-		private string _BirthDate()
+		private string _BirthDate(bool useRawBirthDate = false)
 		{
-			if (Birth == null || string.IsNullOrEmpty(Birth.DateFormatted))
+			if (Birth == null)
+				return null;
+
+			if (useRawBirthDate)
+			{
+				var rawDate = Birth.RawDate ?? "";
+				return rawDate.Replace("/", "");
+			}
+
+			if (string.IsNullOrEmpty(Birth.DateFormatted))
 				return null;
 
 			return Birth.DateFormatted.Replace("/", "");

@@ -4,6 +4,7 @@ namespace FamilyTree.ViewModels
 {
 	public class EventViewModel
 	{
+		public string RawDate { get; set; }
 		public DateTime? Date { get; set; }
 		public string Location { get; set; }
 
@@ -12,7 +13,7 @@ namespace FamilyTree.ViewModels
 			get
 			{
 				if (Date == null)
-					return null;
+					return RawDate;
 
 				return Date.Value.ToString("dd/MM/yyyy");
 			}
