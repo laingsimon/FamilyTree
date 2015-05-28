@@ -111,7 +111,7 @@ namespace FamilyTree.ViewModels
 
 		public string GetUrl(UrlHelper url)
 		{
-			return url.Action("Family", "Tree", new { family = LastName, format = "text/html+razor" }) + "#" + GetHandle();
+			return url.Action("Family", "Tree", new { family = LastName }) + "#" + GetHandle();
 		}
 
 		public string DisplayName

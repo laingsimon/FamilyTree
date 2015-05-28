@@ -175,7 +175,7 @@
 				<xsl:when test="$marriageToTreeAvailable = 'true'">
 					<xsl:text>../../Tree/Family/</xsl:text>
 					<xsl:value-of select="To/Person/Name/@Last" />
-					<xsl:text>#</xsl:text>
+					<xsl:text>?format=text/html+xsl#</xsl:text>
 					<xsl:apply-templates select="To/Person" mode="Handle" />
 				</xsl:when>
 				<xsl:otherwise />
@@ -423,7 +423,7 @@
 				</table>
 				<div class="operations">
 					<xsl:if test="(count(document($path)/Tree) > 0) and (Name/@Last != $viewContext)">
-						<a href="../../Tree/Family/{Name/@Last}#{$handle}">
+						<a href="../../Tree/Family/{Name/@Last}?format=text/html+xsl#{$handle}">
 							<xsl:text>Open </xsl:text>
 							<xsl:value-of select="Name/@Last"/>
 							<xsl:text> tree</xsl:text>
