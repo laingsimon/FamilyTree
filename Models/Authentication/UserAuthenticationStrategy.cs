@@ -48,7 +48,10 @@ namespace FamilyTree.Models.Authentication
 				var isValid = scheme.Validate(user, password);
 
 				if (isValid)
+				{
+					_failedLoginService.RemoveFailedLogin(request);
 					return LoginResult.Success(user);
+				}
 				else
 					return _Failed(request);
 			}

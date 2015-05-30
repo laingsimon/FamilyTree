@@ -22,11 +22,12 @@ namespace FamilyTree.Models.Authentication
 			{
 				Attempts = 0
 			};
+			failedLogin.Attempts++;
 
 			var secondsDelayRequired = Math.Pow(_secondsDelaySeed, failedLogin.Attempts);
-			var restrictedUntil = DateTime.UtcNow.AddSeconds(secondsDelayRequired);
-			failedLogin.Attempts++;
-			failedLogin.LastAttempt = DateTime.UtcNow;
+			var now = DateTime.UtcNow;
+			var restrictedUntil = now.AddSeconds(secondsDelayRequired);
+			failedLogin.LastAttempt = now;
 			failedLogin.NextAllowedLogin = restrictedUntil;
 
 			_repository.InsertOrUpdate(failedLogin);
@@ -45,8 +46,19 @@ namespace FamilyTree.Models.Authentication
 			if (failedLogin.NextAllowedLogin >= DateTime.UtcNow)
 				return failedLogin.NextAllowedLogin;
 
-			_repository.Delete(key);
 			return null;
+		}
+
+		public void RemoveFailedLogin(HttpRequestBase request)
+		{
+			var key = _GetKey(request);
+			var failedLogin = _repository.Get(key);
+
+			if (failedLogin == null)
+				return;
+
+			if (failedLogin.NextAllowedLogin < DateTime.UtcNow)
+				_repository.Delete(key);
 		}
 
 		private string _GetKey(HttpRequestBase request)
