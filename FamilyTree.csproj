@@ -67,6 +67,7 @@
       <HintPath>packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.HashFunction.BernsteinHash, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -115,11 +116,13 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication\CompositeActionResult.cs" />
     <Compile Include="Models\Authentication\FailedLogin.cs" />
     <Compile Include="Models\Authentication\FailedLoginService.cs" />
     <Compile Include="Models\Authentication\HashingAndSaltingSecurityScheme.cs" />
@@ -180,6 +183,7 @@
     <Compile Include="Repositories\Authentication\FailedLoginRepository.cs" />
     <Compile Include="Repositories\Authentication\UserRepository.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MarriageViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
     <Compile Include="ViewModels\TreeViewModel.cs" />
@@ -228,6 +232,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tree\_PersonDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

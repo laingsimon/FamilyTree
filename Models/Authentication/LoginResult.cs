@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FamilyTree.Models.Authentication
 {
@@ -16,7 +17,7 @@ namespace FamilyTree.Models.Authentication
 			return new _Failed(restrictedUntil);
 		}
 
-		public abstract void Respond(HttpResponseBase response, Uri returnUrl);
+		public abstract ActionResult Respond(HttpResponseBase response, Uri returnUrl);
 
 		private LoginResult()
 		{ }
@@ -38,10 +39,14 @@ Please wait until {0:HH:mm:ss} until attempting again",
 					restrictedUntil);
 			}
 
-			public override void Respond(HttpResponseBase response, Uri returnUrl)
+			public override ActionResult Respond(HttpResponseBase response, Uri returnUrl)
 			{
-				response.StatusCode = (int)HttpStatusCode.Unauthorized;
-				response.Write(_BuildMessage(_restrictedUntil));
+				return new CompositeActionResult(
+					new HttpStatusCodeResult(HttpStatusCode.Unauthorized),
+					new ContentResult
+					{
+						Content = _BuildMessage(_restrictedUntil)
+					});
 			}
 		}
 
@@ -54,17 +59,12 @@ Please wait until {0:HH:mm:ss} until attempting again",
 				_user = user;
 			}
 
-			public override void Respond(HttpResponseBase response, Uri returnUrl)
+			public override ActionResult Respond(HttpResponseBase response, Uri returnUrl)
 			{
 				if (returnUrl == null)
-				{
-					response.StatusCode = (int)HttpStatusCode.OK;
-				}
+					return new HttpStatusCodeResult(HttpStatusCode.OK);
 				else
-				{
-					response.StatusCode = (int)HttpStatusCode.Found;
-					response.Headers.Add("Location", returnUrl.ToString());
-				}
+					return new RedirectResult(returnUrl.ToString());
 			}
 		}
 	}

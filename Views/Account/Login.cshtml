@@ -1,0 +1,37 @@
+﻿@model FamilyTree.ViewModels.LoginViewModel
+@{
+	ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account"))
+{
+	@Html.HiddenFor(m => m.ReturnUrl)
+
+	if (!string.IsNullOrEmpty(Model.Messages))
+	{
+		<div>
+			@Model.Messages
+		</div>
+	}
+
+	<table>
+		<tr>
+			<td>Username</td>
+			<td>
+				@Html.EditorFor(m => m.UserName)
+				@Html.ValidationMessageFor(m => m.UserName)
+			</td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td>
+				@Html.PasswordFor(m => m.Password)
+				@Html.ValidationMessageFor(m => m.Password)
+			</td>
+		</tr>
+	</table>
+
+	<button type="submit">Login</button>
+}
