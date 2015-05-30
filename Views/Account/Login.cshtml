@@ -3,7 +3,15 @@
 	ViewBag.Title = "Login";
 }
 
+@section Head
+{
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Account.less")" />
+}
+
 <h2>Login</h2>
+
+<p>To be able to access this area of the FamilyTree site you need to login</p>
+<p>This is to prevent unwanted modifications of data without the right to-do so.</p>
 
 @using (Html.BeginForm("Login", "Account"))
 {

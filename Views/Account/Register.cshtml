@@ -3,6 +3,11 @@
     ViewBag.Title = "Register";
 }
 
+@section Head
+{
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Account.less")" />
+}
+
 <h2>Register</h2>
 
 @using (Html.BeginForm("Register", "Account"))
