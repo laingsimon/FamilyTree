@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 using FamilyTree.Repositories.Authentication;
+using System.Web.Security;
 
 namespace FamilyTree.Models.Authentication
 {
@@ -56,6 +57,11 @@ namespace FamilyTree.Models.Authentication
 				if (user != null)
 					_repository.InsertOrUpdate(user);
 			}
+		}
+
+		public void Logout()
+		{
+			LoginResult.Logout();
 		}
 
 		private LoginResult _Failed(HttpRequestBase request)

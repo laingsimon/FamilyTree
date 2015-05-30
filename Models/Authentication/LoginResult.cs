@@ -9,12 +9,17 @@ namespace FamilyTree.Models.Authentication
 	{
 		public static LoginResult Success(User user)
 		{
-			return new _Success(user);
+			return new _Success(new FormsAuthenticationActionResult(user));
 		}
 
 		public static LoginResult Failed(DateTime restrictedUntil)
 		{
 			return new _Failed(restrictedUntil);
+		}
+
+		public static void Logout()
+		{
+			FormsAuthenticationActionResult.Logout();
 		}
 
 		public abstract ActionResult Respond(HttpResponseBase response, Uri returnUrl);
@@ -52,19 +57,27 @@ Please wait until {0:HH:mm:ss} until attempting again",
 
 		private class _Success : LoginResult
 		{
-			private readonly User _user;
+			private readonly ActionResult _setAuthenticated;
 
-			public _Success(User user)
+			public _Success(ActionResult setAuthenticated)
 			{
-				_user = user;
+				_setAuthenticated = setAuthenticated;
 			}
 
 			public override ActionResult Respond(HttpResponseBase response, Uri returnUrl)
 			{
 				if (returnUrl == null)
-					return new HttpStatusCodeResult(HttpStatusCode.OK);
+				{
+					return new CompositeActionResult(
+						_setAuthenticated,
+						new HttpStatusCodeResult(HttpStatusCode.OK));
+				}
 				else
-					return new RedirectResult(returnUrl.ToString());
+				{
+					return new CompositeActionResult(
+						_setAuthenticated,
+						new RedirectResult(returnUrl.ToString()));
+				}
 			}
 		}
 	}

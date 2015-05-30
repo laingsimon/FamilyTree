@@ -60,6 +60,13 @@ namespace FamilyTree.Controllers
 			return result.Respond(HttpContext.Response, returnUrl);
 		}
 
+		public ActionResult Logout()
+		{
+			_authenticationStrategy.Logout();
+
+			return RedirectToAction("Login", "Account");
+		}
+
 		private Uri _GetAbsoluteUri(string relativeUrl)
 		{
 			if (string.IsNullOrEmpty(relativeUrl) || !Url.IsLocalUrl(relativeUrl))

@@ -129,6 +129,7 @@
     <Compile Include="Models\Authentication\ISecurityScheme.cs" />
     <Compile Include="Models\Authentication\LoginResult.cs" />
     <Compile Include="Models\Authentication\SecurityScheme.cs" />
+    <Compile Include="Models\Authentication\FormsAuthenticationActionResult.cs" />
     <Compile Include="Models\Authentication\User.cs" />
     <Compile Include="Models\Authentication\UserAuthenticationStrategy.cs" />
     <Compile Include="Models\DTO\Date.cs">
@@ -235,6 +236,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Site.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
