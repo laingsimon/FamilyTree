@@ -12,6 +12,7 @@ namespace FamilyTree.Controllers
     public class AccountController : Controller
 	{
 		private readonly UserAuthenticationStrategy _authenticationStrategy;
+		private readonly UserRepository _userRepository;
 
 		public AccountController()
 			:this(null)
@@ -24,7 +25,9 @@ namespace FamilyTree.Controllers
 						new UserRepository(),
 						new FailedLoginService(
 							new FailedLoginRepository()),
-						UserAuthenticationStrategy.DefaultSchemes);;
+						UserAuthenticationStrategy.DefaultSchemes);
+
+			_userRepository = new UserRepository();
 		}
 
 		public ActionResult Index()
@@ -63,6 +66,41 @@ namespace FamilyTree.Controllers
 		public ActionResult Logout()
 		{
 			_authenticationStrategy.Logout();
+
+			return RedirectToAction("Login", "Account");
+		}
+
+		[Authorize]
+		public ActionResult Register()
+		{
+			return View(new RegisterViewModel());
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Register(RegisterViewModel viewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				viewModel.Messages = "There are errors with the registration form";
+				return View(viewModel);
+			}
+
+			var existingUser = _userRepository.GetUser(viewModel.UserName);
+			if (existingUser != null)
+			{
+				viewModel.Messages = "User already exists with this name";
+				return View(viewModel);
+			}
+
+			var scheme = new HashingAndSaltingSecurityScheme();
+			var user = new User(viewModel.UserName)
+			{
+				DisplayName = viewModel.DisplayName
+			};
+			scheme.SetData(user, viewModel.Password);
+
+			_userRepository.InsertOrUpdate(user);
 
 			return RedirectToAction("Login", "Account");
 		}
