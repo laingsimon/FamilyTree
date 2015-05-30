@@ -19,5 +19,13 @@ namespace FamilyTree.Models.Authentication
 		public SecurityScheme Scheme { get; set; }
 
 		public string DisplayName { get; set; }
+
+		public bool SuperUser { get; set; }
+
+		/// <summary>
+		/// The families this user is permitted to manage
+		/// All families are visible
+		/// </summary>
+		public string AdministerFamilies { get; set; }
 	}
 }

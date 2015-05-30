@@ -10,7 +10,7 @@ namespace FamilyTree.Models.Authentication
 	{
 		public static LoginResult Success(User user)
 		{
-			return new _Success(new FormsAuthenticationActionResult(user));
+			return new _Success(new OwinAuthenticationActionResult(user));
 		}
 
 		public static LoginResult Failed(DateTime restrictedUntil)
@@ -20,7 +20,7 @@ namespace FamilyTree.Models.Authentication
 
 		public static void Logout()
 		{
-			FormsAuthenticationActionResult.Logout();
+			OwinAuthenticationActionResult.Logout();
 		}
 
 		public abstract ActionResult Respond(LoginViewModel viewModel);

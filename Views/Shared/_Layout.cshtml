@@ -1,17 +1,20 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<link rel="stylesheet" href="@Url.Content("~/Content/Site.less")" />
-		@RenderSection("Head", required: false)
-	</head>
-	<body>
-		@if (User.Identity.IsAuthenticated)
-  {
-	  <div class="logout">
-		  <a href="@Url.Action("Logout", "Account")">Logout (@User.Identity.Name)</a>
-	  </div>
-  }
+﻿@using FamilyTree.Models.Authentication;
+@using System.Security.Claims;
 
-		@RenderBody()
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="@Url.Content("~/Content/Site.less")" />
+	@RenderSection("Head", required: false)
+</head>
+<body>
+	@if (User.Identity.IsAuthenticated)
+	{
+		<div class="logout">
+			<a href="@Url.Action("Logout", "Account")">Logout (@User.GetClaim(ClaimTypes.GivenName))</a>
+		</div>
+	}
+
+	@RenderBody()
+</body>
 </html>
