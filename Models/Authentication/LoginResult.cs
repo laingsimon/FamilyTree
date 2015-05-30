@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FamilyTree.ViewModels;
+using System;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace FamilyTree.Models.Authentication
 			FormsAuthenticationActionResult.Logout();
 		}
 
-		public abstract ActionResult Respond(HttpResponseBase response, Uri returnUrl);
+		public abstract ActionResult Respond(LoginViewModel viewModel);
 
 		private LoginResult()
 		{ }
@@ -41,17 +42,19 @@ namespace FamilyTree.Models.Authentication
 				return string.Format(
 					@"Login attempt failed. Please check your username and password
 Please wait until {0:HH:mm:ss} until attempting again",
-					restrictedUntil);
+					restrictedUntil.ToLocalTime());
 			}
 
-			public override ActionResult Respond(HttpResponseBase response, Uri returnUrl)
+			public override ActionResult Respond(LoginViewModel viewModel)
 			{
-				return new CompositeActionResult(
-					new HttpStatusCodeResult(HttpStatusCode.Unauthorized),
-					new ContentResult
+				viewModel.Messages = _BuildMessage(_restrictedUntil);
+				return new ViewResult
+				{
+					ViewData =
 					{
-						Content = _BuildMessage(_restrictedUntil)
-					});
+						Model = viewModel
+					}
+				};
 			}
 		}
 
@@ -64,20 +67,25 @@ Please wait until {0:HH:mm:ss} until attempting again",
 				_setAuthenticated = setAuthenticated;
 			}
 
-			public override ActionResult Respond(HttpResponseBase response, Uri returnUrl)
+			public override ActionResult Respond(LoginViewModel viewModel)
 			{
-				if (returnUrl == null)
-				{
-					return new CompositeActionResult(
-						_setAuthenticated,
-						new HttpStatusCodeResult(HttpStatusCode.OK));
-				}
-				else
-				{
-					return new CompositeActionResult(
-						_setAuthenticated,
-						new RedirectResult(returnUrl.ToString()));
-				}
+				var returnUrl = _GetAbsoluteUri(viewModel.ReturnUrl); 
+				
+				return new CompositeActionResult(
+					_setAuthenticated,
+					new RedirectResult(returnUrl.ToString()));
+			}
+
+			private Uri _GetAbsoluteUri(string relativeUrl)
+			{
+				var request = HttpContext.Current.Request;
+
+				var baseUri = new Uri(
+					string.Format(
+						"{0}://{1}",
+						request.Url.Scheme,
+						request.Url.Host));
+				return new Uri(baseUri, relativeUrl);
 			}
 		}
 	}

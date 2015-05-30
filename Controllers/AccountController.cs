@@ -56,11 +56,12 @@ namespace FamilyTree.Controllers
 				return View(viewModel);
 			}
 
+			if (viewModel.ReturnUrl == null || !Url.IsLocalUrl(viewModel.ReturnUrl))
+				viewModel.ReturnUrl = Url.Action("List", "Tree");
+
 			var result = _authenticationStrategy.AttemptLogin(viewModel.UserName, viewModel.Password, HttpContext.Request);
 
-			var returnUrl = _GetAbsoluteUri(viewModel.ReturnUrl);
-
-			return result.Respond(HttpContext.Response, returnUrl);
+			return result.Respond(viewModel);
 		}
 
 		public ActionResult Logout()
@@ -103,19 +104,6 @@ namespace FamilyTree.Controllers
 			_userRepository.InsertOrUpdate(user);
 
 			return RedirectToAction("Login", "Account");
-		}
-
-		private Uri _GetAbsoluteUri(string relativeUrl)
-		{
-			if (string.IsNullOrEmpty(relativeUrl) || !Url.IsLocalUrl(relativeUrl))
-				relativeUrl = Url.Action("List", "Tree");
-
-			var baseUri = new Uri(
-				string.Format(
-					"{0}://{1}",
-					HttpContext.Request.Url.Scheme,
-					HttpContext.Request.Url.Host));
-			return new Uri(baseUri, relativeUrl);
 		}
     }
 }
