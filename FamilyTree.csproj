@@ -115,6 +115,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
@@ -149,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\TreeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -167,6 +169,7 @@
     <Compile Include="Models\Authentication\User.cs" />
     <Compile Include="Models\Authentication\UserAuthenticationStrategy.cs" />
     <Compile Include="Models\Authentication\UserExtensions.cs" />
+    <Compile Include="Models\DataFetcher.cs" />
     <Compile Include="Models\DTO\Date.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using FamilyTree.ViewModels;
+using System.IO.Compression;
 
 namespace FamilyTree.Models.Responses
 {
@@ -42,5 +43,8 @@ namespace FamilyTree.Models.Responses
 
 			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
 		}
+
+		public void AddToZip(string fileName, ZipArchive zipFile)
+		{ }
 	}
 }

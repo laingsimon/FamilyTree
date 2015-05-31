@@ -2,6 +2,9 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using FamilyTree.ViewModels;
+using Newtonsoft.Json;
+using System.IO.Compression;
+using Newtonsoft.Json.Converters;
 
 namespace FamilyTree.Models.Responses
 {
@@ -45,6 +48,29 @@ namespace FamilyTree.Models.Responses
 		public string GetEtag(string fileName)
 		{
 			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), includeAssemblyDate: true);
+		}
+
+		public void AddToZip(string fileName, ZipArchive zipFile)
+		{
+			var file = new FileInfo(fileName);
+			var data = _GetValue(fileName);
+
+			var entry = zipFile.CreateEntry(Path.GetFileNameWithoutExtension(fileName) + ".json");
+
+			using (var stream = entry.Open())
+			using (var writer = new JsonTextWriter(new StreamWriter(stream)) { CloseOutput = false })
+			{
+				var serialiser = new JsonSerializer
+				{
+					Formatting = Formatting.Indented,
+					Converters = 
+					{
+						new StringEnumConverter()
+					},
+					NullValueHandling = NullValueHandling.Ignore
+				};
+				serialiser.Serialize(writer, data);
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,5 +38,8 @@ namespace FamilyTree.Models.Responses
 		{
 			return null;
 		}
+
+		public void AddToZip(string fileName, ZipArchive zipFile)
+		{ }
 	}
 }

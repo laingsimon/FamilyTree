@@ -23,10 +23,6 @@ namespace FamilyTree.Controllers
 				{ "application/xhtml+xml", razorHtmlResponder },
 				{ "text/html+razor", razorHtmlResponder },
 				{ "text/html+xsl", xslHtmlResponder },
-				{ "text/xml", new XmlContentResponder() },
-				{ "application/xml", new XmlContentResponder() },
-				{ "application/json", new JsonContentResponder(JsonContentResponder.Value.Dto) },
-				{ "application/json+viewmodel", new JsonContentResponder(JsonContentResponder.Value.ViewModel) },
 				{ "text/cache", new CacheDetailResponder(s => Server.MapPath((s))) }
 			};
 		}
