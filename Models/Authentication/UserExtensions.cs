@@ -22,11 +22,6 @@ namespace FamilyTree.Models.Authentication
 			return claim.Value;
 		}
 
-		public static bool IsSuperUser(this IPrincipal user)
-		{
-			return user.IsInRole(OwinAuthenticationActionResult.SuperUserRole);
-		}
-
 		public static bool CanAdminister(this IPrincipal user, string family)
 		{
 			var value = user.GetClaim(OwinAuthenticationActionResult.AdministerFamilies);

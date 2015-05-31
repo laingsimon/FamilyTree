@@ -71,13 +71,13 @@ namespace FamilyTree.Controllers
 			return RedirectToAction("Login", "Account");
 		}
 
-		[Authorize(Roles = OwinAuthenticationActionResult.SuperUserRole)]
+		[Authorize(Roles = Roles.SuperUser)]
 		public ActionResult Register()
 		{
 			return View(new RegisterViewModel());
 		}
 
-		[Authorize(Roles = OwinAuthenticationActionResult.SuperUserRole)]
+		[Authorize(Roles = Roles.SuperUser)]
 		[HttpPost]
 		public ActionResult Register(RegisterViewModel viewModel)
 		{

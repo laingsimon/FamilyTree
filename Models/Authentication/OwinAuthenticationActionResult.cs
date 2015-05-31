@@ -13,7 +13,6 @@ namespace FamilyTree.Models.Authentication
 	public class OwinAuthenticationActionResult : ActionResult
 	{
 		public const string AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie;
-		public const string SuperUserRole = "SuperUser";
 		public const string AdministerFamilies = "AdministerFamilies";
 
 		private readonly User _user;
@@ -64,7 +63,7 @@ namespace FamilyTree.Models.Authentication
 				yield return new Claim(AdministerFamilies, user.AdministerFamilies);
 
 			if (user.SuperUser)
-				yield return new Claim(ClaimTypes.Role, SuperUserRole);
+				yield return new Claim(ClaimTypes.Role, Roles.SuperUser);
 		}
 	}
 }
