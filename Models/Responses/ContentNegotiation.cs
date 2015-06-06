@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FamilyTree.Models.FileSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
@@ -57,7 +58,7 @@ namespace FamilyTree.Models.Responses
 				_acceptableContentTypes = acceptableContentTypes;
 			}
 
-			public ActionResult GetResponse(string fileName, HttpContextBase context)
+			public ActionResult GetResponse(IFile file, HttpContextBase context)
 			{
 				context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
 
@@ -68,12 +69,12 @@ namespace FamilyTree.Models.Responses
 				};
 			}
 
-			public string GetEtag(string fileName)
+			public string GetEtag(IFile file)
 			{
 				return null;
 			}
 
-			public void AddToZip(string fileName, ZipArchive zipFile)
+			public void AddToZip(IFile file, ZipArchive zipFile)
 			{ }
 		}
 	}

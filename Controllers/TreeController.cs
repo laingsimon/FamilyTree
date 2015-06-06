@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using FamilyTree.Models.Responses;
 using FamilyTree.Models;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Controllers
 {
@@ -12,18 +12,20 @@ namespace FamilyTree.Controllers
 	{
 		private static readonly string _defaultFamily = ConfigurationManager.AppSettings["DefaultFamily"];
 		private readonly ContentNegotiation _contentNegotiation;
+		private readonly IFileSystem _fileSystem;
 
 		public TreeController()
 		{
-			var xslHtmlResponder = new XslContentResponder(s => Server.MapPath(s));
-			var razorHtmlResponder = new RazorContentResponder(s => Server.MapPath(s));
+			_fileSystem = FileSystemFactory.GetFileSystem(this);
+			var xslHtmlResponder = new XslContentResponder(_fileSystem);
+			var razorHtmlResponder = new RazorContentResponder(_fileSystem);
 			_contentNegotiation = new ContentNegotiation(razorHtmlResponder)
 			{
 				{ "text/html", razorHtmlResponder },
 				{ "application/xhtml+xml", razorHtmlResponder },
 				{ "text/html+razor", razorHtmlResponder },
 				{ "text/html+xsl", xslHtmlResponder },
-				{ "text/cache", new CacheDetailResponder(s => Server.MapPath((s))) }
+				{ "text/cache", new CacheDetailResponder(_fileSystem) }
 			};
 		}
 
@@ -35,9 +37,9 @@ namespace FamilyTree.Controllers
 		public ActionResult Family(string family)
 		{
 			var relativePath = string.Format("~/Data/{0}.xml", family);
-			var familyFilePath = Server.MapPath(relativePath);
-
-			if (!System.IO.File.Exists(familyFilePath))
+			var file = _fileSystem.GetFile(relativePath);
+			
+			if (file == null)
 				return RedirectToAction("List");
 
 			try
@@ -45,13 +47,13 @@ namespace FamilyTree.Controllers
 				var contentTypePreference = new ContentTypePreference(Request);
 				var responder = _contentNegotiation.GetMostAppropriateResponder(contentTypePreference);
 
-				var etag = responder.GetEtag(familyFilePath);
+				var etag = responder.GetEtag(file);
 				
 				if (!ETagHelper.HasChanged(Request, etag))
 					return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotModified);
 
 				ETagHelper.AddEtagHeaderToResponse(Response, etag);
-				return responder.GetResponse(familyFilePath, HttpContext);
+				return responder.GetResponse(file, HttpContext);
 			}
 			catch (Exception exc)
 			{
@@ -67,8 +69,8 @@ namespace FamilyTree.Controllers
 
 		public ActionResult List()
 		{
-			var files = Directory.GetFiles(Server.MapPath("~/Data"), "*.xml");
-			return View(files.Select(fn => new FileInfo(fn)).ToArray());
+			var files = _fileSystem.GetDirectory("~/Data").GetFiles("*.xml");
+			return View(files.ToArray());
 		}
 	}
 }

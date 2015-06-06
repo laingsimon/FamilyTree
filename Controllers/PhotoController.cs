@@ -1,11 +1,11 @@
 ﻿using FamilyTree.Models;
+using FamilyTree.Models.FileSystem;
 using System;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
-using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -15,6 +15,13 @@ namespace FamilyTree.Controllers
 	public class PhotoController : Controller
 	{
 		private static readonly string _defaultPhotoPath = ConfigurationManager.AppSettings["DefaultPhotoPath"];
+
+		private readonly IFileSystem _fileSystem;
+
+		public PhotoController()
+		{
+			_fileSystem = FileSystemFactory.GetFileSystem(this);
+		}
 
 		public ActionResult Index(string family, string firstName, string middleName, string dob, string size)
 		{
@@ -26,22 +33,22 @@ namespace FamilyTree.Controllers
 				? DateTime.MinValue
 				: _TryParseExact(dob, "d-M-yyyy");
 			var fileName = string.Format("~/Photos/{0}{1}-{2}_{3:ddMMyyyy}.jpg", firstName, middleNamePart, family, dateOfBirth);
-			var photoFile = new FileInfo(Server.MapPath(fileName));
-			if (!photoFile.Exists)
+			if (!_fileSystem.FileExists(fileName))
 				return RedirectToAction("Unknown", new { size });
 
+			var photoFile = _fileSystem.GetFile(fileName);
 			return _ProcessPhoto(size, photoFile);
 		}
 
 		public ActionResult Unknown(string size)
 		{
-			var photoFile = new FileInfo(Server.MapPath(_defaultPhotoPath));
+			var photoFile = _fileSystem.GetFile(_defaultPhotoPath);
 			return _ProcessPhoto(size, photoFile);
 		}
 
-		private ActionResult _ProcessPhoto(string size, FileInfo photoFile)
+		private ActionResult _ProcessPhoto(string size, IFile photoFile)
 		{
-			if (!photoFile.Exists)
+			if (photoFile == null)
 				return HttpNotFound();
 
 			var currentEtag = ETagHelper.GetEtagFromFile(photoFile, size);
@@ -51,7 +58,7 @@ namespace FamilyTree.Controllers
 			if (string.IsNullOrEmpty(size))
 			{
 				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
-				return File(photoFile.FullName, "image/jpeg");
+				return new FileStreamResult(photoFile.OpenRead(), "image/jpeg");
 			}
 
 			return _ResizePhoto(photoFile, size);
@@ -65,9 +72,10 @@ namespace FamilyTree.Controllers
 				: DateTime.MinValue;
 		}
 
-		private ActionResult _ResizePhoto(FileInfo photoFile, string size)
+		private ActionResult _ResizePhoto(IFile photoFile, string size)
 		{
-			using (var bitmap = Image.FromFile(photoFile.FullName))
+			using (var photoStream = photoFile.OpenRead())
+			using (var bitmap = Image.FromStream(photoStream))
 			{
 				var currentEtag = ETagHelper.GetEtagFromFile(photoFile, size);
 				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
@@ -76,7 +84,7 @@ namespace FamilyTree.Controllers
 				if (desiredSize.IsEmpty)
 					return new HttpStatusCodeResult(204);
 
-				var stream = new MemoryStream();
+				var stream = new System.IO.MemoryStream();
 
 				var resizedImage = new Bitmap(desiredSize.Width, desiredSize.Height, PixelFormat.Format32bppArgb);
 				using (var graphics = Graphics.FromImage(resizedImage))

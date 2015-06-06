@@ -1,30 +1,31 @@
 ﻿using System;
-using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using FamilyTree.ViewModels;
 using System.IO.Compression;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Models.Responses
 {
 	public class RazorContentResponder : IContentResponder
 	{
-		private readonly Func<string, string> _mapPath;
 		private readonly TreeViewModelFactory _viewModelFactory;
+		private readonly IFileSystem _fileSystem;
+		private readonly TreeFactory _treeFactory;
 
 		public RazorContentResponder(
-			Func<string, string> mapPath,
+			IFileSystem fileSystem,
 			TreeFactory treeFactory = null,
 			TreeViewModelFactory viewModelFactory = null)
 		{
-			_mapPath = mapPath;
-			treeFactory = treeFactory ?? new TreeFactory(mapPath);
-			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(treeFactory, new TreeParser());
+			_fileSystem = fileSystem;
+			_treeFactory = treeFactory ?? new TreeFactory(fileSystem);
+			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(_treeFactory, new TreeParser());
 		}
 
-		public ActionResult GetResponse(string fileName, HttpContextBase context)
+		public ActionResult GetResponse(IFile file, HttpContextBase context)
 		{
-			var tree = TreeFactory.LoadFromFileName(fileName);
+			var tree = _treeFactory.LoadFromFile(file);
 			var viewModel = _viewModelFactory.Create(tree);
 
 			return new ViewResult
@@ -36,15 +37,15 @@ namespace FamilyTree.Models.Responses
 			};
 		}
 
-		public string GetEtag(string fileName)
+		public string GetEtag(IFile file)
 		{
-			var xslFile = new FileInfo(_mapPath("~/Views/Family.cshtml"));
-			var xslFileDateString = xslFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
+			var razorFile = _fileSystem.GetFile("~/Views/Tree/Family.cshtml");
+			var xslFileDateString = razorFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
 
-			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
+			return ETagHelper.GetEtagFromFile(razorFile, customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
 		}
 
-		public void AddToZip(string fileName, ZipArchive zipFile)
+		public void AddToZip(IFile file, ZipArchive zipFile)
 		{ }
 	}
 }

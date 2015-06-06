@@ -1,7 +1,7 @@
+using FamilyTree.Models.FileSystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace FamilyTree.Models
 {
@@ -9,7 +9,7 @@ namespace FamilyTree.Models
 	{
 		private readonly Dictionary<string, DateTime> _fileDates = new Dictionary<string, DateTime>();
 
-		public void Visit(FileInfo treeFile)
+		public void Visit(IFile treeFile)
 		{
 			_fileDates.Add(treeFile.Name, treeFile.LastWriteTimeUtc);
 		}

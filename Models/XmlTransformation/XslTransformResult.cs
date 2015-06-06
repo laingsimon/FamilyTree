@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using FamilyTree.Models.FileSystem;
 using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Xsl;
@@ -9,18 +9,20 @@ namespace FamilyTree.Models.XmlTransformation
 	{
 		private const string _xslPath = @"~/Xsl/ft.xsl";
 
-		private readonly string _filePath;
-		private readonly StringWriter _log;
+		private readonly System.IO.StringWriter _log;
+		private readonly IFile _file;
+		private readonly IFileSystem _fileSystem;
 
 		private static readonly XsltSettings _xsltSettings = new XsltSettings
 		{
 			EnableDocumentFunction = true
 		};
 
-		public XslTransformResult(string filePath)
+		public XslTransformResult(IFileSystem fileSystem, IFile file)
 		{
-			_filePath = filePath;
-			_log = new StringWriter();
+			_fileSystem = fileSystem;
+			_file = file;
+			_log = new System.IO.StringWriter();
 		}
 
 		public override void ExecuteResult(ControllerContext context)
@@ -29,18 +31,19 @@ namespace FamilyTree.Models.XmlTransformation
 			var response = context.HttpContext.Response;
 			var server = context.HttpContext.Server;
 
-			var resolver = new FileNotFoundSwallowingXmlResolver(server.MapPath, _log);
+			var resolver = new FileNotFoundSwallowingXmlResolver(_fileSystem, server.MapPath, _log);
 			
 			var transform = new XslCompiledTransform(true);
 			transform.Load(server.MapPath(_xslPath), _xsltSettings, resolver);
 
-			using (var writer = new StringWriter())
+			using (var writer = new System.IO.StringWriter())
 			using (var xmlWriter = XmlWriter.Create(writer, transform.OutputSettings))
 			{
 				var xslArguments = new XsltArgumentList();
-				xslArguments.AddParam("viewContext", "", Path.GetFileNameWithoutExtension(_filePath));
+				xslArguments.AddParam("viewContext", "", _file.GetFileNameWithoutExtension());
 
-				using (var reader = XmlReader.Create(_filePath))
+				using (var stream = _file.OpenRead())
+				using (var reader = XmlReader.Create(stream))
 					transform.Transform(reader, xslArguments, xmlWriter, resolver);
 
 				response.StatusCode = 200;

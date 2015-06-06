@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FamilyTree.Models.FileSystem;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -13,14 +13,14 @@ namespace FamilyTree.Models
 		public static DateTime GetAssemblyDate()
 		{
 			var path = typeof(ETagHelper).Assembly.Location;
-			return File.GetLastWriteTimeUtc(path);
+			return System.IO.File.GetLastWriteTimeUtc(path);
 		}
 
-		public static string GetEtagFromFile(FileInfo fileInfo, string customEtagSuffix = null, bool includeAssemblyDate = false)
+		public static string GetEtagFromFile(IFile fileInfo, string customEtagSuffix = null, bool includeAssemblyDate = false)
 		{
 			var lastWriteTime = GetFileWriteTimes(fileInfo).Max(fileDate => fileDate.Value);
-			var size = fileInfo.Length;
-			var fileName = fileInfo.FullName;
+			var size = fileInfo.Size;
+			var fileName = fileInfo.Name;
 			var customEtagSuffixHashCode = customEtagSuffix == null ? "" : customEtagSuffix.GetHashCode().ToString();
 			var customDateTimePartHashCode = includeAssemblyDate ? "" : _assemblyDate.GetHashCode().ToString();
 
@@ -48,9 +48,9 @@ namespace FamilyTree.Models
 			response.AddHeader("ETag", "\"" + etag + "\"");
 		}
 
-		public static Dictionary<string, DateTime> GetFileWriteTimes(FileInfo rootFile)
+		public static Dictionary<string, DateTime> GetFileWriteTimes(IFile rootFile)
 		{
-			if (rootFile.Extension.ToLower() != ".xml")
+			if (rootFile.GetExtension().ToLower() != ".xml")
 			{
 				return new Dictionary<string, DateTime>
 				{

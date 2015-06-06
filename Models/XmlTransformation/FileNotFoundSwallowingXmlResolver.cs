@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FamilyTree.Models.FileSystem;
+using System;
 using System.IO;
 using System.Web;
 using System.Xml;
@@ -13,9 +14,11 @@ namespace FamilyTree.Models.XmlTransformation
 		private readonly TextWriter _log;
 		private readonly XmlUrlResolver _resolver;
 		private readonly XPathNavigator _fileNotFound;
+		private readonly IFileSystem _fileSystem;
 
-		public FileNotFoundSwallowingXmlResolver(Func<string, string> mapPath, TextWriter log)
+		public FileNotFoundSwallowingXmlResolver(IFileSystem fileSystem, Func<string, string> mapPath, TextWriter log)
 		{
+			_fileSystem = fileSystem;
 			_mapPath = mapPath;
 			_log = log;
 			_resolver = new XmlUrlResolver();
@@ -34,18 +37,14 @@ namespace FamilyTree.Models.XmlTransformation
 		{
 			_log.WriteLine("Getting entity: {0}, {1}, {2}", absoluteUri, role, ofObjectToReturn);
 			var path = HttpUtility.UrlDecode(absoluteUri.AbsolutePath);
+			IFile file = null;
 
-			if (path.Contains("~/"))
-			{
-				var relativePath = path.Substring(path.IndexOf("~/"));
-				path = _mapPath(relativePath);
-				absoluteUri = new Uri(path);
-			}
+			file = _fileSystem.GetFile(path);
 
-			var extension = Path.GetExtension(path);
-			var isXsl = extension.Equals(".xsl", StringComparison.OrdinalIgnoreCase);
+			var extension = file.GetExtension();
+			var isXsl = ".xsl".Equals(extension, StringComparison.OrdinalIgnoreCase);
 
-			if (File.Exists(path) || isXsl)
+			if (file != null || isXsl)
 				return _resolver.GetEntity(absoluteUri, role, ofObjectToReturn);
 
 			_log.WriteLine("FileNotFound: {0}", path);

@@ -1,9 +1,9 @@
 ﻿using FamilyTree.Models;
 using FamilyTree.Models.Authentication;
+using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.Responses;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,19 +15,21 @@ namespace FamilyTree.Controllers
     {
 		private readonly ContentNegotiation _contentNegotiation;
 		private readonly DataFetcher _fetcher;
+		private readonly IFileSystem _fileSystem;
 
 		public DataController()
 		{
+			_fileSystem = FileSystemFactory.GetFileSystem(this);
 			var xmlContentResponder = new XmlContentResponder();
 			_contentNegotiation = new ContentNegotiation(xmlContentResponder)
 			{
 				{ "text/xml", xmlContentResponder },
 				{ "application/xml", xmlContentResponder },
-				{ "application/json", new JsonContentResponder(JsonContentResponder.Value.Dto) },
-				{ "application/json+viewmodel", new JsonContentResponder(JsonContentResponder.Value.ViewModel) },
+				{ "application/json", new JsonContentResponder(_fileSystem, JsonContentResponder.Value.Dto) },
+				{ "application/json+viewmodel", new JsonContentResponder(_fileSystem, JsonContentResponder.Value.ViewModel) },
 			};
 
-			_fetcher = new DataFetcher(s => Server.MapPath(s));
+			_fetcher = new DataFetcher(_fileSystem, s => Server.MapPath(s));
 		}
 
 
@@ -37,10 +39,11 @@ namespace FamilyTree.Controllers
 			var responder = _contentNegotiation.GetMostAppropriateResponder(preference);
 
 			if (name == null || !name.Any())
-				name = Directory
-					.GetFiles(Server.MapPath("~/Data"), "*.xml")
-					.Select(filePath => Path.GetFileNameWithoutExtension(filePath))
-					.ToArray();
+				name = _fileSystem
+						.GetDirectory("~/Data")
+						.GetFiles("*.xml")
+						.Select(file => file.GetFileNameWithoutExtension())
+						.ToArray();
 
 			var stream = _fetcher.GetData(responder, name);
 

@@ -1,35 +1,35 @@
 using System;
-using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using FamilyTree.Models.XmlTransformation;
 using System.IO.Compression;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Models.Responses
 {
 	public class XslContentResponder : IContentResponder
 	{
-		private readonly Func<string, string> _mapPath;
+		private readonly IFileSystem _fileSystem;
 
-		public XslContentResponder(Func<string, string> mapPath)
+		public XslContentResponder(IFileSystem fileSystem)
 		{
-			_mapPath = mapPath;
+			_fileSystem = fileSystem;
 		}
 
-		public ActionResult GetResponse(string fileName, HttpContextBase context)
+		public ActionResult GetResponse(IFile file, HttpContextBase context)
 		{
-			return new XslTransformResult(fileName);
+			return new XslTransformResult(_fileSystem, file);
 		}
 
-		public string GetEtag(string fileName)
+		public string GetEtag(IFile file)
 		{
-			var xslFile = new FileInfo(_mapPath("~/Xsl/ft.xsl"));
+			var xslFile = _fileSystem.GetFile("~/Xsl/ft.xsl");
 			var xslFileDateString = xslFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
 
-			return ETagHelper.GetEtagFromFile(new FileInfo(fileName), customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
+			return ETagHelper.GetEtagFromFile(xslFile, customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
 		}
 
-		public void AddToZip(string fileName, ZipArchive zipFile)
+		public void AddToZip(IFile file, ZipArchive zipFile)
 		{ }
 	}
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using FamilyTree.Models.FileSystem;
+using System;
 using System.IO.Compression;
 using System.Linq;
 using System.Web;
@@ -9,18 +9,19 @@ namespace FamilyTree.Models.Responses
 {
 	public class CacheDetailResponder : IContentResponder
 	{
-		private readonly Func<string, string> _mapPath;
+		private readonly IFileSystem _fileSystem;
 
-		public CacheDetailResponder(Func<string, string> mapPath)
+		public CacheDetailResponder(
+			IFileSystem fileSystem)
 		{
-			_mapPath = mapPath;
+			_fileSystem = fileSystem;
 		}
 
-		public ActionResult GetResponse(string fileName, HttpContextBase context)
+		public ActionResult GetResponse(IFile file, HttpContextBase context)
 		{
-			var xslFile = new FileInfo(_mapPath("~/Xsl/ft.xsl"));
+			var xslFile = _fileSystem.GetFile("~/Xsl/ft.xsl");
 			
-			var fileDates = (from treeDate in ETagHelper.GetFileWriteTimes(new FileInfo(fileName))
+			var fileDates = (from treeDate in ETagHelper.GetFileWriteTimes(file)
 							 orderby treeDate.Value descending
 							 select string.Format("{0} = {1:yyyy-MM-dd@HH:mm:ss}", treeDate.Key, treeDate.Value)).ToList();
 
@@ -34,12 +35,12 @@ namespace FamilyTree.Models.Responses
 			};
 		}
 
-		public string GetEtag(string fileName)
+		public string GetEtag(IFile file)
 		{
 			return null;
 		}
 
-		public void AddToZip(string fileName, ZipArchive zipFile)
+		public void AddToZip(IFile file, ZipArchive zipFile)
 		{ }
 	}
 }

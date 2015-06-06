@@ -1,30 +1,34 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Serialization;
 using FamilyTree.Models.DTO;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Models
 {
 	public class TreeFactory
 	{
-		private readonly Func<string, string> _mapPath;
+		private readonly IFileSystem _fileSystem;
 
-		public TreeFactory(Func<string, string> mapPath = null)
+		public TreeFactory(IFileSystem fileSystem)
 		{
-			_mapPath = mapPath ?? HttpContext.Current.Server.MapPath;
+			_fileSystem = fileSystem;
 		}
 
 		public Tree Load(string treeName)
 		{
-			var fileName = _mapPath(string.Format("~/Data/{0}.xml", treeName));
-			return LoadFromFileName(fileName);
+			var fileName = string.Format("~/Data/{0}.xml", treeName);
+			return LoadFromFile(_fileSystem.GetFile(fileName));
 		}
 
-		public static Tree LoadFromFileName(string fileName)
+		public Tree LoadFromFile(IFile file)
 		{
-			using (var fileStream = new StreamReader(fileName))
+			if (file == null)
+				return null;
+
+			using (var stream = file.OpenRead())
+			using (var fileStream = new System.IO.StreamReader(stream))
 			{
 				var serialiser = new XmlSerializer(typeof(Tree));
 				return (Tree)serialiser.Deserialize(fileStream);
@@ -38,13 +42,13 @@ namespace FamilyTree.Models
 			if (_ContainsInvalidCharacters(treeName))
 				return false;
 
-			var fileName = _mapPath(string.Format("~/Data/{0}.xml", treeName));
-			return File.Exists(fileName);
+			var fileName = string.Format("~/Data/{0}.xml", treeName);
+			return _fileSystem.FileExists(fileName);
 		}
 
 		private static bool _ContainsInvalidCharacters(string treeName)
 		{
-			return Path.GetInvalidFileNameChars().Any(
+			return System.IO.Path.GetInvalidFileNameChars().Any(
 				ch => treeName.IndexOf(ch) != -1);
 		}
 	}

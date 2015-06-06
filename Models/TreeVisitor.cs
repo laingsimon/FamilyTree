@@ -1,7 +1,7 @@
+using FamilyTree.Models.FileSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -11,25 +11,28 @@ namespace FamilyTree.Models
 	public class TreeVisitor
 	{
 		private readonly IReadOnlyCollection<TreeVisit> _visits;
-		private readonly HashSet<string> _visitedFiles = new HashSet<string>();
+		private readonly HashSet<IFile> _visitedFiles = new HashSet<IFile>();
 
 		public TreeVisitor(params TreeVisit[] visits)
 		{
 			_visits = visits;
 		}
 
-		public void Visit(FileInfo treeFile, ITreeVisitee visitee)
+		public void Visit(IFile treeFile, ITreeVisitee visitee)
 		{
-			if (!treeFile.Exists)
+			if (treeFile == null)
 				return;
 
-			if (_visitedFiles.Contains(treeFile.FullName))
+			if (_visitedFiles.Contains(treeFile))
 				return;
 
 			visitee.Visit(treeFile);
-			_visitedFiles.Add(treeFile.FullName);
+			_visitedFiles.Add(treeFile);
 
-			var xDocument = XDocument.Load(treeFile.FullName);
+			XDocument xDocument = null;
+			using (var stream = treeFile.OpenRead())
+				xDocument = XDocument.Load(stream);
+
 			foreach (var visit in _visits)
 			{
 				foreach (var node in xDocument.XPathSelectElements(visit.XPath))
@@ -40,8 +43,10 @@ namespace FamilyTree.Models
 
 					try
 					{
-						var subTreeFile = new FileInfo(Path.Combine(treeFile.DirectoryName, subTreeName + ".xml"));
-						Visit(subTreeFile, visitee);
+						var subTreeFile = treeFile.Directory.GetFiles(subTreeName + ".xml").SingleOrDefault();
+
+						if (subTreeFile != null)
+							Visit(subTreeFile, visitee);
 					}
 					catch (ArgumentException exc)
 					{

@@ -1,9 +1,9 @@
-using System.IO;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Models
 {
 	public interface ITreeVisitee
 	{
-		void Visit(FileInfo treeFile);
+		void Visit(IFile treeFile);
 	}
 }

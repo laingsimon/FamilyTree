@@ -201,6 +201,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ETagHelper.cs" />
+    <Compile Include="Models\FileSystem\Directory.cs" />
+    <Compile Include="Models\FileSystem\File.cs" />
+    <Compile Include="Models\FileSystem\FileSystemExtensions.cs" />
+    <Compile Include="Models\FileSystem\FileSystemFactory.cs" />
+    <Compile Include="Models\FileSystem\IDirectory.cs" />
+    <Compile Include="Models\FileSystem\IFile.cs" />
+    <Compile Include="Models\FileSystem\IFileSystem.cs" />
+    <Compile Include="Models\FileSystem\LocalFileSystem.cs" />
     <Compile Include="Models\ITreeVisitee.cs" />
     <Compile Include="Models\Responses\CacheDetailResponder.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />

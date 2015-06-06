@@ -1,4 +1,4 @@
-using System.IO;
+using FamilyTree.Models.FileSystem;
 using System.IO.Compression;
 using System.Web;
 using System.Web.Mvc;
@@ -7,21 +7,19 @@ namespace FamilyTree.Models.Responses
 {
 	public class XmlContentResponder : IContentResponder
 	{
-		public ActionResult GetResponse(string fileName, HttpContextBase context)
+		public ActionResult GetResponse(IFile file, HttpContextBase context)
 		{
-			return new FileContentResult(File.ReadAllBytes(fileName), "text/xml");
+			return new FileContentResult(file.ReadAllBytes(), "text/xml");
 		}
 
-		public string GetEtag(string fileName)
+		public string GetEtag(IFile file)
 		{
-			return ETagHelper.GetEtagFromFile(new FileInfo(fileName));
+			return ETagHelper.GetEtagFromFile(file);
 		}
 
-		public void AddToZip(string fileName, ZipArchive zipFile)
+		public void AddToZip(IFile file, ZipArchive zipFile)
 		{
-			var file = new FileInfo(fileName);
-
-			var entry = zipFile.CreateEntry(Path.GetFileNameWithoutExtension(fileName) + ".xml");
+			var entry = zipFile.CreateEntry(file.GetFileNameWithoutExtension() + ".xml");
 
 			using (var stream = entry.Open())
 			{
