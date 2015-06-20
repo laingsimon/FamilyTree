@@ -10,7 +10,10 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static IFileSystem GetFileSystem(Controller controller)
 		{
-			return new LocalDevice.LocalDeviceFileSystem(s => controller.Server.MapPath(s));
+			var localDevice = new LocalDevice.LocalDeviceFileSystem(s => controller.Server.MapPath(s));
+			return new AzureStorage.RelayingFileSystem(
+				localDevice,
+				new AzureStorage.AzureStorageFileSystem());
 		}
 	}
 }

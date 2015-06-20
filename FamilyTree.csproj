@@ -205,6 +205,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\FileSystem\AzureStorage\FileWriteStream.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\RelayingFileSystem.cs" />
     <Compile Include="Models\FileSystem\Directory.cs" />
     <Compile Include="Models\FileSystem\File.cs" />
     <Compile Include="Models\FileSystem\FileSystemExtensions.cs" />
