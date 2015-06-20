@@ -194,7 +194,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 				var directory = _GetAzureDirectory(file);
 				var reference = directory.GetBlockBlobReference(file.Name);
 
-				//TODO: Create the file - how...
+				return new FileWriteStream(reference);
 			}
 
 			return new FileWriteStream(azureFile);

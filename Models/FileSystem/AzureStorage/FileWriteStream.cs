@@ -148,6 +148,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		protected override void Dispose(bool disposing)
 		{
+			_memoryStream.Position = 0;
 			_blobRef.UploadFromStream(_memoryStream);
 		}
 	}

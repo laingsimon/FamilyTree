@@ -59,7 +59,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		public Stream OpenRead(IFile file)
 		{
-			return _read.OpenRead(file); //TODO: Write to the _write filesystem (to update any contents)
+			throw new NotSupportedException();
 		}
 
 		public bool FileExists(string path)
@@ -69,12 +69,14 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		public Stream OpenWrite(IFile file)
 		{
-			return _read.OpenWrite(file); //TODO: Write to the _write filesystem
+			throw new NotSupportedException();
 		}
 
 		public IFile CreateFile(string path)
 		{
-			return _read.CreateFile(path); //TODO: Write to the _write filesystem
+			return new RelayFile(
+				_read.CreateFile(path),
+				_write.CreateFile(path));
 		}
 	}
 }
