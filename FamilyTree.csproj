@@ -201,6 +201,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ETagHelper.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\AzureStorageFileSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\FileSystem\AzureStorage\FileWriteStream.cs" />
     <Compile Include="Models\FileSystem\Directory.cs" />
     <Compile Include="Models\FileSystem\File.cs" />
     <Compile Include="Models\FileSystem\FileSystemExtensions.cs" />
