@@ -58,5 +58,11 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return _fileSystem.OpenRead(this);
 		}
+
+		[DebuggerStepThrough]
+		public Stream OpenWrite()
+		{
+			return _fileSystem.OpenWrite(this);
+		}
 	}
 }

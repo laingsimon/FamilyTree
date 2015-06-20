@@ -14,5 +14,7 @@ namespace FamilyTree.Models.FileSystem
 		IEnumerable<IDirectory> GetDirectories(IDirectory directory);
 		Stream OpenRead(IFile file);
 		bool FileExists(string path);
+		Stream OpenWrite(IFile file);
+		IFile CreateFile(string path);
 	}
 }

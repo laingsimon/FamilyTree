@@ -75,6 +75,15 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 			return ioFile.OpenRead();
 		}
 
+		public Stream OpenWrite(IFile file)
+		{
+			var ioFile = new FileInfo(_GetFullPath(file));
+			if (!ioFile.Exists)
+				throw new FileNotFoundException("File not found", ioFile.FullName);
+
+			return ioFile.OpenWrite();
+		}
+
 		public bool FileExists(string path)
 		{
 			return System.IO.File.Exists(_mapPath(path));
@@ -113,6 +122,20 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 				directory.Name,
 				_GetDirectory(directory.Parent),
 				this);
+		}
+
+		public IFile CreateFile(string path)
+		{
+			return new File(
+				Path.GetFileName(path),
+				new Directory(
+					Path.GetDirectoryName(path),
+					null,
+					this),
+				0,
+				DateTime.MinValue,
+				this
+				);
 		}
 	}
 }
