@@ -10,7 +10,7 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static IFileSystem GetFileSystem(Controller controller)
 		{
-			return new LocalFileSystem(s => controller.Server.MapPath(s));
+			return new LocalDevice.LocalDeviceFileSystem(s => controller.Server.MapPath(s));
 		}
 	}
 }

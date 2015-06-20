@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace FamilyTree.Models.FileSystem
+namespace FamilyTree.Models.FileSystem.LocalDevice
 {
-	public class LocalFileSystem : IFileSystem
+	public class LocalDeviceFileSystem : IFileSystem
 	{
 		private readonly Func<string, string> _mapPath;
 
-		public LocalFileSystem(Func<string, string> mapPath)
+		public LocalDeviceFileSystem(Func<string, string> mapPath)
 		{
 			_mapPath = mapPath;
 		}
