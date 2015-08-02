@@ -42,5 +42,29 @@ namespace FamilyTree.Models.FileSystem
 
 			return System.IO.Path.GetFileNameWithoutExtension(file.Name);
 		}
+
+		public static IFile CloneWithFileSystem(this IFile file, IFileSystem fileSystem)
+		{
+			if (file == null)
+				return null;
+
+			return new File(
+				file.Name,
+				file.Directory.CloneWithFileSystem(fileSystem),
+				file.Size,
+				file.LastWriteTimeUtc,
+				fileSystem);
+		}
+
+		public static IDirectory CloneWithFileSystem(this IDirectory directory, IFileSystem fileSystem)
+		{
+			if (directory == null)
+				return null;
+
+			return new Directory(
+				directory.Name,
+				directory.Parent.CloneWithFileSystem(fileSystem),
+				fileSystem);
+		}
 	}
 }
