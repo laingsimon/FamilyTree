@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -30,8 +31,15 @@ namespace FamilyTree.Models
 			_visitedFiles.Add(treeFile);
 
 			XDocument xDocument = null;
-			using (var stream = treeFile.OpenRead())
-				xDocument = XDocument.Load(stream);
+			try
+			{
+				using (var stream = treeFile.OpenRead())
+					xDocument = XDocument.Load(stream);
+			}
+			catch (XmlException exc)
+			{
+				throw new XmlException("Error loading '" + treeFile.Name + "'", exc);
+			}
 
 			foreach (var visit in _visits)
 			{
