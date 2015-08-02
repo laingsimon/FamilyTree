@@ -147,6 +147,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 			var azureDirectory = _container.GetDirectoryReference(fullPath);
 			return from item in azureDirectory.ListBlobs()
+				   where _MatchesSearchPattern(item, searchPattern)
 				   let file = _client.GetBlobReferenceFromServer(item.StorageUri)
 				   let lastModified = file.Properties.LastModified ?? DateTimeOffset.MinValue
 				   select new File(
@@ -155,6 +156,15 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 					   file.Properties.Length,
 					   lastModified.UtcDateTime,
 					   this);
+		}
+
+		private bool _MatchesSearchPattern(IListBlobItem item, string searchPattern)
+		{
+			if (searchPattern.Contains("*"))
+				throw new NotImplementedException("Wildcard file matching isn't yet implemented in AzureStorageFileSystem");
+
+			var fileName = item.Uri.Segments.Last();
+			return fileName.Equals(searchPattern, StringComparison.OrdinalIgnoreCase);
 		}
 
 		public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
