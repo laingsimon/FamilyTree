@@ -7,6 +7,7 @@ using System.Web;
 
 namespace FamilyTree.Models.FileSystem
 {
+	[DebuggerDisplay("{_directory}/{_name,nq}")]
 	public class File : IFile
 	{
 		private readonly string _name;

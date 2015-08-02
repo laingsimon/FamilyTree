@@ -44,5 +44,13 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return _fileSystem.GetDirectories(this);
 		}
+
+		public override string ToString()
+		{
+			if (_parent == null)
+				return _name;
+
+			return _parent.ToString() + "/" + _name;
+		} 
 	}
 }
