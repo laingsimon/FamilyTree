@@ -65,5 +65,20 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return _fileSystem.OpenWrite(this);
 		}
+
+		public override int GetHashCode()
+		{
+			return _name.GetHashCode() ^ _directory.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			var file = obj as IFile;
+			if (file == null)
+				return false;
+
+			return file.Name.Equals(_name, StringComparison.OrdinalIgnoreCase)
+				&& file.Directory.Equals(_directory);
+		}
 	}
 }

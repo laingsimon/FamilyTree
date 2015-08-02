@@ -51,6 +51,31 @@ namespace FamilyTree.Models.FileSystem
 				return _name;
 
 			return _parent.ToString() + "/" + _name;
-		} 
+		}
+
+		public override int GetHashCode()
+		{
+			var parentHashCode = _parent != null
+				? _parent.GetHashCode()
+				: 0;
+			return _name.GetHashCode() ^ parentHashCode;
+		}
+
+		public override bool Equals(object obj)
+		{
+			var directory = obj as IDirectory;
+			if (directory == null)
+				return false;
+
+			if (!directory.Name.Equals(_name, StringComparison.OrdinalIgnoreCase))
+				return false;
+
+			if (_parent == null && directory.Parent != null)
+				return false;
+			if (_parent == null && directory.Parent == null)
+				return true;
+
+			return _parent.Equals(directory.Parent);
+		}
 	}
 }
