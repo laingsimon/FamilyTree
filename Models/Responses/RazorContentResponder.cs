@@ -42,7 +42,7 @@ namespace FamilyTree.Models.Responses
 			var razorFile = _fileSystem.GetFile("~/Views/Tree/Family.cshtml");
 			var xslFileDateString = razorFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
 
-			return ETagHelper.GetEtagFromFile(razorFile, customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
+			return ETagHelper.GetEtagFromFile(file, customEtagSuffix: xslFileDateString, includeAssemblyDate: true);
 		}
 
 		public void AddToZip(IFile file, ZipArchive zipFile)
