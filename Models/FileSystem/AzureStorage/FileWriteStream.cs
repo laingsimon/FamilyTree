@@ -1,10 +1,8 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -34,12 +32,12 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			throw new NotSupportedException();
 		}
 
-		public override System.Threading.Tasks.Task<int> ReadAsync(byte[] buffer, int offset, int count, System.Threading.CancellationToken cancellationToken)
+		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
 			throw new NotSupportedException();
 		}
 
-		public override System.Threading.Tasks.Task CopyToAsync(Stream destination, int bufferSize, System.Threading.CancellationToken cancellationToken)
+		public override Task CopyToAsync(Stream destination, int bufferSize, CancellationToken cancellationToken)
 		{
 			throw new NotSupportedException();
 		}
@@ -52,12 +50,6 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		public override int ReadByte()
 		{
 			throw new NotSupportedException();
-		}
-
-		public override int ReadTimeout
-		{
-			get { return base.ReadTimeout; }
-			set { base.ReadTimeout = value; }
 		}
 
 		public override long Seek(long offset, SeekOrigin origin)
@@ -104,7 +96,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			_memoryStream.Write(buffer, offset, count);
 		}
 
-		public override System.Threading.Tasks.Task WriteAsync(byte[] buffer, int offset, int count, System.Threading.CancellationToken cancellationToken)
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
 			return _memoryStream.WriteAsync(buffer, offset, count, cancellationToken);
 		}
@@ -140,7 +132,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		public override void Flush()
 		{ }
 
-		public override Task FlushAsync(System.Threading.CancellationToken cancellationToken)
+		public override Task FlushAsync(CancellationToken cancellationToken)
 		{
 			return Task.FromResult(0);
 		}

@@ -12,7 +12,6 @@ namespace FamilyTree.Models.Responses
 	{
 		private readonly Value _value;
 		private readonly TreeViewModelFactory _viewModelFactory;
-		private readonly IFileSystem _fileSystem;
 		private readonly TreeFactory _treeFactory;
 
 		public JsonContentResponder(
@@ -21,7 +20,6 @@ namespace FamilyTree.Models.Responses
 			TreeFactory treeFactory = null,
 			TreeViewModelFactory viewModelFactory = null)
 		{
-			_fileSystem = fileSystem;
 			_treeFactory = treeFactory ?? new TreeFactory(fileSystem);
 			_value = value;
 			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(_treeFactory, new TreeParser());

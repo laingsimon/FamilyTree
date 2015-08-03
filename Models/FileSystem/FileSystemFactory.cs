@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using FamilyTree.Models.FileSystem.AzureStorage;
+using FamilyTree.Models.FileSystem.LocalDevice;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -10,10 +8,10 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static IFileSystem GetFileSystem(Controller controller)
 		{
-			var localDevice = new LocalDevice.LocalDeviceFileSystem(s => controller.Server.MapPath(s));
-			return new AzureStorage.RelayingFileSystem(
+			var localDevice = new LocalDeviceFileSystem(s => controller.Server.MapPath(s));
+			return new RelayingFileSystem(
 				localDevice,
-				new AzureStorage.AzureStorageFileSystem());
+				new AzureStorageFileSystem());
 		}
 	}
 }

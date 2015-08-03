@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -24,7 +23,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			//prefer the file on the destination - unless force is defined
 			var writeFile = _write.GetFile(path);
 			var readFile = _read.GetFile(path);
-			
+
 			if (!_updateAllFilesOnDestination && writeFile != null && writeFile.Size > 0)
 				return new RelayFile(readFile, writeFile);
 
@@ -61,7 +60,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			var readDirectory = relayDirectory.GetReadDirectory();
 			var readFiles = _read.GetFiles(readDirectory, searchPattern);
 			var writeDirectory = relayDirectory.GetWriteDirectory();
-			
+
 			foreach (var readFile in readFiles)
 			{
 				var writeFile = writeDirectory.GetFiles(readFile.Name).SingleOrDefault();
@@ -70,7 +69,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 					//TODO: create file
 					continue; //TODO: re-write writeFile with new file and yield
 				}
-				
+
 				yield return new RelayFile(readFile, writeFile);
 			}
 		}

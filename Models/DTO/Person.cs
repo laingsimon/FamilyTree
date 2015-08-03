@@ -10,7 +10,7 @@ namespace FamilyTree.Models.DTO
 		public Gender Gender { get; set; }
 
 		public Name Name { get; set; }
-		
+
 		public Event Birth { get; set; }
 
 		public Event Death { get; set; }

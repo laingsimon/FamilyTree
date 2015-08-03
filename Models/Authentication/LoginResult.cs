@@ -1,8 +1,7 @@
-﻿using FamilyTree.ViewModels;
-using System;
-using System.Net;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using FamilyTree.ViewModels;
 
 namespace FamilyTree.Models.Authentication
 {
@@ -69,14 +68,14 @@ Please wait until {0:HH:mm:ss} until attempting again",
 
 			public override ActionResult Respond(LoginViewModel viewModel)
 			{
-				var returnUrl = _GetAbsoluteUri(viewModel.ReturnUrl); 
-				
+				var returnUrl = _GetAbsoluteUri(viewModel.ReturnUrl);
+
 				return new CompositeActionResult(
 					_setAuthenticated,
 					new RedirectResult(returnUrl.ToString()));
 			}
 
-			private Uri _GetAbsoluteUri(string relativeUrl)
+			private static Uri _GetAbsoluteUri(string relativeUrl)
 			{
 				var request = HttpContext.Current.Request;
 

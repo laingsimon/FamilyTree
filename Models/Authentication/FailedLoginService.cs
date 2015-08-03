@@ -61,7 +61,7 @@ namespace FamilyTree.Models.Authentication
 				_repository.Delete(key);
 		}
 
-		private string _GetKey(HttpRequestBase request)
+		private static string _GetKey(HttpRequestBase request)
 		{
 			return request.UserHostAddress;
 		}

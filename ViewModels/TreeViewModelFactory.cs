@@ -58,7 +58,7 @@ namespace FamilyTree.ViewModels
 				var toPersonViewModel = _BuildPerson(tree, marriage.To.Person);
 
 				var marriageAndChildrenDetail = _BuildChildrenForMarriage(tree, marriage.Children, person, toPersonViewModel);
-				var wedding = marriageAndChildrenDetail.GetWeddingViewModel(marriageAndChildrenDetail.Marriage ?? marriage);
+				var wedding = _OtherTreeMarriage.GetWeddingViewModel(marriageAndChildrenDetail.Marriage ?? marriage);
 
 				yield return new MarriageViewModel(person, toPersonViewModel)
 				{
@@ -115,7 +115,7 @@ namespace FamilyTree.ViewModels
 			public Marriage Marriage { get; set; }
 			public IEnumerable<PersonViewModel> Children { get; set; }
 
-			public EventViewModel GetWeddingViewModel(Marriage marriage)
+			public static EventViewModel GetWeddingViewModel(Marriage marriage)
 			{
 				if (marriage == null)
 					return null;

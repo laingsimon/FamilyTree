@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 
 namespace FamilyTree.Models.FileSystem.LocalDevice
 {
@@ -89,7 +88,7 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 			return System.IO.File.Exists(_mapPath(path));
 		}
 
-		private string _GetFullPath(IFile file)
+		private static string _GetFullPath(IFile file)
 		{
 			return string.Join(
 				Path.DirectorySeparatorChar.ToString(),
@@ -97,12 +96,12 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 				file.Name);
 		}
 
-		private string _GetFullPath(IDirectory directory)
+		private static string _GetFullPath(IDirectory directory)
 		{
 			return string.Join(Path.DirectorySeparatorChar.ToString(), _PathNames(directory).ToArray());
 		}
 
-		private IEnumerable<string> _PathNames(IDirectory directory)
+		private static IEnumerable<string> _PathNames(IDirectory directory)
 		{
 			if (directory.Parent != null)
 			{

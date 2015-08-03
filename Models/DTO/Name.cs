@@ -8,7 +8,7 @@ namespace FamilyTree.Models.DTO
 	{
 		[XmlAttribute]
 		public string Title { get; set; }
-		
+
 		[XmlAttribute]
 		public string First { get; set; }
 

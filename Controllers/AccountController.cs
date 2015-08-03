@@ -1,26 +1,24 @@
-﻿using FamilyTree.Models.Authentication;
+﻿using System.Web.Mvc;
+using FamilyTree.Models.Authentication;
 using FamilyTree.Repositories.Authentication;
 using FamilyTree.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace FamilyTree.Controllers
 {
-    public class AccountController : Controller
+	public class AccountController : Controller
 	{
 		private readonly UserAuthenticationStrategy _authenticationStrategy;
 		private readonly UserRepository _userRepository;
 
 		public AccountController()
-			:this(null)
+			// ReSharper disable RedundantArgumentDefaultValue
+			: this(authenticationStrategy: null)
+		// ReSharper restore RedundantArgumentDefaultValue
 		{ }
 
 		public AccountController(UserAuthenticationStrategy authenticationStrategy = null)
 		{
-			_authenticationStrategy = authenticationStrategy 
+			_authenticationStrategy = authenticationStrategy
 				?? new UserAuthenticationStrategy(
 						new UserRepository(),
 						new FailedLoginService(
@@ -105,5 +103,5 @@ namespace FamilyTree.Controllers
 
 			return RedirectToAction("Login", "Account");
 		}
-    }
+	}
 }

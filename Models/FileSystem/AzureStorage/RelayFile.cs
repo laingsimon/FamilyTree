@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -55,7 +52,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			using (var readStream = _readFile.OpenRead())
 			using (var writeStream = _writeFile.OpenWrite())
 				readStream.CopyTo(writeStream);
-			
+
 			return _readFile.OpenRead();
 		}
 
@@ -76,6 +73,6 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			return _readFile.Equals(obj)
 				|| _writeFile.Equals(obj);
-		} 
+		}
 	}
 }

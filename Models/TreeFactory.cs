@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
-using System.Web;
 using System.Xml.Serialization;
 using FamilyTree.Models.DTO;
 using FamilyTree.Models.FileSystem;
@@ -28,7 +27,7 @@ namespace FamilyTree.Models
 				return null;
 
 			using (var stream = file.OpenRead())
-			using (var fileStream = new System.IO.StreamReader(stream))
+			using (var fileStream = new StreamReader(stream))
 			{
 				var serialiser = new XmlSerializer(typeof(Tree));
 				return (Tree)serialiser.Deserialize(fileStream);
@@ -48,7 +47,7 @@ namespace FamilyTree.Models
 
 		private static bool _ContainsInvalidCharacters(string treeName)
 		{
-			return System.IO.Path.GetInvalidFileNameChars().Any(
+			return Path.GetInvalidFileNameChars().Any(
 				ch => treeName.IndexOf(ch) != -1);
 		}
 	}

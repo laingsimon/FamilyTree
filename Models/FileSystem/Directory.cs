@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Web;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -50,7 +47,7 @@ namespace FamilyTree.Models.FileSystem
 			if (_parent == null)
 				return _name;
 
-			return _parent.ToString() + "/" + _name;
+			return _parent + "/" + _name;
 		}
 
 		public override int GetHashCode()

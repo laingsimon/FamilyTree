@@ -1,11 +1,10 @@
-﻿using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -13,7 +12,6 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 	{
 		private const string _containerName = "filesystem";
 		private readonly CloudBlobClient _client;
-		private readonly Uri _baseUri;
 		private readonly CloudBlobContainer _container;
 
 		public AzureStorageFileSystem()
@@ -24,24 +22,9 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			_client = storageAccount.CreateCloudBlobClient();
 			_container = _client.GetContainerReference(_containerName);
 			_container.CreateIfNotExists();
-
-			_baseUri = new Uri(_container.Uri.ToString() + "/", UriKind.Absolute);
 		}
 
-		private Uri _BuildUri(string path)
-		{
-			if (string.IsNullOrEmpty(path) || path.Length <= 2)
-				throw new ArgumentException("Invalid path: '" + path + "'");
-
-			if (!path.StartsWith("~"))
-				throw new InvalidOperationException("Invalid path, must be relative to app: '" + path + "'");
-
-			var subPath = path.Substring(2);
-
-			return new Uri(_baseUri, subPath);
-		}
-
-		private IEnumerable<string> _GetPathParts(string path)
+		private static IEnumerable<string> _GetPathParts(string path)
 		{
 			var parts = path.Split('/').Skip(1).ToArray();
 			var lastPart = parts.Last();
@@ -50,11 +33,10 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 				? parts.Length - 1
 				: parts.Length;
 
-			foreach (var part in parts.Take(partsToTake))
-				yield return part;
+			return parts.Take(partsToTake);
 		}
 
-		private IEnumerable<string> _GetFullPath(IDirectory directory)
+		private static IEnumerable<string> _GetFullPath(IDirectory directory)
 		{
 			if (directory.Parent != null)
 			{
@@ -67,7 +49,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		private IDirectory _GetDirectoryFromPath(IReadOnlyCollection<string> parts)
 		{
-			if (parts.Count() == 0)
+			if (!parts.Any())
 				return null;
 
 			var firstPart = parts.First();
@@ -143,7 +125,6 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		public IEnumerable<IFile> GetFiles(IDirectory directory, string searchPattern)
 		{
 			var fullPath = string.Join("/", _GetFullPath(directory));
-			var uri = new Uri(_baseUri, fullPath);
 
 			var azureDirectory = _container.GetDirectoryReference(fullPath);
 			return from item in azureDirectory.ListBlobs()
@@ -158,7 +139,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 					   this);
 		}
 
-		private bool _MatchesSearchPattern(IListBlobItem item, string searchPattern)
+		private static bool _MatchesSearchPattern(IListBlobItem item, string searchPattern)
 		{
 			if (searchPattern.Contains("*"))
 				throw new NotImplementedException("Wildcard file matching isn't yet implemented in AzureStorageFileSystem");
@@ -202,7 +183,6 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		public IFile CreateFile(string path)
 		{
-			var uri = _BuildUri(path);
 			return new File(
 				Path.GetFileName(path),
 				_GetDirectoryFromPath(path),

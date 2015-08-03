@@ -24,7 +24,7 @@ namespace FamilyTree.Models.Responses
 			using (var stream = entry.Open())
 			{
 				file.OpenRead().CopyTo(stream);
-			}			
+			}
 		}
 	}
 }

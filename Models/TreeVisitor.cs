@@ -30,7 +30,7 @@ namespace FamilyTree.Models
 			visitee.Visit(treeFile);
 			_visitedFiles.Add(treeFile);
 
-			XDocument xDocument = null;
+			XDocument xDocument;
 			try
 			{
 				using (var stream = treeFile.OpenRead())

@@ -42,7 +42,7 @@ namespace FamilyTree.Models.Authentication
 		{
 			var authenticationManager = httpContext.GetOwinContext().Authentication;
 			var userIdentity = _CreateIdentity(_user, AuthenticationType);
-			authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
+			authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
 		}
 
 		private static ClaimsIdentity _CreateIdentity(User user, string authenticationType)

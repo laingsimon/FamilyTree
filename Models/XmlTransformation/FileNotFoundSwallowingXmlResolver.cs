@@ -10,16 +10,14 @@ namespace FamilyTree.Models.XmlTransformation
 {
 	public class FileNotFoundSwallowingXmlResolver : XmlResolver
 	{
-		private readonly Func<string, string> _mapPath;
 		private readonly TextWriter _log;
 		private readonly XmlUrlResolver _resolver;
 		private readonly XPathNavigator _fileNotFound;
 		private readonly IFileSystem _fileSystem;
 
-		public FileNotFoundSwallowingXmlResolver(IFileSystem fileSystem, Func<string, string> mapPath, TextWriter log)
+		public FileNotFoundSwallowingXmlResolver(IFileSystem fileSystem, TextWriter log)
 		{
 			_fileSystem = fileSystem;
-			_mapPath = mapPath;
 			_log = log;
 			_resolver = new XmlUrlResolver();
 
@@ -37,9 +35,8 @@ namespace FamilyTree.Models.XmlTransformation
 		{
 			_log.WriteLine("Getting entity: {0}, {1}, {2}", absoluteUri, role, ofObjectToReturn);
 			var path = HttpUtility.UrlDecode(absoluteUri.AbsolutePath);
-			IFile file = null;
 
-			file = _fileSystem.GetFile(path);
+			var file = _fileSystem.GetFile(path);
 
 			var extension = file.GetExtension();
 			var isXsl = ".xsl".Equals(extension, StringComparison.OrdinalIgnoreCase);

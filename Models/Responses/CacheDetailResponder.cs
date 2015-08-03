@@ -1,9 +1,8 @@
-﻿using FamilyTree.Models.FileSystem;
-using System;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FamilyTree.Models.FileSystem;
 
 namespace FamilyTree.Models.Responses
 {
@@ -20,7 +19,7 @@ namespace FamilyTree.Models.Responses
 		public ActionResult GetResponse(IFile file, HttpContextBase context)
 		{
 			var xslFile = _fileSystem.GetFile("~/Xsl/ft.xsl");
-			
+
 			var fileDates = (from treeDate in ETagHelper.GetFileWriteTimes(file)
 							 orderby treeDate.Value descending
 							 select string.Format("{0} = {1:yyyy-MM-dd@HH:mm:ss}", treeDate.Key, treeDate.Value)).ToList();

@@ -1,9 +1,8 @@
-using System;
+using System.IO.Compression;
 using System.Web;
 using System.Web.Mvc;
-using FamilyTree.Models.XmlTransformation;
-using System.IO.Compression;
 using FamilyTree.Models.FileSystem;
+using FamilyTree.Models.XmlTransformation;
 
 namespace FamilyTree.Models.Responses
 {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 using FamilyTree.Repositories.Authentication;
-using System.Web.Security;
 
 namespace FamilyTree.Models.Authentication
 {

@@ -59,7 +59,7 @@ namespace FamilyTree.Models.Responses
 		{
 			if (string.IsNullOrEmpty(value) || value == "*")
 				return 1;
-			
+
 			return double.Parse(value);
 		}
 	}

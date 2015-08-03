@@ -38,7 +38,7 @@ namespace FamilyTree.Controllers
 		{
 			var relativePath = string.Format("~/Data/{0}.xml", family);
 			var file = _fileSystem.GetFile(relativePath);
-			
+
 			if (file == null)
 				return RedirectToAction("List");
 
@@ -48,7 +48,7 @@ namespace FamilyTree.Controllers
 				var responder = _contentNegotiation.GetMostAppropriateResponder(contentTypePreference);
 
 				var etag = responder.GetEtag(file);
-				
+
 				if (!ETagHelper.HasChanged(Request, etag))
 					return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotModified);
 

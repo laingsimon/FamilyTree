@@ -1,37 +1,29 @@
-﻿using FamilyTree.Models.FileSystem;
-using FamilyTree.Models.Responses;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Net.Mime;
-using System.Web;
-using System.Web.Mvc;
+using FamilyTree.Models.FileSystem;
+using FamilyTree.Models.Responses;
 
 namespace FamilyTree.Models
 {
 	public class DataFetcher
 	{
-		private readonly Func<string, string> _mapPath;
 		private readonly IFileSystem _fileSystem;
 
-		public DataFetcher(IFileSystem fileSystem, Func<string, string> mapPath)
+		public DataFetcher(IFileSystem fileSystem)
 		{
 			_fileSystem = fileSystem;
-			_mapPath = mapPath;
 		}
 
-		public System.IO.Stream GetData(IContentResponder responder, params string[] families)
+		public Stream GetData(IContentResponder responder, params string[] families)
 		{
-			var zipStream = new System.IO.MemoryStream();
+			var zipStream = new MemoryStream();
 			using (var zipFile = new ZipArchive(zipStream, ZipArchiveMode.Create, false))
 			{
 				foreach (var family in families)
 					_AddToZip(responder, family, zipFile);
 			}
 
-			var readableStream = new System.IO.MemoryStream(zipStream.ToArray());
+			var readableStream = new MemoryStream(zipStream.ToArray());
 			return readableStream;
 		}
 

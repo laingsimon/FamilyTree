@@ -31,8 +31,8 @@ namespace FamilyTree.Models.XmlTransformation
 			var response = context.HttpContext.Response;
 			var server = context.HttpContext.Server;
 
-			var resolver = new FileNotFoundSwallowingXmlResolver(_fileSystem, server.MapPath, _log);
-			
+			var resolver = new FileNotFoundSwallowingXmlResolver(_fileSystem, _log);
+
 			var transform = new XslCompiledTransform(true);
 			transform.Load(server.MapPath(_xslPath), _xsltSettings, resolver);
 

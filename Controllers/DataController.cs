@@ -1,18 +1,15 @@
-﻿using FamilyTree.Models;
+﻿using System.Linq;
+using System.Web.Mvc;
+using FamilyTree.Models;
 using FamilyTree.Models.Authentication;
 using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace FamilyTree.Controllers
 {
 	[Authorize(Roles = Roles.SuperUser)]
-    public class DataController : Controller
-    {
+	public class DataController : Controller
+	{
 		private readonly ContentNegotiation _contentNegotiation;
 		private readonly DataFetcher _fetcher;
 		private readonly IFileSystem _fileSystem;
@@ -29,11 +26,11 @@ namespace FamilyTree.Controllers
 				{ "application/json+viewmodel", new JsonContentResponder(_fileSystem, JsonContentResponder.Value.ViewModel) },
 			};
 
-			_fetcher = new DataFetcher(_fileSystem, s => Server.MapPath(s));
+			_fetcher = new DataFetcher(_fileSystem);
 		}
 
 
-        public ActionResult Zip(string[] name)
+		public ActionResult Zip(string[] name)
 		{
 			var preference = new ContentTypePreference(Request);
 			var responder = _contentNegotiation.GetMostAppropriateResponder(preference);
@@ -52,5 +49,5 @@ namespace FamilyTree.Controllers
 					FileDownloadName = "Data.zip"
 				};
 		}
-    }
+	}
 }

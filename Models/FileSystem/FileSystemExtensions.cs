@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
+﻿using System.IO;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -16,7 +12,7 @@ namespace FamilyTree.Models.FileSystem
 			var content = new byte[file.Size];
 			using (var stream = file.OpenRead())
 			{
-				var readBytes = 0;
+				int readBytes;
 				var offset = 0;
 				while ((readBytes = stream.Read(content, offset, 4096)) > 0)
 				{
@@ -32,7 +28,7 @@ namespace FamilyTree.Models.FileSystem
 			if (file == null)
 				return null;
 
-			return System.IO.Path.GetExtension(file.Name);
+			return Path.GetExtension(file.Name);
 		}
 
 		public static string GetFileNameWithoutExtension(this IFile file)
@@ -40,7 +36,7 @@ namespace FamilyTree.Models.FileSystem
 			if (file == null)
 				return null;
 
-			return System.IO.Path.GetFileNameWithoutExtension(file.Name);
+			return Path.GetFileNameWithoutExtension(file.Name);
 		}
 
 		public static IFile CloneWithFileSystem(this IFile file, IFileSystem fileSystem)
