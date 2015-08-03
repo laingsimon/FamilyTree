@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FamilyTree.Models.FileSystem
 {

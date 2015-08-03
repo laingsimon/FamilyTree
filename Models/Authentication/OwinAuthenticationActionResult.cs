@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System.Security.Principal;
-using System.Security.Claims;
-using System.Web.Mvc;
 
 namespace FamilyTree.Models.Authentication
 {
