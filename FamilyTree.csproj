@@ -204,7 +204,6 @@
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageFileSystem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\FileSystem\AzureStorage\FileWriteStream.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\RelayDirectory.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\RelayFile.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\RelayingFileSystem.cs" />
@@ -212,6 +211,7 @@
     <Compile Include="Models\FileSystem\File.cs" />
     <Compile Include="Models\FileSystem\FileSystemExtensions.cs" />
     <Compile Include="Models\FileSystem\FileSystemFactory.cs" />
+    <Compile Include="Models\FileSystem\DelayedWriteStream.cs" />
     <Compile Include="Models\FileSystem\IDirectory.cs" />
     <Compile Include="Models\FileSystem\IFile.cs" />
     <Compile Include="Models\FileSystem\IFileSystem.cs" />

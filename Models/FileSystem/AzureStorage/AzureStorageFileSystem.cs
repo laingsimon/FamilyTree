@@ -175,10 +175,10 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 				var directory = _GetAzureDirectory(file);
 				var reference = directory.GetBlockBlobReference(file.Name);
 
-				return new FileWriteStream(reference);
+				return new DelayedWriteStream(stream => reference.UploadFromStream(stream));
 			}
 
-			return new FileWriteStream(azureFile);
+			return new DelayedWriteStream(stream => azureFile.UploadFromStream(stream));
 		}
 
 		public IFile CreateFile(string path)

@@ -4,16 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace FamilyTree.Models.FileSystem.AzureStorage
+namespace FamilyTree.Models.FileSystem
 {
-	public class FileWriteStream : Stream
+	public class DelayedWriteStream : Stream
 	{
-		private readonly ICloudBlob _blobRef;
+		private readonly Action<Stream> _write;
 		private readonly MemoryStream _memoryStream = new MemoryStream();
 
-		public FileWriteStream(ICloudBlob blobRef)
+		public DelayedWriteStream(Action<Stream> write)
 		{
-			_blobRef = blobRef;
+			_write = write;
 		}
 
 		#region read members
@@ -141,7 +141,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		protected override void Dispose(bool disposing)
 		{
 			_memoryStream.Position = 0;
-			_blobRef.UploadFromStream(_memoryStream);
+			_write(_memoryStream);
 		}
 	}
 }
