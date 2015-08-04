@@ -48,6 +48,8 @@ namespace FamilyTree.Models.Authentication
 
 				if (isValid)
 				{
+					_UpgradeUserSecurity(user, scheme, password);
+
 					_failedLoginService.RemoveFailedLogin(request);
 					return LoginResult.Success(user);
 				}
@@ -59,6 +61,15 @@ namespace FamilyTree.Models.Authentication
 				if (user != null)
 					_repository.InsertOrUpdate(user);
 			}
+		}
+
+		private static void _UpgradeUserSecurity(User user, ISecurityScheme scheme, string password)
+		{
+			var upgradedSecurityScheme = scheme.UpgradedSecurityScheme;
+			if (upgradedSecurityScheme == null)
+				return;
+
+			upgradedSecurityScheme.SetData(user, password);
 		}
 
 		public void Logout()

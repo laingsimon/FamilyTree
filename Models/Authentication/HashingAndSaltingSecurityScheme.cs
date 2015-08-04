@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.HashFunction;
 using System.Text;
 
@@ -32,6 +32,11 @@ namespace FamilyTree.Models.Authentication
 		{
 			var passwordBytes = Encoding.UTF8.GetBytes(salt + password);
 			return Encoding.UTF8.GetString(_hasher.ComputeHash(passwordBytes));
+		}
+
+		public ISecurityScheme UpgradedSecurityScheme
+		{
+			get { return null; }
 		}
 	}
 }

@@ -4,5 +4,6 @@
 	{
 		bool Validate(User user, string password);
 		void SetData(User user, string password);
+		ISecurityScheme UpgradedSecurityScheme { get; }
 	}
 }
