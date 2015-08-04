@@ -9,7 +9,6 @@ namespace FamilyTree.Models.Authentication
 		public static readonly IReadOnlyDictionary<SecurityScheme, ISecurityScheme> DefaultSchemes =
 			new Dictionary<SecurityScheme, ISecurityScheme>
 			{
-				{ SecurityScheme.SaltedHash, new HashingAndSaltingSecurityScheme() },
 				{ SecurityScheme.Pbkdf2SaltedHash, new Pbkdf2HashingAndSaltingSecurityScheme() }
 			};
 

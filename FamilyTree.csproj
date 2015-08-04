@@ -102,18 +102,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.HashFunction.BernsteinHash, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.HashFunction.BernsteinHash.1.7.1.0\lib\net45\System.Data.HashFunction.BernsteinHash.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.HashFunction.Core, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.HashFunction.Core.1.7.1.0\lib\net45\System.Data.HashFunction.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.HashFunction.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.HashFunction.Interfaces.1.0.0.0\lib\net45\System.Data.HashFunction.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
@@ -163,7 +151,6 @@
     <Compile Include="Models\Authentication\CompositeActionResult.cs" />
     <Compile Include="Models\Authentication\FailedLogin.cs" />
     <Compile Include="Models\Authentication\FailedLoginService.cs" />
-    <Compile Include="Models\Authentication\HashingAndSaltingSecurityScheme.cs" />
     <Compile Include="Models\Authentication\Pbkdf2HashingAndSaltingSecurityScheme.cs" />
     <Compile Include="Models\Authentication\ISecurityScheme.cs" />
     <Compile Include="Models\Authentication\LoginResult.cs" />
