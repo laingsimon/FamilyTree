@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web;
 using FamilyTree.Repositories.Authentication;
 
@@ -9,7 +9,8 @@ namespace FamilyTree.Models.Authentication
 		public static readonly IReadOnlyDictionary<SecurityScheme, ISecurityScheme> DefaultSchemes =
 			new Dictionary<SecurityScheme, ISecurityScheme>
 			{
-				{ SecurityScheme.SaltedHash, new HashingAndSaltingSecurityScheme() }
+				{ SecurityScheme.SaltedHash, new HashingAndSaltingSecurityScheme() },
+				{ SecurityScheme.Pbkdf2SaltedHash, new Pbkdf2HashingAndSaltingSecurityScheme() }
 			};
 
 		private readonly UserRepository _repository;

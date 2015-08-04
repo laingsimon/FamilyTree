@@ -92,7 +92,7 @@ namespace FamilyTree.Controllers
 				return View(viewModel);
 			}
 
-			var scheme = new HashingAndSaltingSecurityScheme();
+			var scheme = new Pbkdf2HashingAndSaltingSecurityScheme();
 			var user = new User(viewModel.UserName)
 			{
 				DisplayName = viewModel.DisplayName

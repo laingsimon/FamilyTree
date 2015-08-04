@@ -157,14 +157,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication\IPasswordHasher.cs" />
+    <Compile Include="Models\Authentication\PasswordHasher.cs" />
     <Compile Include="Models\Authentication\Roles.cs" />
     <Compile Include="Models\Authentication\CompositeActionResult.cs" />
     <Compile Include="Models\Authentication\FailedLogin.cs" />
     <Compile Include="Models\Authentication\FailedLoginService.cs" />
     <Compile Include="Models\Authentication\HashingAndSaltingSecurityScheme.cs" />
+    <Compile Include="Models\Authentication\Pbkdf2HashingAndSaltingSecurityScheme.cs" />
     <Compile Include="Models\Authentication\ISecurityScheme.cs" />
     <Compile Include="Models\Authentication\LoginResult.cs" />
     <Compile Include="Models\Authentication\OwinAuthenticationActionResult.cs" />
+    <Compile Include="Models\Authentication\SaltedHash.cs" />
     <Compile Include="Models\Authentication\SecurityScheme.cs" />
     <Compile Include="Models\Authentication\FormsAuthenticationActionResult.cs" />
     <Compile Include="Models\Authentication\User.cs" />

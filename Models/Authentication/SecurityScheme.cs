@@ -2,6 +2,7 @@
 {
 	public enum SecurityScheme
 	{
-		SaltedHash
+		SaltedHash,
+		Pbkdf2SaltedHash
 	}
 }

@@ -36,7 +36,7 @@ namespace FamilyTree.Models.Authentication
 
 		public ISecurityScheme UpgradedSecurityScheme
 		{
-			get { return null; }
+			get { return new Pbkdf2HashingAndSaltingSecurityScheme(); }
 		}
 	}
 }
