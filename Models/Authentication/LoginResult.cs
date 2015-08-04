@@ -12,9 +12,9 @@ namespace FamilyTree.Models.Authentication
 			return new _Success(new OwinAuthenticationActionResult(user));
 		}
 
-		public static LoginResult Failed(DateTime restrictedUntil)
+		public static LoginResult Failed(FailedLogin failedLogin)
 		{
-			return new _Failed(restrictedUntil);
+			return new _Failed(failedLogin);
 		}
 
 		public static void Logout()
@@ -29,24 +29,31 @@ namespace FamilyTree.Models.Authentication
 
 		private class _Failed : LoginResult
 		{
-			private readonly DateTime _restrictedUntil;
+			private readonly FailedLogin _failedLogin;
 
-			public _Failed(DateTime restrictedUntil)
+			public _Failed(FailedLogin failedLogin)
 			{
-				_restrictedUntil = restrictedUntil;
+				_failedLogin = failedLogin;
 			}
 
-			private static string _BuildMessage(DateTime restrictedUntil)
+			private string _BuildMessage()
 			{
+				var basicMessage = @"Login attempt failed.
+Please check your username and password";
+
+				if (_failedLogin.Attempts <= 1)
+					return basicMessage;
+
 				return string.Format(
-					@"Login attempt failed. Please check your username and password
-Please wait until {0:HH:mm:ss} until attempting again",
-					restrictedUntil.ToLocalTime());
+					@"{0}
+Please wait until {1:HH:mm:ss} until attempting again",
+					basicMessage,
+					_failedLogin.NextAllowedLogin.ToLocalTime());
 			}
 
 			public override ActionResult Respond(LoginViewModel viewModel)
 			{
-				viewModel.Messages = _BuildMessage(_restrictedUntil);
+				viewModel.Messages = _BuildMessage();
 				return new ViewResult
 				{
 					ViewData =

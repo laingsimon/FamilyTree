@@ -32,9 +32,9 @@ namespace FamilyTree.Models.Authentication
 
 			try
 			{
-				var nextAllowedLogin = _failedLoginService.GetNextAllowedLogin(request);
-				if (nextAllowedLogin.HasValue)
-					return LoginResult.Failed(nextAllowedLogin.Value);
+				var failedLogin = _failedLoginService.GetFailedLogin(request);
+				if (failedLogin != null)
+					return LoginResult.Failed(failedLogin);
 
 				user = _repository.GetUser(username);
 				if (user == null)

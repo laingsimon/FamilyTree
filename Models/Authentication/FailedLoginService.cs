@@ -15,7 +15,7 @@ namespace FamilyTree.Models.Authentication
 			_secondsDelaySeed = secondsDelaySeed;
 		}
 
-		public DateTime InsertFailedLogin(HttpRequestBase request)
+		public FailedLogin InsertFailedLogin(HttpRequestBase request)
 		{
 			var key = _GetKey(request);
 			var failedLogin = _repository.Get(key) ?? new FailedLogin(key)
@@ -32,10 +32,10 @@ namespace FamilyTree.Models.Authentication
 
 			_repository.InsertOrUpdate(failedLogin);
 
-			return failedLogin.NextAllowedLogin;
+			return failedLogin;
 		}
 
-		public DateTime? GetNextAllowedLogin(HttpRequestBase request)
+		public FailedLogin GetFailedLogin(HttpRequestBase request)
 		{
 			var key = _GetKey(request);
 			var failedLogin = _repository.Get(key);
@@ -44,7 +44,7 @@ namespace FamilyTree.Models.Authentication
 				return null;
 
 			if (failedLogin.NextAllowedLogin >= DateTime.UtcNow)
-				return failedLogin.NextAllowedLogin;
+				return failedLogin;
 
 			return null;
 		}
