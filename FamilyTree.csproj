@@ -211,6 +211,9 @@
     <Compile Include="Models\FileSystem\LocalDevice\LocalDeviceFileSystem.cs" />
     <Compile Include="Models\FileSystem\MulticastStream.cs" />
     <Compile Include="Models\ITreeVisitee.cs" />
+    <Compile Include="Models\RequestMirroringWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\Responses\CacheDetailResponder.cs" />
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />

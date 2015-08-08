@@ -15,15 +15,12 @@ namespace FamilyTree.Models.FileSystem
 		private readonly JsonSerializer _serialiser;
 		private readonly WebClient _webClient;
 
-		public HttpFileSystem(Uri baseUri = null, ICredentials credentials = null, JsonSerializer serialiser = null)
+		public HttpFileSystem(Uri baseUri = null, JsonSerializer serialiser = null)
 		{
 			_baseUri = baseUri ?? _configuredBaseUri;
 			_serialiser = serialiser ?? new JsonSerializer();
 
-			_webClient = new WebClient
-			{
-				Credentials = credentials
-			};
+			_webClient = new RequestMirroringWebClient();
 		}
 
 		private static Uri _GetConfiguredBaseUri()
