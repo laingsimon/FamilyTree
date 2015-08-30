@@ -108,7 +108,7 @@ namespace FamilyTree.Controllers
 		}
 
 		[HttpPost]
-		[Authorize(Users="simon")]
+		[Authorize(Users = "simon")]
 		public ActionResult FileContent(string path, Stream newContent)
 		{
 			if (string.IsNullOrEmpty(path))
