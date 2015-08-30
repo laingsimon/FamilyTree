@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Configuration;
 using Newtonsoft.Json;
 using System.Web;
+using System.Text;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -41,6 +42,9 @@ namespace FamilyTree.Models.FileSystem
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
+
+				_AssertJsonContentType(jsonData, uri, _webClient);
+
 				return _Deserialise<File>(jsonData);
 			}
 			catch (WebException exc)
@@ -56,6 +60,9 @@ namespace FamilyTree.Models.FileSystem
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
+
+				_AssertJsonContentType(jsonData, uri, _webClient);
+
 				return _Deserialise<Directory>(jsonData);
 			}
 			catch (WebException exc)
@@ -71,6 +78,9 @@ namespace FamilyTree.Models.FileSystem
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
+
+				_AssertJsonContentType(jsonData, uri, _webClient);
+
 				return _Deserialise<File[]>(jsonData);
 			}
 			catch (WebException exc)
@@ -86,6 +96,9 @@ namespace FamilyTree.Models.FileSystem
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
+
+				_AssertJsonContentType(jsonData, uri, _webClient);
+
 				return _Deserialise<Directory[]>(jsonData);
 			}
 			catch (WebException exc)
@@ -155,6 +168,30 @@ namespace FamilyTree.Models.FileSystem
 				);
 		}
 
+		private void _AssertJsonContentType(Stream responseStream, Uri uri, WebClient webClient)
+		{
+			var contentType = webClient.ResponseHeaders["Content-Type"];
+			if (string.IsNullOrEmpty(contentType))
+				throw new InvalidOperationException("ContentType header not returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
+
+			if (!contentType.Contains("application/json"))
+				throw new FormatException("Not json content returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
+		}
+
+		private string _GetResponseData(Stream stream)
+		{
+#if DEBUG
+			using (var streamReader = new StreamReader(stream))
+			{
+				var nonJsonData = streamReader.ReadToEnd();
+
+				return nonJsonData.Substring(0, Math.Min(nonJsonData.Length, 1024));
+			}
+#else
+			return "";
+#endif
+		}
+
 		private T _Deserialise<T>(Stream jsonData)
 		{
 			using (var reader = new JsonTextReader(new StreamReader(jsonData)))
@@ -167,8 +204,11 @@ namespace FamilyTree.Models.FileSystem
 			if (httpResponse == null)
 				throw exception;
 
-			if (httpResponse.StatusCode == HttpStatusCode.NotFound)
-				throw new FileNotFoundException(uri.ToString());
+            if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                var filePath = HttpUtility.UrlDecode(uri.Query.Replace("?path=", ""));
+                throw new FileNotFoundException("File not found on " + uri.Host + " - '" + filePath + "'");
+            }
 
 			if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
 				throw new InvalidOperationException();
