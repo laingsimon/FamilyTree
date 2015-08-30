@@ -36,14 +36,17 @@ namespace FamilyTree.Models
 			if (httpRequest.CookieContainer == null)
 				httpRequest.CookieContainer = new CookieContainer();
 
-			foreach (HttpCookie cookie in cookies)
+			foreach (string cookieName in cookies)
 			{
+				var cookie = cookies[cookieName];
+
 				httpRequest.CookieContainer.Add(new Cookie
 				{
 					Name = cookie.Name,
 					Value = cookie.Value,
 					HttpOnly = cookie.HttpOnly,
-					Expires = cookie.Expires
+					Expires = cookie.Expires == DateTime.MinValue ? DateTime.Now.AddHours(1) : cookie.Expires,
+					Domain = cookie.Domain ?? httpRequest.Host
 				});
 			}
 		}
