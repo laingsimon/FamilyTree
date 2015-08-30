@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.WindowsAzure.Storage;
+using System;
+using System.Net;
+using System.Reflection;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace FamilyTree
@@ -16,6 +20,22 @@ namespace FamilyTree
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 
 			MvcHandler.DisableMvcResponseHeader = true;
+		}
+
+		protected void Application_OnError(object sender, EventArgs args)
+		{
+			var error = Server.GetLastError();
+			while (error != null && (error is TargetInvocationException || error.InnerException is TargetInvocationException))
+				error = error.InnerException;
+
+			if (error is StorageException)
+			{
+				Server.ClearError();
+				Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
+				Response.Write(error.Message);
+				Response.End();
+				return;
+			}
 		}
 	}
 }
