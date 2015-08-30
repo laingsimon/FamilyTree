@@ -6,7 +6,7 @@ using System;
 
 namespace FamilyTree.Repositories.Authentication
 {
-	public class UserRepository
+	public class UserRepository : IUserRepository
 	{
 		public const string PartitionKey = "user";
 		private const string _tableName = "user";

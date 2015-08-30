@@ -157,6 +157,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
+    <Compile Include="Repositories\Authentication\DebugUserRepository.cs" />
     <Compile Include="Models\Authentication\IPasswordHasher.cs" />
     <Compile Include="Models\Authentication\PasswordHasher.cs" />
     <Compile Include="Models\Authentication\Roles.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Models\XmlTransformation\XslTransformResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Authentication\FailedLoginRepository.cs" />
+    <Compile Include="Repositories\Authentication\IUserRepository.cs" />
     <Compile Include="Repositories\Authentication\UserRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
