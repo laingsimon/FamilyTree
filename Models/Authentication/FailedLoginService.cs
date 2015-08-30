@@ -4,7 +4,7 @@ using FamilyTree.Repositories.Authentication;
 
 namespace FamilyTree.Models.Authentication
 {
-	public class FailedLoginService
+	public class FailedLoginService : IFailedLoginService
 	{
 		private readonly FailedLoginRepository _repository;
 		private readonly int _secondsDelaySeed;

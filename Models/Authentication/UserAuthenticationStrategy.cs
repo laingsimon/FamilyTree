@@ -14,12 +14,12 @@ namespace FamilyTree.Models.Authentication
 			};
 
 		private readonly IUserRepository _repository;
-		private readonly FailedLoginService _failedLoginService;
+		private readonly IFailedLoginService _failedLoginService;
 		private readonly IReadOnlyDictionary<SecurityScheme, ISecurityScheme> _securitySchemes;
 
 		public UserAuthenticationStrategy(
 			IUserRepository repository,
-			FailedLoginService failedLoginService,
+			IFailedLoginService failedLoginService,
 			IReadOnlyDictionary<SecurityScheme, ISecurityScheme> securitySchemes)
 		{
 			_repository = repository;
