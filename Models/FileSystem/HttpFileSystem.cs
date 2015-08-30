@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Web.Configuration;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -36,7 +37,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IFile GetFile(string path)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/File?path={0}", path));
+			var uri = new Uri(_baseUri, string.Format("FileSystem/File?path={0}", HttpUtility.UrlEncode(path)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -51,7 +52,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IDirectory GetDirectory(string path)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Directory?path={0}", path));
+			var uri = new Uri(_baseUri, string.Format("FileSystem/Directory?path={0}", HttpUtility.UrlEncode(path)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -66,7 +67,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IFile> GetFiles(IDirectory directory, string searchPattern)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Files?directoryPath={0}&searchPattern={1}", directory.Name, searchPattern));
+			var uri = new Uri(_baseUri, string.Format("FileSystem/Files?directoryPath={0}&searchPattern={1}", HttpUtility.UrlEncode(directory.Name), HttpUtility.UrlEncode(searchPattern)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -81,7 +82,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Directories?directoryPath={0}", directory.Name));
+			var uri = new Uri(_baseUri, string.Format("FileSystem/Directories?directoryPath={0}", HttpUtility.UrlEncode(directory.Name)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -96,7 +97,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public Stream OpenRead(IFile file)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", file.Name));
+			var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", HttpUtility.UrlEncode(file.Name)));
 			try
 			{
 				return _webClient.OpenRead(uri);
@@ -125,7 +126,7 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return new DelayedWriteStream(stream =>
 			{
-				var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", file.Name));
+				var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", HttpUtility.UrlEncode(file.Name)));
 				try
 				{
 					var writeStream = _webClient.OpenWrite(uri, "POST");
