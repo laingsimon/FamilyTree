@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -33,6 +34,7 @@ namespace FamilyTree.Models.FileSystem
 			get { return _name; }
 		}
 
+		[JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
 		public IDirectory Directory
 		{
 			[DebuggerStepThrough]
