@@ -8,7 +8,7 @@ namespace FamilyTree.Controllers
 	public class AccountController : Controller
 	{
 		private readonly UserAuthenticationStrategy _authenticationStrategy;
-		private readonly UserRepository _userRepository;
+		private readonly IUserRepository _userRepository;
 
 		public AccountController()
 			// ReSharper disable RedundantArgumentDefaultValue
@@ -18,14 +18,14 @@ namespace FamilyTree.Controllers
 
 		public AccountController(UserAuthenticationStrategy authenticationStrategy = null)
 		{
+			_userRepository = new UserRepository();
+
 			_authenticationStrategy = authenticationStrategy
 				?? new UserAuthenticationStrategy(
-						new UserRepository(),
+						_userRepository,
 						new FailedLoginService(
 							new FailedLoginRepository()),
 						UserAuthenticationStrategy.DefaultSchemes);
-
-			_userRepository = new UserRepository();
 		}
 
 		public ActionResult Index()
