@@ -3,6 +3,7 @@
 	public enum SecurityScheme
 	{
 		SaltedHash,
-		Pbkdf2SaltedHash
+		Pbkdf2SaltedHash,
+		Debug
 	}
 }

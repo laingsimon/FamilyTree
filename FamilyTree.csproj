@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
     <Compile Include="Models\Authentication\IPasswordHasher.cs" />
     <Compile Include="Models\Authentication\PasswordHasher.cs" />
     <Compile Include="Models\Authentication\Roles.cs" />
