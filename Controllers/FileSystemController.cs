@@ -25,16 +25,23 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult File(string path)
 		{
-			if (string.IsNullOrEmpty(path))
-				return HttpNotFound();
-			if (!path.StartsWith("~"))
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			try
+			{
+				if (string.IsNullOrEmpty(path))
+					return HttpNotFound();
+				if (!path.StartsWith("~"))
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var file = _fileSystem.GetFile(path);
-			if (file == null)
-				return HttpNotFound();
+				var file = _fileSystem.GetFile(path);
+				if (file == null)
+					return HttpNotFound();
 
-			return new JsonResult(file);
+				return new JsonResult(file);
+			}
+			catch (FileNotFoundException)
+			{
+				return HttpNotFound();
+			}
 		}
 
 		[HttpGet]
@@ -95,16 +102,23 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult FileContent(string path)
 		{
-			if (string.IsNullOrEmpty(path))
-				return HttpNotFound();
-			if (!path.StartsWith("~"))
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			try
+			{
+				if (string.IsNullOrEmpty(path))
+					return HttpNotFound();
+				if (!path.StartsWith("~"))
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var file = _fileSystem.GetFile(path);
-			if (file == null)
-				return HttpNotFound();
+				var file = _fileSystem.GetFile(path);
+				if (file == null)
+					return HttpNotFound();
 
-			return new FileStreamResult(file.OpenRead(), "application/octet-stream");
+				return new FileStreamResult(file.OpenRead(), "application/octet-stream");
+			}
+			catch (FileNotFoundException)
+			{
+				return HttpNotFound();
+			}
 		}
 
 		[HttpPost]
