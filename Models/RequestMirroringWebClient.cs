@@ -9,6 +9,7 @@ namespace FamilyTree.Models
 	public class RequestMirroringWebClient : WebClient
 	{
 		private readonly HttpCookieCollection _cookies;
+		private readonly object _singleRequestLock = new object();
 
 		public RequestMirroringWebClient()
 			:this(HttpContext.Current != null
@@ -26,9 +27,12 @@ namespace FamilyTree.Models
 
 		protected override WebResponse GetWebResponse(WebRequest request)
 		{
-			var httpRequest = (HttpWebRequest)request;
-			_AddCookiesToRequest(httpRequest, _cookies);
-			return base.GetWebResponse(request);
+			lock (_singleRequestLock)
+			{
+				var httpRequest = (HttpWebRequest)request;
+				_AddCookiesToRequest(httpRequest, _cookies);
+				return base.GetWebResponse(request);
+			}
 		}
 
 		private static void _AddCookiesToRequest(HttpWebRequest httpRequest, HttpCookieCollection cookies)
