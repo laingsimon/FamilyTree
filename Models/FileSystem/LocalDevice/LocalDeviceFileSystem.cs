@@ -8,11 +8,13 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 	public class LocalDeviceFileSystem : IFileSystem
 	{
 		private readonly Func<string, string> _mapPath;
+		private readonly Lazy<DirectoryInfo> _rootPath;
 
 		public LocalDeviceFileSystem(Func<string, string> mapPath)
 		{
 			_mapPath = mapPath;
-		}
+			_rootPath = new Lazy<DirectoryInfo>(() => new DirectoryInfo(mapPath("~")));
+        }
 
 		public IFile GetFile(string path)
 		{
@@ -88,7 +90,7 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 			return System.IO.File.Exists(_mapPath(path));
 		}
 
-		private static string _GetFullPath(IFile file)
+		private string _GetFullPath(IFile file)
 		{
 			return string.Join(
 				Path.DirectorySeparatorChar.ToString(),
@@ -96,17 +98,22 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 				file.Name);
 		}
 
-		private static string _GetFullPath(IDirectory directory)
+		private string _GetFullPath(IDirectory directory)
 		{
 			return string.Join(Path.DirectorySeparatorChar.ToString(), _PathNames(directory).ToArray());
 		}
 
-		private static IEnumerable<string> _PathNames(IDirectory directory)
+		private IEnumerable<string> _PathNames(IDirectory directory)
 		{
 			if (directory.Parent != null)
 			{
 				foreach (var name in _PathNames(directory.Parent))
-					yield return name;
+				{
+					if (name == "~")
+						yield return _mapPath("~");
+					else
+						yield return name;
+				}
 			}
 
 			yield return directory.Name;
@@ -116,6 +123,9 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			if (directory == null)
 				return null;
+
+			if (directory.FullName.Equals(_rootPath.Value.FullName, StringComparison.OrdinalIgnoreCase))
+				return new Directory("~", null, this);
 
 			return new Directory(
 				directory.Name,
