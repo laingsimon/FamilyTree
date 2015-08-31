@@ -39,7 +39,11 @@ namespace FamilyTree.Models.FileSystem
 
 		public IFile GetFile(string path)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/File?path={0}", HttpUtility.UrlEncode(path)));
+			var uri = new Uri(
+				_baseUri,
+				string.Format(
+					"FileSystem/File?path={0}",
+					HttpUtility.UrlEncode(path)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -57,7 +61,11 @@ namespace FamilyTree.Models.FileSystem
 
 		public IDirectory GetDirectory(string path)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Directory?path={0}", HttpUtility.UrlEncode(path)));
+			var uri = new Uri(
+				_baseUri,
+				string.Format(
+					"FileSystem/Directory?path={0}",
+					HttpUtility.UrlEncode(path)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -79,7 +87,7 @@ namespace FamilyTree.Models.FileSystem
 				_baseUri,
 				string.Format(
 					"FileSystem/Files?directoryPath={0}&searchPattern={1}",
-					HttpUtility.UrlEncode(directory.Name),
+					HttpUtility.UrlEncode(_PathToRoot(directory)),
 					HttpUtility.UrlEncode(searchPattern)));
 			try
 			{
@@ -98,7 +106,11 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Directories?directoryPath={0}", HttpUtility.UrlEncode(directory.Name)));
+			var uri = new Uri(
+				_baseUri,
+				string.Format(
+					"FileSystem/Directories?directoryPath={0}",
+					HttpUtility.UrlEncode(_PathToRoot(directory))));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
@@ -116,7 +128,11 @@ namespace FamilyTree.Models.FileSystem
 
 		public Stream OpenRead(IFile file)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", HttpUtility.UrlEncode(file.Name)));
+			var uri = new Uri(
+				_baseUri,
+				string.Format(
+					"FileSystem/FileContent?path={0}",
+					HttpUtility.UrlEncode(_PathToRoot(file))));
 			try
 			{
 				return _webClient.OpenRead(uri);
@@ -145,7 +161,11 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return new DelayedWriteStream(stream =>
 			{
-				var uri = new Uri(_baseUri, string.Format("FileSystem/FileContent?path={0}", HttpUtility.UrlEncode(file.Name)));
+				var uri = new Uri(
+					_baseUri,
+					string.Format(
+						"FileSystem/FileContent?path={0}",
+						HttpUtility.UrlEncode(_PathToRoot(file))));
 				try
 				{
 					var writeStream = _webClient.OpenWrite(uri, "POST");
@@ -172,6 +192,23 @@ namespace FamilyTree.Models.FileSystem
 				DateTime.MinValue,
 				this
 				);
+		}
+
+		private string _PathToRoot(IFile file)
+		{
+			return _PathToRoot(file.Directory) + "\\" + file.Name;
+		}
+
+		private string _PathToRoot(IDirectory directory)
+		{
+			if (directory == null)
+				return "";
+
+			var parentDirectory = _PathToRoot(directory.Parent);
+			if (string.IsNullOrEmpty(parentDirectory))
+				return directory.Name;
+
+			return parentDirectory + "\\" + directory.Name;
 		}
 
 		private void _AssertJsonContentType(Stream responseStream, Uri uri, WebClient webClient)
