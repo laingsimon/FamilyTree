@@ -5,7 +5,6 @@ using System.Net;
 using System.Web.Configuration;
 using Newtonsoft.Json;
 using System.Web;
-using System.Text;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -218,7 +217,7 @@ namespace FamilyTree.Models.FileSystem
             }
 
 			if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
-				throw new InvalidOperationException();
+				throw new InvalidOperationException("Bad request: " + uri);
 
 			if (httpResponse.StatusCode == HttpStatusCode.LengthRequired)
 				throw new InvalidOperationException("No file data sent");
@@ -232,7 +231,7 @@ namespace FamilyTree.Models.FileSystem
                 }
             }
 
-			throw new InvalidOperationException("Unable to process request", exception);
+			throw new InvalidOperationException("Unable to process request - " + uri, exception);
 		}
 	}
 }
