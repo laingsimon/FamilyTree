@@ -27,7 +27,6 @@ namespace FamilyTree.Models.FileSystem
 			get { return _name; }
 		}
 
-		[JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
 		public IDirectory Parent
 		{
 			[DebuggerStepThrough]

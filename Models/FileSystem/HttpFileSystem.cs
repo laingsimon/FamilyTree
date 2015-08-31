@@ -21,6 +21,8 @@ namespace FamilyTree.Models.FileSystem
 		{
 			_baseUri = baseUri ?? _configuredBaseUri;
 			_serialiser = serialiser ?? new JsonSerializer();
+			_serialiser.Converters.Add(new FileJsonConverter(this));
+			_serialiser.Converters.Add(new DirectoryJsonConverter(this));
 
 			_webClient = new RequestMirroringWebClient();
 		}
@@ -45,7 +47,7 @@ namespace FamilyTree.Models.FileSystem
 
 				_AssertJsonContentType(jsonData, uri, _webClient);
 
-				return _Deserialise<File>(jsonData);
+				return _Deserialise<IFile>(jsonData);
 			}
 			catch (WebException exc)
 			{
@@ -63,7 +65,7 @@ namespace FamilyTree.Models.FileSystem
 
 				_AssertJsonContentType(jsonData, uri, _webClient);
 
-				return _Deserialise<Directory>(jsonData);
+				return _Deserialise<IDirectory>(jsonData);
 			}
 			catch (WebException exc)
 			{
@@ -74,14 +76,19 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IFile> GetFiles(IDirectory directory, string searchPattern)
 		{
-			var uri = new Uri(_baseUri, string.Format("FileSystem/Files?directoryPath={0}&searchPattern={1}", HttpUtility.UrlEncode(directory.Name), HttpUtility.UrlEncode(searchPattern)));
+			var uri = new Uri(
+				_baseUri,
+				string.Format(
+					"FileSystem/Files?directoryPath={0}&searchPattern={1}",
+					HttpUtility.UrlEncode(directory.Name),
+					HttpUtility.UrlEncode(searchPattern)));
 			try
 			{
 				var jsonData = _webClient.OpenRead(uri);
 
 				_AssertJsonContentType(jsonData, uri, _webClient);
 
-				return _Deserialise<File[]>(jsonData);
+				return _Deserialise<IFile[]>(jsonData);
 			}
 			catch (WebException exc)
 			{
@@ -99,7 +106,7 @@ namespace FamilyTree.Models.FileSystem
 
 				_AssertJsonContentType(jsonData, uri, _webClient);
 
-				return _Deserialise<Directory[]>(jsonData);
+				return _Deserialise<IDirectory[]>(jsonData);
 			}
 			catch (WebException exc)
 			{

@@ -159,6 +159,8 @@
     <Compile Include="Models\Authentication\DebugFailedLoginService.cs" />
     <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
     <Compile Include="Models\Authentication\IFailedLoginService.cs" />
+    <Compile Include="Models\FileSystem\DirectoryJsonConverter.cs" />
+    <Compile Include="Models\FileSystem\FileJsonConverter.cs" />
     <Compile Include="Repositories\Authentication\DebugUserRepository.cs" />
     <Compile Include="Models\Authentication\IPasswordHasher.cs" />
     <Compile Include="Models\Authentication\PasswordHasher.cs" />

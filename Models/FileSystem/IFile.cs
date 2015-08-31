@@ -9,7 +9,6 @@ namespace FamilyTree.Models.FileSystem
 		Stream OpenRead();
 		Stream OpenWrite();
 		string Name { get; }
-		[JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
 		IDirectory Directory { get; }
 		long Size { get; }
 		DateTime LastWriteTimeUtc { get; }
