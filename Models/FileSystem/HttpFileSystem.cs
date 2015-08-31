@@ -39,6 +39,11 @@ namespace FamilyTree.Models.FileSystem
 
 		public IFile GetFile(string path)
 		{
+			return GetFile(path, true);
+		}
+
+		public IFile GetFile(string path, bool throwOnFileNotFound)
+		{
 			var uri = new Uri(
 				_baseUri,
 				string.Format(
@@ -54,7 +59,7 @@ namespace FamilyTree.Models.FileSystem
 			}
 			catch (WebException exc)
 			{
-				_HandleWebException(exc, uri);
+				_HandleWebException(exc, uri, throwOnFileNotFound);
 				throw;
 			}
 		}
@@ -148,7 +153,7 @@ namespace FamilyTree.Models.FileSystem
 		{
 			try
 			{
-				GetFile(path);
+				GetFile(path, false);
 				return true;
 			}
 			catch (WebException)
@@ -241,7 +246,7 @@ namespace FamilyTree.Models.FileSystem
 				return _serialiser.Deserialize<T>(reader);
 		}
 
-		private static void _HandleWebException(WebException exception, Uri uri)
+		private static void _HandleWebException(WebException exception, Uri uri, bool throwOnFileNotFound = true)
 		{
 			var httpResponse = exception.Response as HttpWebResponse;
 			if (httpResponse == null)
@@ -249,6 +254,9 @@ namespace FamilyTree.Models.FileSystem
 
             if (httpResponse.StatusCode == HttpStatusCode.NotFound)
             {
+				if (!throwOnFileNotFound)
+					return;
+
                 var filePath = HttpUtility.UrlDecode(uri.Query.Replace("?path=", ""));
                 throw new FileNotFoundException("File not found on " + uri.Host + " - '" + filePath + "'");
             }
