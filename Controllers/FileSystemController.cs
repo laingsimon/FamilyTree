@@ -5,6 +5,8 @@ using FamilyTree.Models.Authentication;
 using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.FileSystem.AzureStorage;
 using JsonResult = FamilyTree.Models.JsonResult;
+using System.Diagnostics;
+using FamilyTree.Models;
 
 namespace FamilyTree.Controllers
 {
@@ -25,6 +27,8 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult File(string path)
 		{
+			Trace.WriteLine(string.Format("File: {0}", path), "FileSystemController");
+
 			try
 			{
 				if (string.IsNullOrEmpty(path))
@@ -36,6 +40,14 @@ namespace FamilyTree.Controllers
 				if (file == null)
 					return HttpNotFound();
 
+				var currentEtag = ETagHelper.GetEtagFromFile(file);
+				var ifModifiedSince = Request.Headers["If-Modified-Since"];
+
+				if (!ETagHelper.HasChanged(Request, currentEtag) || ifModifiedSince == file.LastWriteTimeUtc.ToString("R"))
+					return new HttpStatusCodeResult(HttpStatusCode.NotModified);
+
+				Response.Headers.Add("Last-Modified", file.LastWriteTimeUtc.ToString("R"));
+				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
 				return new JsonResult(file);
 			}
 			catch (FileNotFoundException)
@@ -47,6 +59,8 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult Directory(string path)
 		{
+			Trace.WriteLine(string.Format("Directory: {0}", path), "FileSystemController");
+
 			if (string.IsNullOrEmpty(path))
 				return HttpNotFound();
 			if (!path.StartsWith("~"))
@@ -102,6 +116,8 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult FileContent(string path)
 		{
+			Trace.WriteLine(string.Format("Content: {0}", path), "FileSystemController");
+
 			try
 			{
 				if (string.IsNullOrEmpty(path))
@@ -113,6 +129,14 @@ namespace FamilyTree.Controllers
 				if (file == null)
 					return HttpNotFound();
 
+				var currentEtag = ETagHelper.GetEtagFromFile(file);
+				var ifModifiedSince = Request.Headers["If-Modified-Since"];
+
+				if (!ETagHelper.HasChanged(Request, currentEtag) || ifModifiedSince == file.LastWriteTimeUtc.ToString("R"))
+					return new HttpStatusCodeResult(HttpStatusCode.NotModified);
+
+				Response.AddHeader("Last-Modified", file.LastWriteTimeUtc.ToString("R"));
+				ETagHelper.AddEtagHeaderToResponse(Response, currentEtag);
 				return new FileStreamResult(file.OpenRead(), "application/octet-stream");
 			}
 			catch (FileNotFoundException)
