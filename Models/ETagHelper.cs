@@ -37,7 +37,7 @@ namespace FamilyTree.Models
 			if (string.IsNullOrEmpty(ifNoneMatch))
 				return true; //no etag in request
 
-			return "\"" + etag + "\"" == ifNoneMatch;
+			return "\"" + etag + "\"" != ifNoneMatch;
 		}
 
 		public static void AddEtagHeaderToResponse(HttpResponseBase response, string etag)
