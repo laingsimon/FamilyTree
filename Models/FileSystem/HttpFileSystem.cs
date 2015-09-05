@@ -14,7 +14,7 @@ namespace FamilyTree.Models.FileSystem
 
 		private readonly Uri _baseUri;
 		private readonly JsonSerializer _serialiser;
-		private readonly WebClient _webClient;
+		private readonly HttpClient _webClient;
 
 		public HttpFileSystem(Uri baseUri = null, JsonSerializer serialiser = null)
 		{
@@ -23,7 +23,7 @@ namespace FamilyTree.Models.FileSystem
 			_serialiser.Converters.Add(new FileJsonConverter(this));
 			_serialiser.Converters.Add(new DirectoryJsonConverter(this));
 
-			_webClient = new RequestMirroringWebClient();
+			_webClient = new HttpClient();
 		}
 
 		private static Uri _GetConfiguredBaseUri()
@@ -51,9 +51,9 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(path)));
 			try
 			{
-				var jsonData = _webClient.OpenRead(uri);
+				var jsonData = _webClient.Get(uri).Result;
 
-				_AssertJsonContentType(jsonData, uri, _webClient);
+				_AssertJsonContentType(jsonData, uri);
 
 				return _Deserialise<IFile>(jsonData);
 			}
@@ -73,9 +73,9 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(path)));
 			try
 			{
-				var jsonData = _webClient.OpenRead(uri);
+				var jsonData = _webClient.Get(uri).Result;
 
-				_AssertJsonContentType(jsonData, uri, _webClient);
+				_AssertJsonContentType(jsonData, uri);
 
 				return _Deserialise<IDirectory>(jsonData);
 			}
@@ -96,9 +96,9 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(searchPattern)));
 			try
 			{
-				var jsonData = _webClient.OpenRead(uri);
+				var jsonData = _webClient.Get(uri).Result;
 
-				_AssertJsonContentType(jsonData, uri, _webClient);
+				_AssertJsonContentType(jsonData, uri);
 
 				return _Deserialise<IFile[]>(jsonData);
 			}
@@ -118,9 +118,9 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(_PathToRoot(directory))));
 			try
 			{
-				var jsonData = _webClient.OpenRead(uri);
+				var jsonData = _webClient.Get(uri).Result;
 
-				_AssertJsonContentType(jsonData, uri, _webClient);
+				_AssertJsonContentType(jsonData, uri);
 
 				return _Deserialise<IDirectory[]>(jsonData);
 			}
@@ -140,7 +140,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(_PathToRoot(file))));
 			try
 			{
-				return _webClient.OpenRead(uri);
+				return _webClient.Get(uri).Result.Body;
 			}
 			catch (WebException exc)
 			{
@@ -173,9 +173,7 @@ namespace FamilyTree.Models.FileSystem
 						HttpUtility.UrlEncode(_PathToRoot(file))));
 				try
 				{
-					var writeStream = _webClient.OpenWrite(uri, "POST");
-					stream.CopyTo(writeStream);
-					writeStream.Close();
+					var writeStream = _webClient.Post(uri, stream);
 				}
 				catch (WebException exc)
 				{
@@ -216,9 +214,9 @@ namespace FamilyTree.Models.FileSystem
 			return parentDirectory + "\\" + directory.Name;
 		}
 
-		private void _AssertJsonContentType(Stream responseStream, Uri uri, WebClient webClient)
+		private void _AssertJsonContentType(HttpResponse responseStream, Uri uri)
 		{
-			var contentType = webClient.ResponseHeaders["Content-Type"];
+			var contentType = responseStream.ContentType;
 			if (string.IsNullOrEmpty(contentType))
 				throw new InvalidOperationException("ContentType header not returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
 
@@ -226,23 +224,14 @@ namespace FamilyTree.Models.FileSystem
 				throw new FormatException("Not json content returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
 		}
 
-		private string _GetResponseData(Stream stream)
+		private string _GetResponseData(HttpResponse stream)
 		{
-#if DEBUG
-			using (var streamReader = new StreamReader(stream))
-			{
-				var nonJsonData = streamReader.ReadToEnd();
-
-				return nonJsonData.Substring(0, Math.Min(nonJsonData.Length, 1024));
-			}
-#else
-			return "";
-#endif
+			return new StreamReader(stream.Body).ReadToEnd();
 		}
 
-		private T _Deserialise<T>(Stream jsonData)
+		private T _Deserialise<T>(HttpResponse jsonData)
 		{
-			using (var reader = new JsonTextReader(new StreamReader(jsonData)))
+			using (var reader = new JsonTextReader(new StreamReader(jsonData.Body)))
 				return _serialiser.Deserialize<T>(reader);
 		}
 
