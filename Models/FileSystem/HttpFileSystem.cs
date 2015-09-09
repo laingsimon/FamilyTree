@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Configuration;
 using Newtonsoft.Json;
 using System.Web;
+using System.Linq;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -60,7 +61,19 @@ namespace FamilyTree.Models.FileSystem
 			catch (WebException exc)
 			{
 				_HandleWebException(exc, uri, throwOnFileNotFound);
-				throw;
+				return null;
+			}
+			catch (AggregateException exc)
+			{
+				if (exc.InnerExceptions.Count != 1)
+					throw;
+
+				var singleWebException = exc.InnerExceptions.Single() as WebException;
+				if (singleWebException == null)
+					throw;
+
+				_HandleWebException(singleWebException, uri, throwOnFileNotFound);
+				return null;
 			}
 		}
 
@@ -153,8 +166,8 @@ namespace FamilyTree.Models.FileSystem
 		{
 			try
 			{
-				GetFile(path, false);
-				return true;
+				var file = GetFile(path, false);
+				return file != null;
 			}
 			catch (WebException)
 			{
