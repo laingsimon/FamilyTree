@@ -22,7 +22,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			//prefer the file on the destination - unless force is defined
 			var writeFile = _write.GetFile(path);
-			var readFile = _read.GetFile(path);
+			var readFile = _read.FileExists(path) ? _read.GetFile(path) : null;
 
 			if (!_updateAllFilesOnDestination && writeFile != null && writeFile.Size > 0)
 				return new RelayFile(readFile, writeFile);
