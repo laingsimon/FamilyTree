@@ -263,9 +263,7 @@
     <Content Include="Content\Family.less" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
-    <Content Include="Data\*.xml" />
     <Content Include="Global.asax" />
-    <Content Include="Photos\*.jpg" />
     <Content Include="Scripts\Family.js" />
     <Content Include="Scripts\ft.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
