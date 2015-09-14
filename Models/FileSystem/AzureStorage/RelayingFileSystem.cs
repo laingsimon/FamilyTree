@@ -24,6 +24,9 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			var writeFile = _write.GetFile(path);
 			var readFile = _read.FileExists(path) ? _read.GetFile(path) : null;
 
+			if (readFile == null)
+				return writeFile;
+
 			if (!_updateAllFilesOnDestination && writeFile != null && writeFile.Size > 0)
 				return new RelayFile(readFile, writeFile);
 
