@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
-using FamilyTree.Models.FileSystem.AzureStorage;
-using FamilyTree.Models.FileSystem.LocalDevice;
+using System;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -8,10 +7,8 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static IFileSystem GetFileSystem(Controller controller)
 		{
-			var localDevice = new LocalDeviceFileSystem(s => controller.Server.MapPath(s));
-			return new RelayingFileSystem(
-				localDevice,
-				new AzureStorageFileSystem());
+			return new HttpFileSystem(
+				new Uri("http://localhost/FamilyTree/", UriKind.Absolute));
 		}
 	}
 }

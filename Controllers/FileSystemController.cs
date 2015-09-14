@@ -6,6 +6,7 @@ using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.FileSystem.AzureStorage;
 using JsonResult = FamilyTree.Models.JsonResult;
 using System.Diagnostics;
+using FamilyTree.Models.FileSystem.LocalDevice;
 using FamilyTree.Models;
 
 namespace FamilyTree.Controllers
@@ -15,9 +16,14 @@ namespace FamilyTree.Controllers
 	{
 		private readonly IFileSystem _fileSystem;
 
+		//public FileSystemController()
+		//	: this(new AzureStorageFileSystem())
+		//{ }
+
 		public FileSystemController()
-			: this(new AzureStorageFileSystem())
-		{ }
+		{
+			_fileSystem = new LocalDeviceFileSystem(path => Server.MapPath(path));
+		}
 
 		public FileSystemController(IFileSystem fileSystem)
 		{

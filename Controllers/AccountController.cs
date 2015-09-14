@@ -18,13 +18,12 @@ namespace FamilyTree.Controllers
 
 		public AccountController(UserAuthenticationStrategy authenticationStrategy = null)
 		{
-			_userRepository = new UserRepository();
+			_userRepository = new DebugUserRepository();
 
 			_authenticationStrategy = authenticationStrategy
 				?? new UserAuthenticationStrategy(
 						_userRepository,
-						new FailedLoginService(
-							new FailedLoginRepository()),
+						new DebugFailedLoginService(),
 						UserAuthenticationStrategy.DefaultSchemes);
 		}
 
