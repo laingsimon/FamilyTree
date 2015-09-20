@@ -72,11 +72,18 @@ namespace FamilyTree.Controllers
 			if (!path.StartsWith("~"))
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var directory = _fileSystem.GetDirectory(path);
-			if (directory == null)
-				return HttpNotFound();
+			try
+			{
+				var directory = _fileSystem.GetDirectory(path);
+				if (directory == null)
+					return HttpNotFound();
 
-			return new JsonResult(directory);
+				return new JsonResult(directory);
+			}
+			catch (DirectoryNotFoundException)
+			{
+				return HttpNotFound();
+			}
 		}
 
 		[HttpGet]
