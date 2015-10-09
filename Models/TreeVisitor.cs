@@ -34,7 +34,11 @@ namespace FamilyTree.Models
 			try
 			{
 				using (var stream = treeFile.OpenRead())
+				{
+					if (stream == System.IO.Stream.Null)
+						throw new InvalidOperationException("Could not load file for " + treeFile.Name);
 					xDocument = XDocument.Load(stream);
+				}
 			}
 			catch (XmlException exc)
 			{
