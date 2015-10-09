@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using FamilyTree.Models.DTO;
 using FamilyTree.Models.FileSystem;
+using System;
 
 namespace FamilyTree.Models
 {
@@ -29,6 +30,9 @@ namespace FamilyTree.Models
 			using (var stream = file.OpenRead())
 			using (var fileStream = new StreamReader(stream))
 			{
+				if (stream == Stream.Null)
+					throw new InvalidOperationException("Unable to load file " + file.Name);
+
 				var serialiser = new XmlSerializer(typeof(Tree));
 				return (Tree)serialiser.Deserialize(fileStream);
 			}

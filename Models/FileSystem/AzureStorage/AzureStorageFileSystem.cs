@@ -81,7 +81,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		private ICloudBlob _GetAzureFile(IFile file)
 		{
-			var fullPath = string.Join("/", _GetFullPath(file.Directory)) + "/" + file.Name;
+			var fullPath = "~/" + string.Join("/", _GetFullPath(file.Directory)) + "/" + file.Name;
 			return _GetAzureFile(fullPath);
 		}
 
@@ -110,7 +110,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			var length = blobRef.Properties.Length;
 
 			return new File(
-				blobRef.Name,
+				Path.GetFileName(blobRef.Name),
 				directory,
 				length,
 				lastModified.UtcDateTime,
@@ -132,7 +132,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 				   let file = _client.GetBlobReferenceFromServer(item.StorageUri)
 				   let lastModified = file.Properties.LastModified ?? DateTimeOffset.MinValue
 				   select new File(
-					   file.Name,
+					   Path.GetFileName(file.Name),
 					   directory,
 					   file.Properties.Length,
 					   lastModified.UtcDateTime,
