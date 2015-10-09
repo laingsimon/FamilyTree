@@ -182,19 +182,19 @@ namespace FamilyTree.Models.FileSystem
 
 		private string _PathToRoot(IFile file)
 		{
-			return _PathToRoot(file.Directory) + "\\" + file.Name;
+			return _PathToRoot(file.Directory) + "/" + file.Name;
 		}
 
 		private string _PathToRoot(IDirectory directory)
 		{
 			if (directory == null)
-				return "";
+				return "~";
 
 			var parentDirectory = _PathToRoot(directory.Parent);
 			if (string.IsNullOrEmpty(parentDirectory))
-				return directory.Name;
+				return "~/" + directory.Name;
 
-			return parentDirectory + "\\" + directory.Name;
+			return parentDirectory + "/" + directory.Name;
 		}
 
 		private void _AssertJsonContentType(HttpResponse responseStream, Uri uri)
