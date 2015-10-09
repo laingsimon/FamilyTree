@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -8,6 +7,8 @@ namespace FamilyTree.Models.FileSystem
 	[DebuggerDisplay("{_directory}/{_name,nq}")]
 	public class File : IFile
 	{
+		public static readonly IFile Null = new _NullFile();
+
 		private readonly string _name;
 		private readonly IDirectory _directory;
 		private readonly long _size;
@@ -77,6 +78,40 @@ namespace FamilyTree.Models.FileSystem
 
 			return file.Name.Equals(_name, StringComparison.OrdinalIgnoreCase)
 				&& file.Directory.Equals(_directory);
+		}
+
+		[DebuggerDisplay("Null file")]
+		private class _NullFile : IFile
+		{
+			public IDirectory Directory
+			{
+				get { return FileSystem.Directory.Null; }
+			}
+
+			public DateTime LastWriteTimeUtc
+			{
+				get { return default(DateTime); }
+			}
+
+			public string Name
+			{
+				get { return ""; }
+			}
+
+			public long Size
+			{
+				get { return 0; }
+			}
+
+			public Stream OpenRead()
+			{
+				return Stream.Null;
+			}
+
+			public Stream OpenWrite()
+			{
+				return Stream.Null;
+			}
 		}
 	}
 }

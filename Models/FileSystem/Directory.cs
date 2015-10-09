@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -7,6 +6,8 @@ namespace FamilyTree.Models.FileSystem
 {
 	public class Directory : IDirectory
 	{
+		public static readonly IDirectory Null = new _NullDirectory();
+
 		private readonly string _name;
 		private readonly IDirectory _parent;
 		private readonly IFileSystem _fileSystem;
@@ -74,6 +75,30 @@ namespace FamilyTree.Models.FileSystem
 				return true;
 
 			return _parent.Equals(directory.Parent);
+		}
+
+		[DebuggerDisplay("Null directory")]
+		private class _NullDirectory : IDirectory
+		{
+			public string Name
+			{
+				get { return ""; }
+			}
+
+			public IDirectory Parent
+			{
+				get { return null; }
+			}
+
+			public IEnumerable<IDirectory> GetDirectories()
+			{
+				return new IDirectory[0];
+			}
+
+			public IEnumerable<IFile> GetFiles(string searchPattern)
+			{
+				return new IFile[0];
+			}
 		}
 	}
 }

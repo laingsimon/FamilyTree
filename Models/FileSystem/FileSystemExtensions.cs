@@ -6,7 +6,7 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static byte[] ReadAllBytes(this IFile file)
 		{
-			if (file == null)
+			if (file == null || file == File.Null)
 				throw new FileNotFoundException();
 
 			var content = new byte[file.Size];
@@ -25,24 +25,24 @@ namespace FamilyTree.Models.FileSystem
 
 		public static string GetExtension(this IFile file)
 		{
-			if (file == null)
-				return null;
+			if (file == null || file == File.Null)
+				return "";
 
 			return Path.GetExtension(file.Name);
 		}
 
 		public static string GetFileNameWithoutExtension(this IFile file)
 		{
-			if (file == null)
-				return null;
+			if (file == null || file == File.Null)
+				return "";
 
 			return Path.GetFileNameWithoutExtension(file.Name);
 		}
 
 		public static IFile CloneWithFileSystem(this IFile file, IFileSystem fileSystem)
 		{
-			if (file == null)
-				return null;
+			if (file == null || file == File.Null)
+				return File.Null;
 
 			return new File(
 				file.Name,
@@ -54,8 +54,8 @@ namespace FamilyTree.Models.FileSystem
 
 		public static IDirectory CloneWithFileSystem(this IDirectory directory, IFileSystem fileSystem)
 		{
-			if (directory == null)
-				return null;
+			if (directory == null || directory == Directory.Null)
+				return Directory.Null;
 
 			return new Directory(
 				directory.Name,
