@@ -103,7 +103,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			var blobRef = _GetAzureFile(path);
 			if (blobRef == null)
-				return null;
+				return File.Null;
 
 			var directory = _GetDirectoryFromPath(path);
 			var lastModified = blobRef.Properties.LastModified ?? DateTimeOffset.MinValue;
@@ -157,7 +157,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			var azureFile = _GetAzureFile(file);
 			if (azureFile == null)
-				throw new FileNotFoundException();
+				return Stream.Null;
 
 			return azureFile.OpenRead();
 		}

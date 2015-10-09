@@ -43,7 +43,7 @@ namespace FamilyTree.Controllers
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				var file = _fileSystem.GetFile(path);
-				if (file == null)
+				if (file == null || file == Models.FileSystem.File.Null)
 					return HttpNotFound();
 
 				var currentEtag = ETagHelper.GetEtagFromFile(file);
@@ -75,7 +75,7 @@ namespace FamilyTree.Controllers
 			try
 			{
 				var directory = _fileSystem.GetDirectory(path);
-				if (directory == null)
+				if (directory == null || directory == Models.FileSystem.Directory.Null)
 					return HttpNotFound();
 
 				return new JsonResult(directory);
@@ -96,7 +96,7 @@ namespace FamilyTree.Controllers
 
 			var directory = _fileSystem.GetDirectory(directoryPath);
 
-			if (directory == null)
+			if (directory == null || directory == Models.FileSystem.Directory.Null)
 				return HttpNotFound();
 
 			var files = _fileSystem.GetFiles(directory, searchPattern);
@@ -116,7 +116,7 @@ namespace FamilyTree.Controllers
 
 			var directory = _fileSystem.GetDirectory(directoryPath);
 
-			if (directory == null)
+			if (directory == null || directory == Models.FileSystem.Directory.Null)
 				return HttpNotFound();
 
 			var directories = _fileSystem.GetDirectories(directory);
@@ -139,7 +139,7 @@ namespace FamilyTree.Controllers
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				var file = _fileSystem.GetFile(path);
-				if (file == null)
+				if (file == null || file == Models.FileSystem.File.Null)
 					return HttpNotFound();
 
 				var currentEtag = ETagHelper.GetEtagFromFile(file);
@@ -172,7 +172,7 @@ namespace FamilyTree.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.LengthRequired);
 
 			var file = _fileSystem.GetFile(path);
-			if (file == null)
+			if (file == null || file == Models.FileSystem.File.Null)
 				return HttpNotFound();
 
 			using (var writeStream = file.OpenWrite())

@@ -20,11 +20,11 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			var ioFile = new FileInfo(_mapPath(path));
 			if (!ioFile.Exists)
-				throw new FileNotFoundException("File not found", path);
+				return File.Null;
 
 			return new File(
 				ioFile.Name,
-				_GetDirectory(ioFile.Directory),
+				_GetDirectory(ioFile.Directory) ?? Directory.Null,
 				ioFile.Length,
 				ioFile.LastWriteTimeUtc,
 				this);
@@ -34,16 +34,16 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			var ioDirectory = new DirectoryInfo(_mapPath(path));
 			if (!ioDirectory.Exists)
-				throw new DirectoryNotFoundException("Directory not found - " + ioDirectory.FullName);
+				return Directory.Null;
 
-			return _GetDirectory(ioDirectory);
+			return _GetDirectory(ioDirectory) ?? Directory.Null;
 		}
 
 		public IEnumerable<IFile> GetFiles(IDirectory directory, string searchPattern)
 		{
 			var ioDirectory = new DirectoryInfo(_GetFullPath(directory));
 			if (!ioDirectory.Exists)
-				throw new DirectoryNotFoundException("Directory not found - " + ioDirectory.FullName);
+				return new IFile[0];
 
 			return from ioSubFile in ioDirectory.EnumerateFiles(searchPattern)
 				   select new File(
@@ -58,7 +58,7 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			var ioDirectory = new DirectoryInfo(_GetFullPath(directory));
 			if (!ioDirectory.Exists)
-				throw new DirectoryNotFoundException("Directory not found - " + ioDirectory.FullName);
+				return new IDirectory[0];
 
 			return from ioSubDir in ioDirectory.EnumerateDirectories()
 				   select new Directory(
@@ -71,7 +71,7 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			var ioFile = new FileInfo(_GetFullPath(file));
 			if (!ioFile.Exists)
-				throw new FileNotFoundException("File not found", ioFile.FullName);
+				return Stream.Null;
 
 			return ioFile.OpenRead();
 		}
@@ -80,7 +80,7 @@ namespace FamilyTree.Models.FileSystem.LocalDevice
 		{
 			var ioFile = new FileInfo(_GetFullPath(file));
 			if (!ioFile.Exists)
-				throw new FileNotFoundException("File not found", ioFile.FullName);
+				return Stream.Null;
 
 			return ioFile.OpenWrite();
 		}

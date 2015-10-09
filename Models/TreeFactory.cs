@@ -23,7 +23,7 @@ namespace FamilyTree.Models
 
 		public Tree LoadFromFile(IFile file)
 		{
-			if (file == null)
+			if (file == null || file == FileSystem.File.Null)
 				return null;
 
 			using (var stream = file.OpenRead())

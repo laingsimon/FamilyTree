@@ -39,7 +39,7 @@ namespace FamilyTree.Controllers
 			var relativePath = string.Format("~/Data/{0}.xml", family);
 			var file = _fileSystem.GetFile(relativePath);
 
-			if (file == null)
+			if (file == null || file == Models.FileSystem.File.Null)
 				return RedirectToAction("List");
 
 			try

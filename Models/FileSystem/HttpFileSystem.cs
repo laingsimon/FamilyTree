@@ -40,11 +40,6 @@ namespace FamilyTree.Models.FileSystem
 
 		public IFile GetFile(string path)
 		{
-			return GetFile(path, true);
-		}
-
-		public IFile GetFile(string path, bool throwOnFileNotFound)
-		{
 			var uri = new Uri(
 				_baseUri,
 				string.Format(
@@ -58,22 +53,9 @@ namespace FamilyTree.Models.FileSystem
 
 				return _Deserialise<IFile>(jsonData);
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(exc, uri, throwOnFileNotFound);
-				return null;
-			}
-			catch (AggregateException exc)
-			{
-				if (exc.InnerExceptions.Count != 1)
-					throw;
-
-				var singleWebException = exc.InnerExceptions.Single() as WebException;
-				if (singleWebException == null)
-					throw;
-
-				_HandleWebException(singleWebException, uri, throwOnFileNotFound);
-				return null;
+				return _HandleException(exc, uri, File.Null);
 			}
 		}
 
@@ -92,10 +74,9 @@ namespace FamilyTree.Models.FileSystem
 
 				return _Deserialise<IDirectory>(jsonData);
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(exc, uri);
-				throw;
+				return _HandleException(exc, uri, Directory.Null);
 			}
 		}
 
@@ -115,10 +96,9 @@ namespace FamilyTree.Models.FileSystem
 
 				return _Deserialise<IFile[]>(jsonData);
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(exc, uri);
-				throw;
+				return _HandleException(exc, uri, new IFile[0]);
 			}
 		}
 
@@ -137,10 +117,9 @@ namespace FamilyTree.Models.FileSystem
 
 				return _Deserialise<IDirectory[]>(jsonData);
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(exc, uri);
-				throw;
+				return _HandleException(exc, uri, new IDirectory[0]);
 			}
 		}
 
@@ -155,24 +134,16 @@ namespace FamilyTree.Models.FileSystem
 			{
 				return _webClient.Get(uri).Result.Body;
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(exc, uri);
-				throw;
+				return _HandleException(exc, uri, Stream.Null);
 			}
 		}
 
 		public bool FileExists(string path)
 		{
-			try
-			{
-				var file = GetFile(path, false);
-				return file != null;
-			}
-			catch (WebException)
-			{
-				return false;
-			}
+			var file = GetFile(path);
+			return file != File.Null;
 		}
 
 		public Stream OpenWrite(IFile file)
@@ -188,10 +159,9 @@ namespace FamilyTree.Models.FileSystem
 				{
 					var writeStream = _webClient.Post(uri, stream);
 				}
-				catch (WebException exc)
+				catch (Exception exc)
 				{
-					_HandleWebException(exc, uri);
-					throw;
+					_HandleException(exc, uri, Stream.Null);
 				}
 			});
 		}
@@ -248,20 +218,32 @@ namespace FamilyTree.Models.FileSystem
 				return _serialiser.Deserialize<T>(reader);
 		}
 
-		private static void _HandleWebException(WebException exception, Uri uri, bool throwOnFileNotFound = true)
+		private static T _HandleException<T>(Exception exception, Uri uri, T notFoundResponse)
+			where T : class
+		{
+			var webException = exception as WebException;
+			if (webException != null)
+				return _HandleWebException(webException, uri, notFoundResponse);
+
+			var aggregateException = exception as AggregateException;
+			if (aggregateException != null)
+			{
+				if (aggregateException.InnerExceptions.Count == 1)
+					return _HandleException(aggregateException.InnerExceptions.Single(), uri, notFoundResponse);
+			}
+
+			throw exception;
+		}
+
+		private static T _HandleWebException<T>(WebException exception, Uri uri, T notFoundResponse)
+			where T : class
 		{
 			var httpResponse = exception.Response as HttpWebResponse;
 			if (httpResponse == null)
 				throw exception;
 
             if (httpResponse.StatusCode == HttpStatusCode.NotFound)
-            {
-				if (!throwOnFileNotFound)
-					return;
-
-                var filePath = HttpUtility.UrlDecode(uri.Query.Replace("?path=", ""));
-                throw new FileNotFoundException("File not found on " + uri.Host + " - '" + filePath + "'");
-            }
+				return notFoundResponse;
 
 			if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
 				throw new InvalidOperationException("Bad request: " + uri);

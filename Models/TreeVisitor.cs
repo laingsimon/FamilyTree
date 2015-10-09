@@ -21,7 +21,7 @@ namespace FamilyTree.Models
 
 		public void Visit(IFile treeFile, ITreeVisitee visitee)
 		{
-			if (treeFile == null)
+			if (treeFile == null || treeFile == File.Null)
 				return;
 
 			if (_visitedFiles.Contains(treeFile))
@@ -53,7 +53,7 @@ namespace FamilyTree.Models
 					{
 						var subTreeFile = treeFile.Directory.GetFiles(subTreeName + ".xml").SingleOrDefault();
 
-						if (subTreeFile != null)
+						if (subTreeFile != null && subTreeFile != File.Null)
 							Visit(subTreeFile, visitee);
 					}
 					catch (ArgumentException exc)
