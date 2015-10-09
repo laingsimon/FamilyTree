@@ -16,14 +16,16 @@ namespace FamilyTree.Controllers
 	{
 		private readonly IFileSystem _fileSystem;
 
-		//public FileSystemController()
-		//	: this(new AzureStorageFileSystem())
-		//{ }
-
+#if DEBUG
+		public FileSystemController()
+			: this(new AzureStorageFileSystem())
+		{ }
+#else
 		public FileSystemController()
 		{
 			_fileSystem = new LocalDeviceFileSystem(path => Server.MapPath(path));
 		}
+#endif
 
 		public FileSystemController(IFileSystem fileSystem)
 		{
