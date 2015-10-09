@@ -141,10 +141,15 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 		private static bool _MatchesSearchPattern(IListBlobItem item, string searchPattern)
 		{
-			if (searchPattern.Contains("*"))
-				throw new NotImplementedException("Wildcard file matching isn't yet implemented in AzureStorageFileSystem");
-
 			var fileName = item.Uri.Segments.Last();
+
+			if (searchPattern.StartsWith("*") && searchPattern.EndsWith("*"))
+				return fileName.ToLower().Contains(searchPattern.Trim('*').ToLower()); //dirty hack to achieve case insensitivity
+			if (searchPattern.StartsWith("*"))
+				return fileName.EndsWith(searchPattern.TrimStart('*'), StringComparison.OrdinalIgnoreCase);
+			if (searchPattern.EndsWith("*"))
+				return fileName.StartsWith(searchPattern.TrimEnd('*'), StringComparison.OrdinalIgnoreCase);
+
 			return fileName.Equals(searchPattern, StringComparison.OrdinalIgnoreCase);
 		}
 
