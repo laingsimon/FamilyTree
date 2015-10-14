@@ -34,7 +34,14 @@ namespace FamilyTree.Models
 					throw new InvalidOperationException("Unable to load file " + file.Name);
 
 				var serialiser = new XmlSerializer(typeof(Tree));
-				return (Tree)serialiser.Deserialize(fileStream);
+				try
+				{
+					return (Tree)serialiser.Deserialize(fileStream);
+				}
+				catch (InvalidOperationException exc)
+				{
+					throw new InvalidOperationException(string.Format("Unable to load file {0} ({1} bytes)", file.Name, file.Size), exc);
+				}
 			}
 		}
 
