@@ -27,7 +27,7 @@ namespace FamilyTree.Models
 			_cookies = request.Cookies;
 		}
 
-		public async Task<HttpResponse> Get(Uri uri)
+		public HttpResponse Get(Uri uri)
 		{
 			var cachedResponse = (HttpResponse)_cache.Get(uri.ToString());
 
@@ -44,11 +44,11 @@ namespace FamilyTree.Models
 
 				Trace.TraceInformation("Waiting for slot for {0}", request.RequestUri);
 
-				await _throttler.WaitAsync();
+				_throttler.WaitAsync();
 
 				Trace.TraceInformation("Request: {0}", request.RequestUri);
 
-				var response = await request.GetResponseAsync();
+				var response = request.GetResponseAsync().Result;
 
 				Trace.TraceInformation("Response to: {0}", request.RequestUri);
 				_throttler.Release();
@@ -83,7 +83,7 @@ namespace FamilyTree.Models
 			return webResponse != null && webResponse.StatusCode == HttpStatusCode.NotModified;
 		}
 
-		public async Task<HttpResponse> Post(Uri uri, Stream data)
+		public HttpResponse Post(Uri uri, Stream data)
 		{
 			var request = WebRequest.CreateHttp(uri);
 			request.Method = "POST";
@@ -95,7 +95,7 @@ namespace FamilyTree.Models
 				data.CopyTo(requestStream);
 				requestStream.Close();
 
-				var response = (HttpWebResponse) await request.GetResponseAsync();
+				var response = (HttpWebResponse)request.GetResponseAsync().Result;
 				return new HttpResponse(uri, response);
 			}
 			catch (WebException exc)

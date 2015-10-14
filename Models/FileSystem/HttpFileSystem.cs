@@ -47,7 +47,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(path)));
 			try
 			{
-				var jsonData = _webClient.Get(uri).Result;
+				var jsonData = _webClient.Get(uri);
 
 				_AssertJsonContentType(jsonData, uri);
 
@@ -68,7 +68,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(path)));
 			try
 			{
-				var jsonData = _webClient.Get(uri).Result;
+				var jsonData = _webClient.Get(uri);
 
 				_AssertJsonContentType(jsonData, uri);
 
@@ -90,7 +90,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(searchPattern)));
 			try
 			{
-				var jsonData = _webClient.Get(uri).Result;
+				var jsonData = _webClient.Get(uri);
 
 				_AssertJsonContentType(jsonData, uri);
 
@@ -111,7 +111,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(_PathToRoot(directory))));
 			try
 			{
-				var jsonData = _webClient.Get(uri).Result;
+				var jsonData = _webClient.Get(uri);
 
 				_AssertJsonContentType(jsonData, uri);
 
@@ -132,7 +132,7 @@ namespace FamilyTree.Models.FileSystem
 					HttpUtility.UrlEncode(_PathToRoot(file))));
 			try
 			{
-				return _webClient.Get(uri).Result.Body;
+				return _webClient.Get(uri).Body;
 			}
 			catch (Exception exc)
 			{
