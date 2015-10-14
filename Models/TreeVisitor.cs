@@ -55,7 +55,12 @@ namespace FamilyTree.Models
 
 					try
 					{
-						var subTreeFile = treeFile.Directory.GetFiles(subTreeName + ".xml").SingleOrDefault();
+						var subTreeFiles = treeFile.Directory.GetFiles(subTreeName + ".xml").ToArray();
+
+						if (subTreeFiles.Length > 1)
+							throw new InvalidOperationException("Multiple (" + subTreeFiles.Length + ") files found for name " + subTreeName + ".xml");
+
+						var subTreeFile = subTreeFiles.SingleOrDefault();
 
 						if (subTreeFile != null && subTreeFile != File.Null)
 							Visit(subTreeFile, visitee);
