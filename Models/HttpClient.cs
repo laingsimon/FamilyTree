@@ -60,21 +60,44 @@ namespace FamilyTree.Models
 
 				return cacheEntry;
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
 				_throttler.Release();
 
 				Trace.TraceWarning("Error received for {0}: {1}", request.RequestUri, exc.Message);
+				_LogWebException(request, exc as WebException);
 
-				if (_IsNotModified(exc))
-				{
-					Trace.TraceWarning("Data not modified for {0}, returning cached copy", request.RequestUri);
-					return cachedResponse;
-				}
-
-				_HandleWebException(request, exc);
-				throw;
+				return _HandleException(exc, cachedResponse);
 			}
+		}
+
+		private HttpResponse _HandleException(AggregateException exc, HttpResponse cachedResponse)
+		{
+			if (exc.InnerExceptions.Count == 1)
+				return _HandleException(exc.InnerExceptions[0], cachedResponse);
+
+			throw exc;
+		}
+
+		private HttpResponse _HandleException(WebException exc, HttpResponse cachedResponse)
+		{
+			if (cachedResponse == null)
+				throw exc;
+
+			if (_IsNotModified(exc))
+				return cachedResponse;
+
+			throw exc;
+		}
+
+		private HttpResponse _HandleException(Exception exc, HttpResponse cachedResponse)
+		{
+			if (exc is AggregateException)
+				return _HandleException((AggregateException)exc, cachedResponse);
+			if (exc is WebException)
+				return _HandleException((WebException)exc, cachedResponse);
+
+			throw exc;
 		}
 
 		private bool _IsNotModified(WebException exc)
@@ -98,10 +121,9 @@ namespace FamilyTree.Models
 				var response = (HttpWebResponse)request.GetResponseAsync().Result;
 				return new HttpResponse(uri, response);
 			}
-			catch (WebException exc)
+			catch (Exception exc)
 			{
-				_HandleWebException(request, exc);
-				throw;
+				return _HandleException(exc, null);
 			}
 		}
 
@@ -125,8 +147,11 @@ namespace FamilyTree.Models
 			}
 		}
 
-		private void _HandleWebException(WebRequest request, WebException exc)
+		private void _LogWebException(WebRequest request, WebException exc)
 		{
+			if (exc == null)
+				return;
+
 			var response = exc.Response as HttpWebResponse;
 			if (response == null)
 				return;
