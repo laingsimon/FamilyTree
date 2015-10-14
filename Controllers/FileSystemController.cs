@@ -8,6 +8,7 @@ using JsonResult = FamilyTree.Models.JsonResult;
 using System.Diagnostics;
 using FamilyTree.Models.FileSystem.LocalDevice;
 using FamilyTree.Models;
+using System.Web;
 
 namespace FamilyTree.Controllers
 {
@@ -18,7 +19,7 @@ namespace FamilyTree.Controllers
 
 #if DEBUG
 		public FileSystemController()
-			: this(new AzureStorageFileSystem())
+			: this(new CachingFileSystem(new AzureStorageFileSystem(), HttpRuntime.Cache))
 		{ }
 #else
 		public FileSystemController()
@@ -35,7 +36,7 @@ namespace FamilyTree.Controllers
 		[HttpGet]
 		public ActionResult File(string path)
 		{
-			Trace.WriteLine(string.Format("File: {0}", path), "FileSystemController");
+			Trace.WriteLine(string.Format("File: {0} ({1})", path, Request.Url), "FileSystemController");
 
 			try
 			{

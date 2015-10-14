@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System;
+using System.Web;
 
 namespace FamilyTree.Models.FileSystem
 {
@@ -7,8 +8,10 @@ namespace FamilyTree.Models.FileSystem
 	{
 		public static IFileSystem GetFileSystem(Controller controller)
 		{
-			return new HttpFileSystem(
-				new Uri("http://laing-familytree.azurewebsites.net/FamilyTree/", UriKind.Absolute));
+			return new CachingFileSystem(
+				new HttpFileSystem(
+					new Uri("http://localhost/FamilyTree/", UriKind.Absolute)),
+				HttpRuntime.Cache);
 		}
 	}
 }

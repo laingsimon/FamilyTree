@@ -42,13 +42,21 @@ namespace FamilyTree.Models
 					request.Headers["If-None-Match"] = cachedResponse.Etag;
 				}
 
+				Trace.TraceInformation("Waiting for slot for {0}", request.RequestUri);
+
 				await _throttler.WaitAsync();
 
-				var response = request.GetResponse();
+				Trace.TraceInformation("Request: {0}", request.RequestUri);
+
+				var response = await request.GetResponseAsync();
+
+				Trace.TraceInformation("Response to: {0}", request.RequestUri);
 				_throttler.Release();
+				Trace.TraceInformation("Slot released");
 
 				var cacheEntry = new HttpResponse(request.RequestUri, (HttpWebResponse)response);
-				_cache.Insert(request.RequestUri.ToString(), cacheEntry);
+				_cache.Insert(request.RequestUri.ToString(), cacheEntry, null, Cache.NoAbsoluteExpiration, TimeSpan.FromHours(1));
+				Trace.TraceInformation("Data cached for {0}", request.RequestUri);
 
 				return cacheEntry;
 			}
@@ -56,8 +64,13 @@ namespace FamilyTree.Models
 			{
 				_throttler.Release();
 
+				Trace.TraceWarning("Error received for {0}: {1}", request.RequestUri, exc.Message);
+
 				if (_IsNotModified(exc))
+				{
+					Trace.TraceWarning("Data not modified for {0}, returning cached copy", request.RequestUri);
 					return cachedResponse;
+				}
 
 				_HandleWebException(request, exc);
 				throw;

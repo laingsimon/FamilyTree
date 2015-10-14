@@ -159,6 +159,9 @@
     <Compile Include="Models\Authentication\DebugFailedLoginService.cs" />
     <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
     <Compile Include="Models\Authentication\IFailedLoginService.cs" />
+    <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
+    <Compile Include="Models\FileSystem\InterceptedFile.cs" />
+    <Compile Include="Models\FileSystem\CachingFileSystem.cs" />
     <Compile Include="Models\HttpClient.cs" />
     <Compile Include="Models\FileSystem\DirectoryJsonConverter.cs" />
     <Compile Include="Models\FileSystem\FileJsonConverter.cs" />

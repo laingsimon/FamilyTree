@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Diagnostics;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -70,11 +71,15 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		private CloudBlobDirectory _GetAzureDirectory(IFile path)
 		{
 			var relativePath = string.Join("/", _GetFullPath(path.Directory));
+
+			Trace.TraceInformation("_GetAzureDirectory({0})", relativePath);
 			return _container.GetDirectoryReference(relativePath);
 		}
 
 		private CloudBlobDirectory _GetAzureDirectory(string path)
 		{
+			Trace.TraceInformation("_GetAzureDirectory({0})", path);
+
 			var relativePath = string.Join("/", _GetPathParts(path));
 			return _container.GetDirectoryReference(relativePath);
 		}
@@ -89,14 +94,25 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			var directory = _GetAzureDirectory(path);
 			var fileName = Path.GetFileName(path);
+
+			Trace.TraceInformation("directory[{0}].ListBlobs()", path);
 			var blobItem = (from blob in directory.ListBlobs()
 							let blobFileName = Path.GetFileName(blob.Uri.AbsoluteUri)
 							where blobFileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
 							select blob).SingleOrDefault();
 
-			return blobItem == null
-				? null
-				: _client.GetBlobReferenceFromServer(blobItem.StorageUri);
+			if (blobItem != null)
+				Trace.TraceInformation("GetBlobReferenceFromServer({0})", blobItem.StorageUri);
+			try
+			{
+				return blobItem == null
+					? null
+					: _client.GetBlobReferenceFromServer(blobItem.StorageUri);
+			}
+			finally
+			{
+				Trace.TraceInformation("Reference fetched from azure");
+			}
 		}
 
 		public IFile GetFile(string path)
@@ -126,7 +142,10 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		{
 			var fullPath = string.Join("/", _GetFullPath(directory));
 
+			Trace.TraceInformation("GetFiles({0})", fullPath);
 			var azureDirectory = _container.GetDirectoryReference(fullPath);
+
+			Trace.TraceInformation("directory[{0}].ListBlobs()", fullPath);
 			return from item in azureDirectory.ListBlobs()
 				   where _MatchesSearchPattern(item, searchPattern)
 				   let file = _client.GetBlobReferenceFromServer(item.StorageUri)
