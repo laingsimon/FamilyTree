@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=18270D96_002D0509_002D436B_002D9472_002DF48553257C73_002Fd_003AScripts_002Ff_003Ajquery_002D1_002E6_002E4_002Ejs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E986BB4EB16B29469E70D9BA95CF3A2E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E986BB4EB16B29469E70D9BA95CF3A2E/AbsolutePath/@EntryValue">D:\github\FamilyTree\FamilyTree.sln.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E986BB4EB16B29469E70D9BA95CF3A2E/RelativePath/@EntryValue"></s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE986BB4EB16B29469E70D9BA95CF3A2E/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE986BB4EB16B29469E70D9BA95CF3A2E/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>
