@@ -18,8 +18,10 @@ namespace FamilyTree.Models.DTO
 		[XmlAttribute]
 		public MarriageType Type { get; set; }
 
+		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		public MarriageTo To { get; set; }
 
 		public MarriageChildren Children { get; set; }
+		// ReSharper restore UnusedAutoPropertyAccessor.Global
 	}
 }

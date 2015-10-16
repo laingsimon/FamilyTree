@@ -6,6 +6,7 @@ namespace FamilyTree.Models.DTO
 	[DebuggerDisplay("{Name.First,nq} {Name.Last,nq}")]
 	public class Person
 	{
+		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		[XmlAttribute]
 		public Gender Gender { get; set; }
 
@@ -19,5 +20,6 @@ namespace FamilyTree.Models.DTO
 		public Marriage[] Marriages { get; set; }
 
 		public MarriageChildren Children { get; set; }
+		// ReSharper restore UnusedAutoPropertyAccessor.Global
 	}
 }

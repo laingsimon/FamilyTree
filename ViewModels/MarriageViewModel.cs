@@ -14,7 +14,9 @@ namespace FamilyTree.ViewModels
 		[JsonIgnore]
 		public PersonViewModel From { get; private set; }
 		public PersonViewModel To { get; private set; }
+		// ReSharper disable MemberCanBePrivate.Global
 		public MarriageStatus Status { get; set; }
+		// ReSharper restore MemberCanBePrivate.Global
 		public EventViewModel Wedding { get; set; }
 
 		public PersonViewModel[] Children { get; set; }

@@ -6,7 +6,9 @@ using System;
 
 namespace FamilyTree.Repositories.Authentication
 {
+	// ReSharper disable ClassNeverInstantiated.Global
 	public class FailedLoginRepository
+	// ReSharper restore ClassNeverInstantiated.Global
 	{
 		public const string PartitionKey = "failedlogin";
 		private const string _tableName = "failedlogin";

@@ -16,7 +16,7 @@ namespace FamilyTree.Controllers
 
 		public TreeController()
 		{
-			_fileSystem = FileSystemFactory.GetFileSystem(this);
+			_fileSystem = FileSystemFactory.GetFileSystem();
 			var xslHtmlResponder = new XslContentResponder(_fileSystem);
 			var razorHtmlResponder = new RazorContentResponder(_fileSystem);
 			_contentNegotiation = new ContentNegotiation(razorHtmlResponder)

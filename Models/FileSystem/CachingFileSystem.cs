@@ -10,8 +10,8 @@ namespace FamilyTree.Models.FileSystem
 	public class CachingFileSystem : IFileSystem
 	{
 		private readonly Cache _cache;
-		private IFileSystem _fileSystem;
-		
+		private readonly IFileSystem _fileSystem;
+
 		public CachingFileSystem(IFileSystem fileSystem, Cache cache)
 		{
 			_fileSystem = fileSystem;
@@ -31,7 +31,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
 		{
-			return _GetOrAdd(string.Format("GetDirectories:{0}", directory.Name), () => _fileSystem.GetDirectories(directory).Select(d => _InterceptedDirectory(d)).ToArray());
+			return _GetOrAdd(string.Format("GetDirectories:{0}", directory.Name), () => _fileSystem.GetDirectories(directory).Select(_InterceptedDirectory).ToArray());
 		}
 
 		public IDirectory GetDirectory(string path)
@@ -46,7 +46,7 @@ namespace FamilyTree.Models.FileSystem
 
 		public IEnumerable<IFile> GetFiles(IDirectory directory, string searchPattern)
 		{
-			return _GetOrAdd(string.Format("GetFiles:{0}", directory.Name, searchPattern), () => _fileSystem.GetFiles(directory, searchPattern).Select(f => _InterceptedFile(f)).ToArray());
+			return _GetOrAdd(string.Format("GetFiles:{0}/{1}", directory.Name, searchPattern), () => _fileSystem.GetFiles(directory, searchPattern).Select(_InterceptedFile).ToArray());
 		}
 
 		public Stream OpenRead(IFile file)
@@ -117,13 +117,13 @@ namespace FamilyTree.Models.FileSystem
 
 			private static byte[] _ReadToEnd(Stream stream)
 			{
-				byte[] buffer = new byte[stream.Length];
-				int offset = 0;
-				int read = 0;
-				
+				var buffer = new byte[stream.Length];
+				var offset = 0;
+				int read;
+
 				while ((read = stream.Read(buffer, offset, Math.Min(1024, buffer.Length - offset))) > 0)
 					offset += read;
-				
+
 				return buffer;
 			}
 

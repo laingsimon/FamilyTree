@@ -46,20 +46,20 @@ namespace FamilyTree.Models.FileSystem
 
 			return new File(
 				file.Name,
-				file.Directory.CloneWithFileSystem(fileSystem),
+				file.Directory._CloneWithFileSystem(fileSystem),
 				file.Size,
 				file.LastWriteTimeUtc,
 				fileSystem);
 		}
 
-		public static IDirectory CloneWithFileSystem(this IDirectory directory, IFileSystem fileSystem)
+		private static IDirectory _CloneWithFileSystem(this IDirectory directory, IFileSystem fileSystem)
 		{
 			if (directory == null || directory == Directory.Null)
 				return Directory.Null;
 
 			return new Directory(
 				directory.Name,
-				directory.Parent.CloneWithFileSystem(fileSystem),
+				directory.Parent._CloneWithFileSystem(fileSystem),
 				fileSystem);
 		}
 	}

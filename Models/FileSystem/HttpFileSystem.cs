@@ -157,7 +157,7 @@ namespace FamilyTree.Models.FileSystem
 						HttpUtility.UrlEncode(_PathToRoot(file))));
 				try
 				{
-					var writeStream = _webClient.Post(uri, stream);
+					_webClient.Post(uri, stream);
 				}
 				catch (Exception exc)
 				{
@@ -180,12 +180,12 @@ namespace FamilyTree.Models.FileSystem
 				);
 		}
 
-		private string _PathToRoot(IFile file)
+		private static string _PathToRoot(IFile file)
 		{
 			return _PathToRoot(file.Directory) + "/" + file.Name;
 		}
 
-		private string _PathToRoot(IDirectory directory)
+		private static string _PathToRoot(IDirectory directory)
 		{
 			if (directory == null)
 				return "~";
@@ -197,17 +197,17 @@ namespace FamilyTree.Models.FileSystem
 			return parentDirectory + "/" + directory.Name;
 		}
 
-		private void _AssertJsonContentType(HttpResponse responseStream, Uri uri)
+		private static void _AssertJsonContentType(HttpResponse responseStream, Uri uri)
 		{
 			var contentType = responseStream.ContentType;
 			if (string.IsNullOrEmpty(contentType))
-				throw new InvalidOperationException("ContentType header not returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
+				throw new InvalidOperationException("ContentType header not returned - " + uri + "\r\n" + _GetResponseData(responseStream));
 
 			if (!contentType.Contains("application/json"))
-				throw new FormatException("Not json content returned - " + uri.ToString() + "\r\n" + _GetResponseData(responseStream));
+				throw new FormatException("Not json content returned - " + uri + "\r\n" + _GetResponseData(responseStream));
 		}
 
-		private string _GetResponseData(HttpResponse stream)
+		private static string _GetResponseData(HttpResponse stream)
 		{
 			return new StreamReader(stream.Body).ReadToEnd();
 		}
@@ -242,7 +242,7 @@ namespace FamilyTree.Models.FileSystem
 			if (httpResponse == null)
 				throw exception;
 
-            if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+			if (httpResponse.StatusCode == HttpStatusCode.NotFound)
 				return notFoundResponse;
 
 			if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
@@ -251,14 +251,14 @@ namespace FamilyTree.Models.FileSystem
 			if (httpResponse.StatusCode == HttpStatusCode.LengthRequired)
 				throw new InvalidOperationException("No file data sent");
 
-            if (httpResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
-            {
-                using (var reader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var message = reader.ReadToEnd();
-                    throw new InvalidOperationException("Service unavailable: " + message);
-                }
-            }
+			if (httpResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
+			{
+				using (var reader = new StreamReader(httpResponse.GetResponseStream()))
+				{
+					var message = reader.ReadToEnd();
+					throw new InvalidOperationException("Service unavailable: " + message);
+				}
+			}
 
 			throw new InvalidOperationException("Unable to process request - " + uri, exception);
 		}

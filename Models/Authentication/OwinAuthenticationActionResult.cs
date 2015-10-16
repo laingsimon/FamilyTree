@@ -48,7 +48,7 @@ namespace FamilyTree.Models.Authentication
 			return new ClaimsIdentity(
 				new GenericIdentity(user.RowKey),
 				_GetClaims(user),
-				AuthenticationType,
+				authenticationType,
 				ClaimsIdentity.DefaultNameClaimType,
 				ClaimsIdentity.DefaultRoleClaimType);
 		}

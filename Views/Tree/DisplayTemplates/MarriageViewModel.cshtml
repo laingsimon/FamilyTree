@@ -1,6 +1,6 @@
 ﻿@model FamilyTree.ViewModels.MarriageViewModel
 
-<div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Count() == 1 ? "single-child" : "")">
+<div class="marriage @(Model.Children.Any() ? "has-children" : "") @(Model.Children.Length == 1 ? "single-child" : "")">
 	@Html.Partial("_PersonDetail", Model.From)
 	<div class="marriage-popup">
 		<div class="photos">

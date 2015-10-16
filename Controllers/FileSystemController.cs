@@ -6,7 +6,9 @@ using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.FileSystem.AzureStorage;
 using JsonResult = FamilyTree.Models.JsonResult;
 using System.Diagnostics;
+// ReSharper disable RedundantUsingDirective
 using FamilyTree.Models.FileSystem.LocalDevice;
+// ReSharper restore RedundantUsingDirective
 using FamilyTree.Models;
 using System.Web;
 
@@ -18,17 +20,21 @@ namespace FamilyTree.Controllers
 		private readonly IFileSystem _fileSystem;
 
 #if DEBUG
+		// ReSharper disable UnusedMember.Global
 		public FileSystemController()
+		// ReSharper restore UnusedMember.Global
 			: this(new CachingFileSystem(new AzureStorageFileSystem(), HttpRuntime.Cache))
 		{ }
 #else
+		// ReSharper disable UnusedMember.Global
 		public FileSystemController()
+		// ReSharper restore UnusedMember.Global
 		{
 			_fileSystem = new LocalDeviceFileSystem(path => Server.MapPath(path));
 		}
 #endif
 
-		public FileSystemController(IFileSystem fileSystem)
+		private FileSystemController(IFileSystem fileSystem)
 		{
 			_fileSystem = fileSystem;
 		}

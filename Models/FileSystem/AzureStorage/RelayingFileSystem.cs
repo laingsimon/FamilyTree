@@ -5,7 +5,9 @@ using System.Linq;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
+	// ReSharper disable UnusedMember.Global
 	public class RelayingFileSystem : IFileSystem
+	// ReSharper restore UnusedMember.Global
 	{
 		private readonly IFileSystem _read;
 		private readonly IFileSystem _write;
@@ -30,24 +32,16 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			if (!_updateAllFilesOnDestination && writeFile != null && writeFile.Size > 0)
 				return new RelayFile(readFile, writeFile);
 
-			if (readFile != null)
+			if (writeFile == null)
+				writeFile = _write.CreateFile(path);
+
+			using (var writeStream = _write.OpenWrite(writeFile))
+			using (var readStream = _read.OpenRead(readFile))
 			{
-				if (writeFile == null)
-					writeFile = _write.CreateFile(path);
-
-				using (var writeStream = _write.OpenWrite(writeFile))
-				using (var readStream = _read.OpenRead(readFile))
-				{
-					readStream.CopyTo(writeStream);
-				}
-
-				return readFile;
+				readStream.CopyTo(writeStream);
 			}
 
-			if (writeFile != null)
-				return new RelayFile(readFile, writeFile);
-
-			return null;
+			return readFile;
 		}
 
 		public IDirectory GetDirectory(string path)

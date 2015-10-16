@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 
@@ -22,7 +21,7 @@ namespace FamilyTree.Models
 				: null)
 		{ }
 
-		public HttpClient(HttpRequest request)
+		private HttpClient(HttpRequest request)
 		{
 			_cookies = request.Cookies;
 		}
@@ -79,7 +78,7 @@ namespace FamilyTree.Models
 			throw exc;
 		}
 
-		private HttpResponse _HandleException(WebException exc, HttpResponse cachedResponse)
+		private static HttpResponse _HandleException(WebException exc, HttpResponse cachedResponse)
 		{
 			if (cachedResponse == null)
 				throw exc;
@@ -92,21 +91,25 @@ namespace FamilyTree.Models
 
 		private HttpResponse _HandleException(Exception exc, HttpResponse cachedResponse)
 		{
-			if (exc is AggregateException)
-				return _HandleException((AggregateException)exc, cachedResponse);
-			if (exc is WebException)
-				return _HandleException((WebException)exc, cachedResponse);
+			var aggregateException = exc as AggregateException;
+			if (aggregateException != null)
+				return _HandleException(aggregateException, cachedResponse);
+			var webException = exc as WebException;
+			if (webException != null)
+				return _HandleException(webException, cachedResponse);
 
 			throw exc;
 		}
 
-		private bool _IsNotModified(WebException exc)
+		private static bool _IsNotModified(WebException exc)
 		{
 			var webResponse = exc.Response as HttpWebResponse;
 			return webResponse != null && webResponse.StatusCode == HttpStatusCode.NotModified;
 		}
 
+		// ReSharper disable UnusedMethodReturnValue.Global
 		public HttpResponse Post(Uri uri, Stream data)
+		// ReSharper restore UnusedMethodReturnValue.Global
 		{
 			var request = WebRequest.CreateHttp(uri);
 			request.Method = "POST";
@@ -147,7 +150,7 @@ namespace FamilyTree.Models
 			}
 		}
 
-		private void _LogWebException(WebRequest request, WebException exc)
+		private static void _LogWebException(WebRequest request, WebException exc)
 		{
 			if (exc == null)
 				return;
@@ -168,7 +171,7 @@ namespace FamilyTree.Models
 				"HttpFileSystem");
 		}
 
-		private string _GetResponseBody(Stream stream)
+		private static string _GetResponseBody(Stream stream)
 		{
 			if (stream == null || !stream.CanRead)
 				return null;

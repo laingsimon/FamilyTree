@@ -9,10 +9,12 @@ namespace FamilyTree.ViewModels
 	{
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		// ReSharper disable MemberCanBePrivate.Global
 		public string MiddleName { get; set; }
 		public string Title { get; set; }
 		public string Nickname { get; set; }
 		public Gender Gender { get; set; }
+		// ReSharper restore MemberCanBePrivate.Global
 		public bool HasOtherTree { get; set; }
 
 		public EventViewModel Birth { get; set; }

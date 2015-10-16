@@ -16,7 +16,7 @@ namespace FamilyTree.Controllers
 
 		public DataController()
 		{
-			_fileSystem = FileSystemFactory.GetFileSystem(this);
+			_fileSystem = FileSystemFactory.GetFileSystem();
 			var xmlContentResponder = new XmlContentResponder();
 			_contentNegotiation = new ContentNegotiation(xmlContentResponder)
 			{

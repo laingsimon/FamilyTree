@@ -1,11 +1,10 @@
-﻿using System.Web.Mvc;
-using System.Web;
+﻿using System.Web;
 
 namespace FamilyTree.Models.FileSystem
 {
 	public static class FileSystemFactory
 	{
-		public static IFileSystem GetFileSystem(Controller controller)
+		public static IFileSystem GetFileSystem()
 		{
 			return new CachingFileSystem(
 				new HttpFileSystem(),

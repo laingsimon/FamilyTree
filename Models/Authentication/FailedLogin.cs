@@ -16,7 +16,9 @@ namespace FamilyTree.Models.Authentication
 		{ }
 
 		public int Attempts { get; set; }
+		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		public DateTime LastAttempt { get; set; }
+		// ReSharper restore UnusedAutoPropertyAccessor.Global
 		public DateTime NextAllowedLogin { get; set; }
 	}
 }

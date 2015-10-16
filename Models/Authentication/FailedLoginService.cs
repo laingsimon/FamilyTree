@@ -4,7 +4,9 @@ using FamilyTree.Repositories.Authentication;
 
 namespace FamilyTree.Models.Authentication
 {
+	// ReSharper disable UnusedMember.Global
 	public class FailedLoginService : IFailedLoginService
+	// ReSharper restore UnusedMember.Global
 	{
 		private readonly FailedLoginRepository _repository;
 		private readonly int _secondsDelaySeed;

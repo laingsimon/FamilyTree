@@ -33,11 +33,15 @@ namespace FamilyTree.Models.FileSystem
 			throw new NotSupportedException("Only supports deserialise");
 		}
 
+		// ReSharper disable ClassNeverInstantiated.Local
 		private class _DeserialisableDirectory : IDirectory
+		// ReSharper restore ClassNeverInstantiated.Local
 		{
+			// ReSharper disable UnusedAutoPropertyAccessor.Local
 			public string Name { get; set; }
 			public IDirectory Parent { get; set; }
-			
+			// ReSharper restore UnusedAutoPropertyAccessor.Local
+
 			public IEnumerable<IDirectory> GetDirectories()
 			{
 				throw new NotSupportedException();

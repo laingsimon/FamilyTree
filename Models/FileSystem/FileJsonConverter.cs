@@ -35,12 +35,16 @@ namespace FamilyTree.Models.FileSystem
 			throw new NotSupportedException("Only supports deserialise");
 		}
 
+		// ReSharper disable ClassNeverInstantiated.Local
 		private class _DeserialisableFile : IFile
+		// ReSharper restore ClassNeverInstantiated.Local
 		{
+			// ReSharper disable UnusedAutoPropertyAccessor.Local
 			public IDirectory Directory { get; set; }
 			public DateTime LastWriteTimeUtc { get; set; }
 			public string Name { get; set; }
 			public long Size { get; set; }
+			// ReSharper restore UnusedAutoPropertyAccessor.Local
 
 			public Stream OpenRead()
 			{

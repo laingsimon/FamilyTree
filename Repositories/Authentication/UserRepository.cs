@@ -6,7 +6,9 @@ using System;
 
 namespace FamilyTree.Repositories.Authentication
 {
+	// ReSharper disable ClassNeverInstantiated.Global
 	public class UserRepository : IUserRepository
+	// ReSharper restore ClassNeverInstantiated.Global
 	{
 		public const string PartitionKey = "user";
 		private const string _tableName = "user";
@@ -27,7 +29,7 @@ namespace FamilyTree.Repositories.Authentication
 		{
 			if (string.IsNullOrEmpty(username))
 				throw new ArgumentNullException("username");
-			
+
 			var operation = TableOperation.Retrieve<User>(PartitionKey, username);
 			var result = _table.Execute(operation);
 

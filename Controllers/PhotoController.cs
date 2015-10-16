@@ -20,7 +20,7 @@ namespace FamilyTree.Controllers
 
 		public PhotoController()
 		{
-			_fileSystem = FileSystemFactory.GetFileSystem(this);
+			_fileSystem = FileSystemFactory.GetFileSystem();
 		}
 
 		public ActionResult Index(string family, string firstName, string middleName, string dob, string size)

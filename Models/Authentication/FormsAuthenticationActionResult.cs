@@ -3,7 +3,9 @@ using System.Web.Security;
 
 namespace FamilyTree.Models.Authentication
 {
+	// ReSharper disable UnusedMember.Global
 	public class FormsAuthenticationActionResult : ActionResult
+	// ReSharper restore UnusedMember.Global
 	{
 		private readonly User _user;
 

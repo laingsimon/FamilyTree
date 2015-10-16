@@ -7,6 +7,8 @@ namespace FamilyTree.Models.DTO
 		[XmlAttribute]
 		public string Family { get; set; }
 
+		// ReSharper disable UnusedAutoPropertyAccessor.Global
 		public Person Person { get; set; }
+		// ReSharper restore UnusedAutoPropertyAccessor.Global
 	}
 }

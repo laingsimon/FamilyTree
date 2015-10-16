@@ -10,13 +10,15 @@ namespace FamilyTree.Controllers
 		private readonly UserAuthenticationStrategy _authenticationStrategy;
 		private readonly IUserRepository _userRepository;
 
+		// ReSharper disable UnusedMember.Global
 		public AccountController()
+		// ReSharper restore UnusedMember.Global
 			// ReSharper disable RedundantArgumentDefaultValue
 			: this(authenticationStrategy: null)
 		// ReSharper restore RedundantArgumentDefaultValue
 		{ }
 
-		public AccountController(UserAuthenticationStrategy authenticationStrategy = null)
+		private AccountController(UserAuthenticationStrategy authenticationStrategy = null)
 		{
 			_userRepository = new DebugUserRepository();
 
