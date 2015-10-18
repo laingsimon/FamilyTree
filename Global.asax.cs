@@ -1,5 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using FamilyTree.Models;
+using Microsoft.WindowsAzure.Storage;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
@@ -20,6 +22,24 @@ namespace FamilyTree
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 
 			MvcHandler.DisableMvcResponseHeader = true;
+		}
+
+		protected void Application_BeginRequest(object sender, EventArgs args)
+		{
+			var shouldLog = Context.Request.QueryString["log"] == "true";
+			var listener = new CapturingTraceListener();
+			Context.Items["listener"] = listener;
+            Trace.Listeners.Add(listener);
+		}
+
+		protected void Application_EndRequest(object sender, EventArgs args)
+		{
+			var listener = Context.Items.Contains("listener")
+				? (TraceListener)Context.Items["listener"]
+				: null;
+
+			if (listener != null)
+				Trace.Listeners.Remove(listener);
 		}
 
 		// ReSharper disable UnusedMember.Global

@@ -160,6 +160,7 @@
     <Compile Include="Models\Authentication\DebugFailedLoginService.cs" />
     <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
     <Compile Include="Models\Authentication\IFailedLoginService.cs" />
+    <Compile Include="Models\CapturingTraceListener.cs" />
     <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
     <Compile Include="Models\FileSystem\InterceptedFile.cs" />
     <Compile Include="Models\FileSystem\CachingFileSystem.cs" />
