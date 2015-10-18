@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -14,6 +15,7 @@ namespace FamilyTree.Models
 		private static readonly SemaphoreSlim _throttler = new SemaphoreSlim(2);
 
 		private readonly HttpCookieCollection _cookies;
+		private readonly NameValueCollection _headers;
 
 		public HttpClient()
 			: this(HttpContext.Current != null
@@ -23,6 +25,7 @@ namespace FamilyTree.Models
 
 		private HttpClient(HttpRequest request)
 		{
+			_headers = request.Headers;
 			_cookies = request.Cookies;
 		}
 
@@ -32,6 +35,7 @@ namespace FamilyTree.Models
 
 			var request = WebRequest.CreateHttp(uri);
 			_AddCookiesToRequest(request, _cookies);
+			_AddCachingHeadersToRequest(request);
 			request.Method = "GET";
 			try
 			{
@@ -68,6 +72,12 @@ namespace FamilyTree.Models
 
 				return _HandleException(exc, cachedResponse);
 			}
+		}
+
+		private void _AddCachingHeadersToRequest(HttpWebRequest request)
+		{
+			request.Headers["Cache-Control"] = _headers["Cache-Control"];
+			request.Headers["Max-Age"] = _headers["Max-Age"];
 		}
 
 		private string _GetMessage(Exception exc)
