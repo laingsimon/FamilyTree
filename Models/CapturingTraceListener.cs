@@ -31,6 +31,7 @@ namespace FamilyTree.Models
 			if (_messages.Count == 0)
 				return;
 
+			response.StatusCode = 200;
 			response.ContentType = "text/plain";
 
 			using (var writer = new StreamWriter(response.OutputStream))
