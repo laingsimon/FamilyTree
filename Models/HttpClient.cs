@@ -63,11 +63,29 @@ namespace FamilyTree.Models
 			{
 				_throttler.Release();
 
-				Trace.TraceWarning("Error received for {0}: {1}", request.RequestUri, exc.Message);
+				Trace.TraceWarning("Error received for {0}: {1}", request.RequestUri, _GetMessage(exc));
 				_LogWebException(request, exc as WebException);
 
 				return _HandleException(exc, cachedResponse);
 			}
+		}
+
+		private string _GetMessage(Exception exc)
+		{
+			var aggregateException = exc as AggregateException;
+			if (aggregateException != null)
+			{
+				if (aggregateException.InnerExceptions.Count != 1)
+					return string.Format("{0} errors occurred", aggregateException.InnerExceptions.Count);
+
+				return _GetMessage(aggregateException.InnerExceptions[0]);
+			}
+
+			var webException = exc as WebException;
+			if (webException != null)
+				return string.Format("{0}: {1}", webException.Status, webException.Message);
+
+			return string.Format("{0}: {1}", exc.GetType().Name, exc.Message);
 		}
 
 		private HttpResponse _HandleException(AggregateException exc, HttpResponse cachedResponse)
