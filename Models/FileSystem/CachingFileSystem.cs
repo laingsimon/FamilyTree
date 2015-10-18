@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Caching;
 
 namespace FamilyTree.Models.FileSystem
@@ -10,12 +11,25 @@ namespace FamilyTree.Models.FileSystem
 	public class CachingFileSystem : IFileSystem
 	{
 		private readonly Cache _cache;
-		private readonly IFileSystem _fileSystem;
 
-		public CachingFileSystem(IFileSystem fileSystem, Cache cache)
+		public static bool ShouldRefreshCache(HttpContext current)
+		{
+			if (current == null)
+				return false;
+
+			var headers = current.Request.Headers;
+			return headers["Cache-Control"] == "no-cache"
+				|| headers["max-age"] == "0";
+		}
+
+		private readonly IFileSystem _fileSystem;
+		private readonly bool _refreshCache;
+
+		public CachingFileSystem(IFileSystem fileSystem, Cache cache, bool refreshCache)
 		{
 			_fileSystem = fileSystem;
 			_cache = cache;
+			_refreshCache = refreshCache;
 		}
 
 		public IFile CreateFile(string path)
@@ -80,7 +94,7 @@ namespace FamilyTree.Models.FileSystem
 			where T : class
 		{
 			var cachedValue = _cache.Get(key);
-			if (cachedValue != null)
+			if (cachedValue != null && !_refreshCache)
 				return (T)cachedValue;
 
 			Trace.TraceInformation("Getting value for {0}", key);

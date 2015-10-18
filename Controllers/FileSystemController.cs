@@ -23,7 +23,10 @@ namespace FamilyTree.Controllers
 		// ReSharper disable UnusedMember.Global
 		public FileSystemController()
 		// ReSharper restore UnusedMember.Global
-			: this(new CachingFileSystem(new AzureStorageFileSystem(), HttpRuntime.Cache))
+			: this(new CachingFileSystem(
+				new AzureStorageFileSystem(),
+				HttpRuntime.Cache,
+				CachingFileSystem.ShouldRefreshCache(System.Web.HttpContext.Current)))
 		{ }
 #else
 		// ReSharper disable UnusedMember.Global

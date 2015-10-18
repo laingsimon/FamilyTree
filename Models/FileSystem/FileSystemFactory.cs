@@ -8,7 +8,8 @@ namespace FamilyTree.Models.FileSystem
 		{
 			return new CachingFileSystem(
 				new HttpFileSystem(),
-				HttpRuntime.Cache);
+				HttpRuntime.Cache,
+				CachingFileSystem.ShouldRefreshCache(HttpContext.Current));
 		}
 	}
 }
