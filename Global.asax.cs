@@ -39,7 +39,18 @@ namespace FamilyTree
 				: null;
 
 			if (listener != null)
+			{
 				Trace.Listeners.Remove(listener);
+				_WriteMessagesToResponse(listener as CapturingTraceListener);
+			}
+		}
+
+		private void _WriteMessagesToResponse(CapturingTraceListener capturingTraceListener)
+		{
+			if (capturingTraceListener == null)
+				return;
+
+			capturingTraceListener.WriteToResponse(Context.Response);
 		}
 
 		// ReSharper disable UnusedMember.Global

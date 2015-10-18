@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Web;
 
 namespace FamilyTree.Models
 {
@@ -21,6 +24,22 @@ namespace FamilyTree.Models
 		public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
 		{
 			TraceEvent(eventCache, source, eventType, id, string.Format(format, args));
+		}
+
+		public void WriteToResponse(System.Web.HttpResponse response)
+		{
+			if (_messages.Count == 0)
+				return;
+
+			response.ContentType = "text/plain";
+
+			using (var writer = new StreamWriter(response.OutputStream))
+			{
+				foreach (var message in _messages)
+					writer.WriteLine(message);
+			}
+
+			response.End();
 		}
 	}
 }
