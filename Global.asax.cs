@@ -27,9 +27,13 @@ namespace FamilyTree
 		protected void Application_BeginRequest(object sender, EventArgs args)
 		{
 			var shouldLog = Context.Request.QueryString["log"] == "true";
-			var listener = new CapturingTraceListener();
-			Context.Items["listener"] = listener;
-            Trace.Listeners.Add(listener);
+
+			if (shouldLog)
+			{
+				var listener = new CapturingTraceListener();
+				Context.Items["listener"] = listener;
+				Trace.Listeners.Add(listener);
+			}
 		}
 
 		protected void Application_EndRequest(object sender, EventArgs args)
