@@ -19,7 +19,6 @@ namespace FamilyTree.Controllers
 	{
 		private readonly IFileSystem _fileSystem;
 
-#if DEBUG
 		// ReSharper disable UnusedMember.Global
 		public FileSystemController()
 		// ReSharper restore UnusedMember.Global
@@ -28,14 +27,6 @@ namespace FamilyTree.Controllers
 				HttpRuntime.Cache,
 				CachingFileSystem.ShouldRefreshCache(System.Web.HttpContext.Current)))
 		{ }
-#else
-		// ReSharper disable UnusedMember.Global
-		public FileSystemController()
-		// ReSharper restore UnusedMember.Global
-		{
-			_fileSystem = new LocalDeviceFileSystem(path => Server.MapPath(path));
-		}
-#endif
 
 		private FileSystemController(IFileSystem fileSystem)
 		{
