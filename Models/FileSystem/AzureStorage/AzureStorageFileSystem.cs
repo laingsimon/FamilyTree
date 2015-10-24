@@ -11,6 +11,8 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 {
 	public class AzureStorageFileSystem : IFileSystem
 	{
+		private static readonly Lazy<SingleTaskGate> _defaultTaskGate = new Lazy<SingleTaskGate>(() => new SingleTaskGate(parallelism: 2));
+
 		private const string _containerName = "filesystem";
 		private readonly CloudBlobClient _client;
 		private readonly CloudBlobContainer _container;
@@ -24,7 +26,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 			_client = storageAccount.CreateCloudBlobClient();
 			_container = _client.GetContainerReference(_containerName);
 			_container.CreateIfNotExists();
-			_taskGate = new SingleTaskGate(parallelism: 2);
+			_taskGate = _defaultTaskGate.Value;
 		}
 
 		private static IEnumerable<string> _GetPathParts(string path)
