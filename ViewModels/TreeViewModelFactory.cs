@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using FamilyTree.Models;
 using FamilyTree.Models.DTO;
+using System.Diagnostics;
 
 namespace FamilyTree.ViewModels
 {
@@ -20,6 +21,8 @@ namespace FamilyTree.ViewModels
 
 		public TreeViewModel Create(Tree tree)
 		{
+			Trace.TraceInformation("TreeViewModelFactory.Create()");
+
 			return new TreeViewModel
 			{
 				Name = tree.Family,
