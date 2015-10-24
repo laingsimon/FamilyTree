@@ -68,4 +68,6 @@
 			alert("Cannot find person to highlight " + highlight);
 		}
 	}
+
+	$("img").unveil();
 });
