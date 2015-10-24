@@ -92,7 +92,7 @@ namespace FamilyTree.ViewModels
 				middleName = MiddleName != null ? MiddleName.Replace("?", "") : null,
 				dob,
 				size = _GetSize(width, height)
-			});
+			}, "http");
 		}
 
 		private static string _GetSize(int? width, int? height)

@@ -4,9 +4,9 @@
 	@Html.Partial("_PersonDetail", Model.From)
 	<div class="marriage-popup">
 		<div class="photos">
-			<img src="@Model.From.GetPhotoUri(Url, height: 50)" />
+			<img data-src="@Model.From.GetPhotoUri(Url, height: 50)" />
 			<a href="@Model.To.GetUrl(Url)">
-				<img src="@Model.To.GetPhotoUri(Url, height: 50)" />
+				<img data-src="@Model.To.GetPhotoUri(Url, height: 50)" />
 			</a>
 		</div>
 		<span>

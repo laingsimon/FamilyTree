@@ -69,5 +69,7 @@
 		}
 	}
 
-	$("img").unveil();
+	$("img").unveil(0, function () {
+	    console.log("Unveiled '" + $(this).attr("src") + "'");
+	});
 });
