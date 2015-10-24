@@ -3,7 +3,7 @@
 <div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandle()">
 	<div class="details details-popup @Model.GenderCss">
 		<a href="@Model.GetPhotoUri(Url)" target="_photo">
-			<img src="@Model.GetPhotoUri(Url, height: 100)" height="100" />
+			<img src="@Model.GetPhotoUri(Url, height: 50)" height="50" />
 		</a>
 		<span>@Model.FirstName</span>
 		@if (!string.IsNullOrEmpty(Model.Nickname))
