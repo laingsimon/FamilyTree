@@ -12,7 +12,6 @@ namespace FamilyTree.Models
 	public class HttpClient
 	{
 		private static readonly Cache _cache = HttpRuntime.Cache;
-		private static readonly SemaphoreSlim _throttler = new SemaphoreSlim(2);
 
 		private readonly HttpCookieCollection _cookies;
 		private readonly NameValueCollection _headers;
@@ -45,17 +44,11 @@ namespace FamilyTree.Models
 					request.Headers["If-None-Match"] = cachedResponse.Etag;
 				}
 
-				Trace.TraceInformation("Waiting for slot for {0}", request.RequestUri);
-
-				_throttler.WaitAsync();
-
 				Trace.TraceInformation("Request: {0}", request.RequestUri);
 
 				var response = request.GetResponseAsync().Result;
 
 				Trace.TraceInformation("Response to: {0}", request.RequestUri);
-				_throttler.Release();
-				Trace.TraceInformation("Slot released");
 
 				var cacheEntry = new HttpResponse(request.RequestUri, (HttpWebResponse)response);
 				_cache.Insert(request.RequestUri.ToString(), cacheEntry, null, Cache.NoAbsoluteExpiration, TimeSpan.FromHours(1));
@@ -65,8 +58,6 @@ namespace FamilyTree.Models
 			}
 			catch (Exception exc)
 			{
-				_throttler.Release();
-
 				Trace.TraceWarning("Error received for {0}: {1}", request.RequestUri, _GetMessage(exc));
 				_LogWebException(request, exc as WebException);
 
