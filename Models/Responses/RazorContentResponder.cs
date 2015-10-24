@@ -11,13 +11,16 @@ namespace FamilyTree.Models.Responses
 		private readonly TreeViewModelFactory _viewModelFactory;
 		private readonly IFileSystem _fileSystem;
 		private readonly TreeFactory _treeFactory;
+		private readonly IFileSystem _localFileSystem;
 
 		public RazorContentResponder(
 			IFileSystem fileSystem,
+			IFileSystem localFileSystem,
 			TreeFactory treeFactory = null,
 			TreeViewModelFactory viewModelFactory = null)
 		{
 			_fileSystem = fileSystem;
+			_localFileSystem = localFileSystem;
 			_treeFactory = treeFactory ?? new TreeFactory(fileSystem);
 			_viewModelFactory = viewModelFactory ?? new TreeViewModelFactory(_treeFactory, new TreeParser());
 		}
@@ -38,7 +41,7 @@ namespace FamilyTree.Models.Responses
 
 		public string GetEtag(IFile file)
 		{
-			var razorFile = _fileSystem.GetFile("~/Views/Tree/Family.cshtml");
+			var razorFile = _localFileSystem.GetFile("~/Views/Tree/Family.cshtml");
 			var xslFileDateString = razorFile.LastWriteTimeUtc.ToString("yyyy-MM-dd@HH:mm:ss");
 
 			return ETagHelper.GetEtagFromFile(file, customEtagSuffix: xslFileDateString, includeAssemblyDate: true);

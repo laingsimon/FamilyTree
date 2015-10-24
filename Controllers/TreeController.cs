@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using FamilyTree.Models.Responses;
 using FamilyTree.Models;
 using FamilyTree.Models.FileSystem;
+using FamilyTree.Models.FileSystem.LocalDevice;
 
 namespace FamilyTree.Controllers
 {
@@ -17,8 +18,9 @@ namespace FamilyTree.Controllers
 		public TreeController()
 		{
 			_fileSystem = FileSystemFactory.GetFileSystem();
-			var xslHtmlResponder = new XslContentResponder(_fileSystem);
-			var razorHtmlResponder = new RazorContentResponder(_fileSystem);
+			var localDeviceFileSystem = new LocalDeviceFileSystem(path => Server.MapPath(path));
+            var xslHtmlResponder = new XslContentResponder(_fileSystem, localDeviceFileSystem);
+			var razorHtmlResponder = new RazorContentResponder(_fileSystem, localDeviceFileSystem);
 			_contentNegotiation = new ContentNegotiation(razorHtmlResponder)
 			{
 				{ "text/html", razorHtmlResponder },
