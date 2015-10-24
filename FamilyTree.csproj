@@ -164,6 +164,7 @@
     <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
     <Compile Include="Models\FileSystem\InterceptedFile.cs" />
     <Compile Include="Models\FileSystem\CachingFileSystem.cs" />
+    <Compile Include="Models\FileSystem\ServiceUnavailableException.cs" />
     <Compile Include="Models\HttpClient.cs" />
     <Compile Include="Models\FileSystem\DirectoryJsonConverter.cs" />
     <Compile Include="Models\FileSystem\FileJsonConverter.cs" />

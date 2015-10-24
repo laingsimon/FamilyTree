@@ -252,13 +252,7 @@ namespace FamilyTree.Models.FileSystem
 				throw new InvalidOperationException("No file data sent");
 
 			if (httpResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
-			{
-				using (var reader = new StreamReader(httpResponse.GetResponseStream()))
-				{
-					var message = reader.ReadToEnd();
-					throw new InvalidOperationException("Service unavailable: " + message);
-				}
-			}
+				throw new ServiceUnavailableException();
 
 			throw new InvalidOperationException("Unable to process request - " + uri, exception);
 		}
