@@ -24,6 +24,7 @@ namespace FamilyTree.Models.FileSystem
 
 		private readonly IFileSystem _fileSystem;
 		private readonly bool _refreshCache;
+		private readonly HashSet<string> _recached = new HashSet<string>();
 
 		public CachingFileSystem(IFileSystem fileSystem, Cache cache, bool refreshCache)
 		{
@@ -94,14 +95,23 @@ namespace FamilyTree.Models.FileSystem
 			where T : class
 		{
 			var cachedValue = _cache.Get(key);
-			if (cachedValue != null && !_refreshCache)
+			if (cachedValue != null && !_ShouldBeRecache(key))
 				return (T)cachedValue;
 
 			Trace.TraceInformation("Getting value for {0}", key);
 
 			var newValue = getValue();
+			_recached.Add(key);
 			_cache.Insert(key, newValue, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration);
 			return newValue;
+		}
+
+		private bool _ShouldBeRecache(string key)
+		{
+			if (!_refreshCache)
+				return false;
+
+			return !_recached.Contains(key);
 		}
 
 		private class _FileExists
