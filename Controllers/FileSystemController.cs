@@ -14,7 +14,6 @@ using System.Web;
 
 namespace FamilyTree.Controllers
 {
-	[Authorize(Roles = Roles.SuperUser)]
 	public class FileSystemController : Controller
 	{
 		private readonly IFileSystem _fileSystem;
