@@ -48,7 +48,7 @@ namespace FamilyTree.Controllers
 
 		private ActionResult _ProcessPhoto(string size, IFile photoFile)
 		{
-			if (photoFile == null)
+			if (photoFile == null || photoFile == Models.FileSystem.File.Null)
 				return HttpNotFound();
 
 			var currentEtag = ETagHelper.GetEtagFromFile(photoFile, size);
