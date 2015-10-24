@@ -50,7 +50,7 @@ namespace FamilyTree.Models
 
 		public static Dictionary<string, DateTime> GetFileWriteTimes(IFile rootFile)
 		{
-			if (rootFile.GetExtension().ToLower() != ".xml")
+			if (!rootFile.GetExtension().Equals(".xml", StringComparison.OrdinalIgnoreCase))
 			{
 				return new Dictionary<string, DateTime>
 				{
