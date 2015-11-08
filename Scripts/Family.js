@@ -69,7 +69,7 @@
 		}
 	}
 
-	$("img").unveil(0, function () {
-	    console.log("Unveiled '" + $(this).attr("src") + "'");
+	$("img").show().lazyload({
+	    threshold: 0
 	});
 });
