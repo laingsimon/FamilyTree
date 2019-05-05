@@ -52,7 +52,21 @@ namespace FamilyTree.Models.Responses
 				   let mimeType = match.Groups["mimeType"].Value
 				   where match.Success && mimeType != "*/*"
 				   let preference = _GetPreference(match.Groups["preference"].Value)
-				   select new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
+				   let mediaType = GetMediaType(match, preference)
+				   where mediaType != null
+				   select mediaType;
+		}
+
+		private static MediaTypeWithQualityHeaderValue GetMediaType(Match match, double preference)
+		{
+			try
+			{
+				return new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
+			}
+			catch (System.Exception)
+			{
+				return null;
+			}
 		}
 
 		private static double _GetPreference(string value)
