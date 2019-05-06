@@ -21,12 +21,31 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 		public AzureStorageFileSystem()
 		{
 			var storageAccount = CloudStorageAccount.Parse(
-				CloudConfigurationManager.GetSetting("StorageConnectionString"));
+				GetStorageConnectionString());
 
 			_client = storageAccount.CreateCloudBlobClient();
 			_container = _client.GetContainerReference(_containerName);
 			_container.CreateIfNotExists();
 			_taskGate = _defaultTaskGate.Value;
+		}
+
+		private static string GetStorageConnectionString()
+		{
+			var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+			if (string.IsNullOrEmpty(connectionString))
+				return GetConnectionStringFromServer();
+
+			return connectionString;
+		}
+
+		private static string GetConnectionStringFromServer()
+		{
+			const string environmentVariableName = "FamilyTree_StorageConnectionString";
+			var connectionString = Environment.GetEnvironmentVariable(environmentVariableName);
+			if (string.IsNullOrEmpty(connectionString))
+				throw new InvalidOperationException("StorageConnectionString is not configured in the web.config or in the " + environmentVariableName + " environment variable");
+
+			return connectionString;
 		}
 
 		private static IEnumerable<string> _GetPathParts(string path)
