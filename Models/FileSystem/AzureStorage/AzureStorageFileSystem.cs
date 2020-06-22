@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Diagnostics;
+using System.Web;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
@@ -120,7 +121,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
 
 			Trace.TraceInformation("directory[{0}].ListBlobs()", path);
 			var blobItem = (from blob in directory.ListBlobs()
-							let blobFileName = Path.GetFileName(blob.Uri.AbsoluteUri)
+							let blobFileName = HttpUtility.UrlDecode(Path.GetFileName(blob.Uri.AbsoluteUri))
 							where blobFileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
 							select blob).SingleOrDefault();
 
