@@ -47,7 +47,7 @@
 		}
 	</div>
 	<div class="details @Model.GenderCss">
-		<img data-original="@Model.GetPhotoUri(Url, height: 50)" height="50" />
+		<img src="@Url.Content("~/Content/Person.png")" data-original="@Model.GetPhotoUri(Url, height: 50)" height="50" />
 		@if (!string.IsNullOrEmpty(Model.Nickname))
 		{
 			<span>'@Model.Nickname'</span>

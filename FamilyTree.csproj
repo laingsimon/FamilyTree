@@ -276,6 +276,7 @@
     <Content Include="Content\Family.less" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
+	<Content Include="Content\Person.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Family.js" />
     <Content Include="Scripts\ft.js" />

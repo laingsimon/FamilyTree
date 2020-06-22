@@ -7,6 +7,15 @@
 		$(".details-popup.visible").removeClass("visible");
 		$(".marriage-popup.visible").removeClass("visible");
 
+		$(this).prev(".details-popup").find("img[data-original]").each(function(){
+			var elem = $(this);
+			if (elem.data("original")) {
+				elem.attr("src", elem.data("original"));
+				elem.data("original", "");
+				elem.attr("data-original", "");
+			}
+		});
+
 		$(this).prev(".details-popup").addClass("visible");
 		$(document.body).addClass("popup-shown");
 	});
@@ -68,8 +77,4 @@
 			alert("Cannot find person to highlight " + highlight);
 		}
 	}
-
-	$("img").show().lazyload({
-	    threshold: 0
-	});
 });
