@@ -28,8 +28,12 @@ namespace FamilyTree.Models
 
 		public void WriteToResponse(System.Web.HttpResponse response)
 		{
-			if (_messages.Count == 0)
-				return;
+            if (_messages.Count == 0)
+            {
+                response.StatusCode = 204;
+                response.ContentType = "text/plain";
+                return;
+            }
 
 			response.StatusCode = 200;
 			response.ContentType = "text/plain";
