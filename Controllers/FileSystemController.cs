@@ -11,6 +11,7 @@ using FamilyTree.Models.FileSystem.LocalDevice;
 // ReSharper restore RedundantUsingDirective
 using FamilyTree.Models;
 using System.Web;
+using System;
 
 namespace FamilyTree.Controllers
 {
@@ -40,15 +41,16 @@ namespace FamilyTree.Controllers
 			try
 			{
 				if (string.IsNullOrEmpty(path))
-					return HttpNotFound();
-				if (!path.StartsWith("~"))
+                    return new StatusContentResult("Path is null or empty", "text/plain", HttpStatusCode.NotFound);
+
+                if (!path.StartsWith("~"))
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				var file = _fileSystem.GetFile(path);
 				if (file == null || file == Models.FileSystem.File.Null)
-					return HttpNotFound();
+                    return new StatusContentResult("File not found", "text/plain", HttpStatusCode.NotFound);
 
-				var currentEtag = ETagHelper.GetEtagFromFile(file);
+                var currentEtag = ETagHelper.GetEtagFromFile(file);
 				var ifModifiedSince = Request.Headers["If-Modified-Since"];
 
 				if (!ETagHelper.HasChanged(Request, currentEtag) || ifModifiedSince == file.LastWriteTimeUtc.ToString("R"))
@@ -60,9 +62,9 @@ namespace FamilyTree.Controllers
 			}
 			catch (FileNotFoundException)
 			{
-				return HttpNotFound();
-			}
-		}
+                return new StatusContentResult("File not found", "text/plain", HttpStatusCode.NotFound);
+            }
+        }
 
 		[HttpGet]
 		public ActionResult Directory(string path)
@@ -70,62 +72,62 @@ namespace FamilyTree.Controllers
 			Trace.WriteLine(string.Format("Directory: {0}", path), "FileSystemController");
 
 			if (string.IsNullOrEmpty(path))
-				return HttpNotFound();
-			if (!path.StartsWith("~"))
+                return new StatusContentResult("Path is null or empty", "text/plain", HttpStatusCode.NotFound);
+            if (!path.StartsWith("~"))
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			try
 			{
 				var directory = _fileSystem.GetDirectory(path);
 				if (directory == null || directory == Models.FileSystem.Directory.Null)
-					return HttpNotFound();
+                    return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
 
-				return new JsonResult(directory);
+                return new JsonResult(directory);
 			}
 			catch (DirectoryNotFoundException)
 			{
-				return HttpNotFound();
-			}
-		}
+                return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
+            }
+        }
 
 		[HttpGet]
 		public ActionResult Files(string directoryPath, string searchPattern)
 		{
 			if (string.IsNullOrEmpty(directoryPath))
-				return HttpNotFound();
-			if (!directoryPath.StartsWith("~"))
+                return new StatusContentResult("Path is null or empty", "text/plain", HttpStatusCode.NotFound);
+            if (!directoryPath.StartsWith("~"))
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			var directory = _fileSystem.GetDirectory(directoryPath);
 
 			if (directory == null || directory == Models.FileSystem.Directory.Null)
-				return HttpNotFound();
+                return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
 
-			var files = _fileSystem.GetFiles(directory, searchPattern);
+            var files = _fileSystem.GetFiles(directory, searchPattern);
 			if (files == null)
-				return HttpNotFound();
+                return new StatusContentResult("No files found", "text/plain", HttpStatusCode.NotFound);
 
-			return new JsonResult(files);
+            return new JsonResult(files);
 		}
 
 		[HttpGet]
 		public ActionResult Directories(string directoryPath)
 		{
 			if (string.IsNullOrEmpty(directoryPath))
-				return HttpNotFound();
-			if (!directoryPath.StartsWith("~"))
+                return new StatusContentResult("Path is null or empty", "text/plain", HttpStatusCode.NotFound);
+            if (!directoryPath.StartsWith("~"))
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			var directory = _fileSystem.GetDirectory(directoryPath);
 
 			if (directory == null || directory == Models.FileSystem.Directory.Null)
-				return HttpNotFound();
+                return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
 
-			var directories = _fileSystem.GetDirectories(directory);
+            var directories = _fileSystem.GetDirectories(directory);
 			if (directories == null)
-				return HttpNotFound();
+                return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
 
-			return new JsonResult(directories);
+            return new JsonResult(directories);
 		}
 
 		[HttpGet]
@@ -136,15 +138,15 @@ namespace FamilyTree.Controllers
 			try
 			{
 				if (string.IsNullOrEmpty(path))
-					return HttpNotFound();
-				if (!path.StartsWith("~"))
+                    return new StatusContentResult("Path is null or empty", "text/plain", HttpStatusCode.NotFound);
+                if (!path.StartsWith("~"))
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 				var file = _fileSystem.GetFile(path);
 				if (file == null || file == Models.FileSystem.File.Null)
-					return HttpNotFound();
+                    return new StatusContentResult("File not found", "text/plain", HttpStatusCode.NotFound);
 
-				var currentEtag = ETagHelper.GetEtagFromFile(file);
+                var currentEtag = ETagHelper.GetEtagFromFile(file);
 				var ifModifiedSince = Request.Headers["If-Modified-Since"];
 
 				if (!ETagHelper.HasChanged(Request, currentEtag) || ifModifiedSince == file.LastWriteTimeUtc.ToString("R"))
@@ -156,11 +158,17 @@ namespace FamilyTree.Controllers
 			}
 			catch (FileNotFoundException)
 			{
-				return HttpNotFound();
+                return new StatusContentResult("File not found", "text/plain", HttpStatusCode.NotFound);
 			}
-		}
+            catch (Exception exc)
+            {
+                Console.WriteLine("Error retrieving file content:\n" + Request.Url + "\n\n" + exc.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+        }
 
-		[HttpPost]
+
+        [HttpPost]
 		[Authorize(Users = "simon")]
 		public ActionResult FileContent(string path, Stream newContent)
 		{

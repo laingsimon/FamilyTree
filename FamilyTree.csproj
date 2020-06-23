@@ -176,6 +176,7 @@
     <Compile Include="Models\FileSystem\DirectoryJsonConverter.cs" />
     <Compile Include="Models\FileSystem\FileJsonConverter.cs" />
     <Compile Include="Models\HttpResponse.cs" />
+    <Compile Include="Models\StatusContentResult.cs" />
     <Compile Include="Repositories\Authentication\DebugUserRepository.cs" />
     <Compile Include="Models\Authentication\IPasswordHasher.cs" />
     <Compile Include="Models\Authentication\PasswordHasher.cs" />
@@ -276,7 +277,7 @@
     <Content Include="Content\Family.less" />
     <Content Include="Content\ft.css" />
     <Content Include="Content\TreeList.css" />
-	<Content Include="Content\Person.png" />
+    <Content Include="Content\Person.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Family.js" />
     <Content Include="Scripts\ft.js" />
