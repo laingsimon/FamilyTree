@@ -48,7 +48,7 @@ namespace FamilyTree.Models.Responses
 		private IEnumerable<MediaTypeWithQualityHeaderValue> _GetAcceptableContentTypes()
 		{
 			return from acceptableContentType in _acceptHeader.Split(',')
-				   let match = Regex.Match(acceptableContentType, @"^(?<mimeType>.+?)(\s*;\s*q\=(?<preference>.*))?$")
+				   let match = Regex.Match(acceptableContentType, @"^(?<mimeType>.+?)(\s*;\s*q\=(?<preference>.*))?(;v=.*)?$")
 				   let mimeType = match.Groups["mimeType"].Value
 				   where match.Success && mimeType != "*/*"
 				   let preference = _GetPreference(match.Groups["preference"].Value)
@@ -61,7 +61,9 @@ namespace FamilyTree.Models.Responses
 		{
 			try
 			{
-				return new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
+                //application/signed-exchange;v=b3
+
+                return new MediaTypeWithQualityHeaderValue(match.Groups["mimeType"].Value, preference);
 			}
 			catch (System.Exception)
 			{
