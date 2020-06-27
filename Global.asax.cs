@@ -64,10 +64,16 @@ namespace FamilyTree
 		// ReSharper restore UnusedMember.Global
 		{
 			var error = Server.GetLastError();
+
 			while (error != null && (error is TargetInvocationException || error.InnerException is TargetInvocationException))
 				error = error.InnerException;
 
-			if (error is StorageException)
+            if (error != null)
+            {
+                Trace.TraceError(error.ToString());
+            }
+
+            if (error is StorageException)
 			{
 				Server.ClearError();
 				Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;

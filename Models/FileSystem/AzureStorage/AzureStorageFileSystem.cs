@@ -6,13 +6,14 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Diagnostics;
-using System.Web;
 
 namespace FamilyTree.Models.FileSystem.AzureStorage
 {
+
     public class AzureStorageFileSystem : IFileSystem
     {
         private static readonly Lazy<SingleTaskGate> _defaultTaskGate = new Lazy<SingleTaskGate>(() => new SingleTaskGate(parallelism: 2));
+        private static AzureStorageCache _cache = new AzureStorageCache();
 
         private const string _containerName = "filesystem";
         private readonly CloudBlobClient _client;
@@ -92,20 +93,20 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
             return _GetDirectoryFromPath(parts.ToArray());
         }
 
-        private CloudBlobDirectory _GetAzureDirectory(IFile path)
+        private AzureStorageDirectoryReference _GetAzureDirectory(IFile path)
         {
             var relativePath = string.Join("/", _GetFullPath(path.Directory));
 
-            Trace.TraceInformation("_GetAzureDirectory({0})", relativePath);
-            return _container.GetDirectoryReference(relativePath);
+            return _GetAzureDirectory(relativePath);
         }
 
-        private CloudBlobDirectory _GetAzureDirectory(string path)
+        private AzureStorageDirectoryReference _GetAzureDirectory(string path)
         {
-            Trace.TraceInformation("_GetAzureDirectory({0})", path);
-
-            var relativePath = string.Join("/", _GetPathParts(path));
-            return _container.GetDirectoryReference(relativePath);
+            return _cache.GetDirectory(path, () =>
+            {
+                var relativePath = string.Join("/", _GetPathParts(path));
+                return new AzureStorageDirectoryReference(relativePath);
+            });
         }
 
         private ICloudBlob _GetAzureFile(IFile file)
@@ -119,19 +120,19 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
             var directory = _GetAzureDirectory(path);
             var fileName = Path.GetFileName(path);
 
-            Trace.TraceInformation("directory[{0}].ListBlobs()", path);
-            var blobItem = (from blob in directory.ListBlobs()
-                            let blobFileName = HttpUtility.UrlDecode(Path.GetFileName(blob.Uri.AbsoluteUri))
-                            where blobFileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
-                            select blob).SingleOrDefault();
+            var files = directory.GetFiles(_cache, _container);
+            var file = files.SingleOrDefault(f => f.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
 
-            if (blobItem != null)
-                Trace.TraceInformation("GetBlobReferenceFromServer({0})", blobItem.StorageUri);
+            if (file == null)
+            {
+                Trace.TraceWarning($"No file found with path {path} out of {files.Count} file/s [{string.Join(",", files.Select(f => f.FileName))}]");
+                return null;
+            }
+
             try
             {
-                return blobItem == null
-                    ? null
-                    : _client.GetBlobReferenceFromServer(blobItem.StorageUri);
+                Trace.TraceInformation("GetBlobReferenceFromServer({0})", file.StorageUri);
+                return _client.GetBlobReferenceFromServer(file.StorageUri);
             }
             finally
             {
@@ -175,10 +176,15 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
                 var fullPath = string.Join("/", _GetFullPath(directory));
 
                 Trace.TraceInformation("GetFiles({0})", fullPath);
+                var storageDirectory = _cache.GetDirectory(fullPath, () =>
+                {
+                    return new AzureStorageDirectoryReference(fullPath);
+                });
+                var files = storageDirectory.GetFiles(_cache, _container);
+
                 var azureDirectory = _container.GetDirectoryReference(fullPath);
 
-                Trace.TraceInformation("directory[{0}].ListBlobs()", fullPath);
-                return from item in azureDirectory.ListBlobs()
+                return from item in files
                        where _MatchesSearchPattern(item, searchPattern)
                        let file = _client.GetBlobReferenceFromServer(item.StorageUri)
                        let lastModified = file.Properties.LastModified ?? DateTimeOffset.MinValue
@@ -191,7 +197,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
             });
         }
 
-        private static bool _MatchesSearchPattern(IListBlobItem item, string searchPattern)
+        private static bool _MatchesSearchPattern(AzureStorageFileReference item, string searchPattern)
         {
             var fileName = item.Uri.Segments.Last();
 
@@ -238,7 +244,7 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
                 if (azureFile == null)
                 {
                     var directory = _GetAzureDirectory(file);
-                    var reference = directory.GetBlockBlobReference(file.Name);
+                    var reference = directory.GetBlockBlobReference(file.Name, _container);
 
                     return new DelayedWriteStream(stream => reference.UploadFromStream(stream));
                 }

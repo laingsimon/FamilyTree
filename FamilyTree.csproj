@@ -38,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>5</LangVersion>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="dotless.Core">
@@ -167,6 +168,9 @@
     <Compile Include="Models\Authentication\DebugSecurityScheme.cs" />
     <Compile Include="Models\Authentication\IFailedLoginService.cs" />
     <Compile Include="Models\CapturingTraceListener.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\AzureStorageCache.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\AzureStorageDirectoryReference.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\AzureStorageFileReference.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\SingleTaskGate.cs" />
     <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
     <Compile Include="Models\FileSystem\InterceptedFile.cs" />
@@ -328,6 +332,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
