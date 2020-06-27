@@ -171,7 +171,6 @@
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageCache.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageDirectoryReference.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageFileReference.cs" />
-    <Compile Include="Models\FileSystem\AzureStorage\SingleTaskGate.cs" />
     <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
     <Compile Include="Models\FileSystem\InterceptedFile.cs" />
     <Compile Include="Models\FileSystem\CachingFileSystem.cs" />
