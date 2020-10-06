@@ -229,6 +229,7 @@
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
     <Compile Include="Models\Responses\RazorContentResponder.cs" />
+    <Compile Include="Models\StringExtensions.cs" />
     <Compile Include="Models\TreeDateVisitee.cs" />
     <Compile Include="Models\TreeFactory.cs" />
     <Compile Include="Models\TreeParser.cs" />

@@ -15,7 +15,7 @@ namespace FamilyTree.ViewModels
 				if (Date == null)
 					return RawDate;
 
-				return Date.Value.ToString("dd/MM/yyyy");
+				return Date.Value.ToString("MMM yyyy");
 			}
 		}
 	}
