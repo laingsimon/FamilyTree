@@ -31,7 +31,7 @@ namespace FamilyTree.Controllers
 
             var dateOfBirth = string.IsNullOrEmpty(dob) || dob == "-"
                 ? DateTime.MinValue
-                : _TryParseExact(dob, "d-M-yyyy");
+                : _TryParseExact(dob.FromBase64(), "ddMMyyyy");
             var fileName = string.Format("~/Photos/{0}{1}-{2}_{3:ddMMyyyy}.jpg", firstName, middleNamePart, family, dateOfBirth);
             if (!_fileSystem.FileExists(fileName))
                 return RedirectToAction("Unknown", new { size });
