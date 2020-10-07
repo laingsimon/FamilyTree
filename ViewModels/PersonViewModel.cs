@@ -39,7 +39,7 @@ namespace FamilyTree.ViewModels
             if (string.IsNullOrEmpty(birthDate))
                 return fullName;
 
-            return fullName + "_" + birthDate;
+            return fullName + "_" + birthDate.Replace(" ", "");
         }
 
         private string _BirthDate(bool useRawBirthDate = false)
