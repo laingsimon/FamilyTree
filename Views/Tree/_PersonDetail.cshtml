@@ -1,6 +1,6 @@
 ﻿@model FamilyTree.ViewModels.PersonViewModel
 
-<div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandle()">
+<div class="person @(Model.Marriages.Any() ? "" : "no-marriages")" id="@Model.GetHandleForId()">
 	<div class="details details-popup @Model.GenderCss">
 		<a href="@Model.GetPhotoUri(Url)" target="_photo">
 			<img data-original="@Model.GetPhotoUri(Url, height: 50)" height="50" />

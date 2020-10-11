@@ -31,32 +31,28 @@ namespace FamilyTree.ViewModels
         /// </summary>
         public MarriageViewModel[] Marriages { get; set; }
 
-        public string GetHandle(bool useRawBirthDate = false)
+        public string GetHandleForId()
         {
             var fullName = _FullName(false).Replace(" ", "-");
-            var birthDate = _BirthDate(useRawBirthDate);
+            var birthDate = string.IsNullOrEmpty(Birth?.DateFormatted)
+                ? null
+                : Birth.DateFormatted.Replace("/", "").Replace(" ", "");
 
             if (string.IsNullOrEmpty(birthDate))
                 return fullName;
 
-            return fullName + "_" + birthDate.Replace(" ", "");
+            return fullName + "_" + birthDate;
         }
 
-        private string _BirthDate(bool useRawBirthDate = false)
+        public string GetHandleForMarriage()
         {
-            if (Birth == null)
-                return null;
+            var fullName = _FullName(false).Replace(" ", "-");
+            var birthDate = Birth?.RawDate?.Replace("/", "").Replace(" ", "");
 
-            if (useRawBirthDate)
-            {
-                var rawDate = Birth.RawDate ?? "";
-                return rawDate.Replace("/", "");
-            }
+            if (string.IsNullOrEmpty(birthDate))
+                return fullName;
 
-            if (string.IsNullOrEmpty(Birth.DateFormatted))
-                return null;
-
-            return Birth.DateFormatted.Replace("/", "");
+            return fullName + "_" + birthDate;
         }
 
         private string _FullName(bool includeNick = true)
@@ -83,7 +79,7 @@ namespace FamilyTree.ViewModels
         public string GetPhotoUri(UrlHelper url, int? height = null, int? width = null)
         {
             var dob = Birth != null && Birth.Date.HasValue
-                ? Birth.Date.Value.ToString("ddMMyyyy").ToBase64()
+                ? Birth.Date.Value.ToString("MMyyyy")
                 : "-";
 
             return url.Action("Index", "Photo", new
@@ -123,7 +119,7 @@ namespace FamilyTree.ViewModels
 
         public string GetUrl(UrlHelper url)
         {
-            return url.Action("Family", "Tree", new { family = LastName }) + "#" + GetHandle();
+            return url.Action("Family", "Tree", new { family = LastName }) + "#" + GetHandleForId();
         }
 
         public string DisplayName

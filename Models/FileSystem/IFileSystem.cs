@@ -13,5 +13,5 @@ namespace FamilyTree.Models.FileSystem
 		bool FileExists(string path);
 		Stream OpenWrite(IFile file);
 		IFile CreateFile(string path);
-	}
+    }
 }

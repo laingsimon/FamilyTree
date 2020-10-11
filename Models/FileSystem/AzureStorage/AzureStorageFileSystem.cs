@@ -188,15 +188,8 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
         private static bool _MatchesSearchPattern(AzureStorageFileReference item, string searchPattern)
         {
             var fileName = item.Uri.Segments.Last();
-
-            if (searchPattern.StartsWith("*") && searchPattern.EndsWith("*"))
-                return fileName.ToLower().Contains(searchPattern.Trim('*').ToLower()); //dirty hack to achieve case insensitivity
-            if (searchPattern.StartsWith("*"))
-                return fileName.EndsWith(searchPattern.TrimStart('*'), StringComparison.OrdinalIgnoreCase);
-            if (searchPattern.EndsWith("*"))
-                return fileName.StartsWith(searchPattern.TrimEnd('*'), StringComparison.OrdinalIgnoreCase);
-
-            return fileName.Equals(searchPattern, StringComparison.OrdinalIgnoreCase);
+            var comparer = new FilePatternComparer();
+            return comparer.Equals(fileName, searchPattern);
         }
 
         public IEnumerable<IDirectory> GetDirectories(IDirectory directory)

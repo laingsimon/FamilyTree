@@ -40,8 +40,8 @@ namespace FamilyTree.ViewModels
 				Nickname = person.Name.Nickname,
 				Gender = person.Gender,
 				Title = person.Name.Title,
-				Birth = _BuildEvent(person.Birth),
-				Death = _BuildEvent(person.Death),
+				Birth = _BuildEvent(person.Birth, person.Death != null ? "dd MMM yyyy" : "MMM yyyy"),
+				Death = _BuildEvent(person.Death, "dd MMM yyyy"),
 				Children = _BuildChildren(tree, person.Children).ToArray(),
 				HasOtherTree = _treeFactory.OtherTreeExists(person.Name.Last)
 			};
@@ -123,7 +123,7 @@ namespace FamilyTree.ViewModels
 				if (marriage == null)
 					return null;
 
-				return new EventViewModel
+				return new EventViewModel("dd MMM yyyy")
 				{
 					Date = _ParseDate(marriage.Date),
 					Location = marriage.Location
@@ -155,8 +155,8 @@ namespace FamilyTree.ViewModels
 
 		private Marriage _FindMarriage(Tree tree, PersonViewModel from, PersonViewModel to)
 		{
-			var fromHandle = from.GetHandle(useRawBirthDate: true);
-			var toHandle = to.GetHandle(useRawBirthDate: true);
+			var fromHandle = from.GetHandleForMarriage();
+			var toHandle = to.GetHandleForMarriage();
 
 			var findEntryPoint = string.Format("{0}+{1}", fromHandle, toHandle);
 
@@ -164,12 +164,12 @@ namespace FamilyTree.ViewModels
 			return allMarriages.SingleOrDefault(m => m.Children.EntryPoint == findEntryPoint);
 		}
 
-		private static EventViewModel _BuildEvent(Event @event)
+		private static EventViewModel _BuildEvent(Event @event, string dateFormat)
 		{
 			if (@event == null)
 				return null;
 
-			return new EventViewModel
+			return new EventViewModel(dateFormat)
 			{
 				Location = @event.Location,
 				Date = _ParseDate(@event.Date),

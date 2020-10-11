@@ -44,7 +44,7 @@ namespace FamilyTree.Models.FileSystem
 			return exists.Exists;
 		}
 
-		public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
+        public IEnumerable<IDirectory> GetDirectories(IDirectory directory)
 		{
 			return _GetOrAdd(string.Format("GetDirectories:{0}", directory.Name), () => _fileSystem.GetDirectories(directory).Select(_InterceptedDirectory).ToArray());
 		}
@@ -114,7 +114,7 @@ namespace FamilyTree.Models.FileSystem
 			return !_recached.Contains(key);
 		}
 
-		private class _FileExists
+        private class _FileExists
 		{
 			private readonly bool _value;
 

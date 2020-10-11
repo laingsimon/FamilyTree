@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -31,12 +32,13 @@ namespace FamilyTree.Controllers
 
             var dateOfBirth = string.IsNullOrEmpty(dob) || dob == "-"
                 ? DateTime.MinValue
-                : _TryParseExact(dob.FromBase64(), "ddMMyyyy");
-            var fileName = string.Format("~/Photos/{0}{1}-{2}_{3:ddMMyyyy}.jpg", firstName, middleNamePart, family, dateOfBirth);
-            if (!_fileSystem.FileExists(fileName))
+                : _TryParseExact(dob, "MMyyyy");
+            var fileSearchPath = $"{firstName}{middleNamePart}-{family}_*{dateOfBirth:MMyyyy}.jpg";
+            var files = _fileSystem.GetFiles(_fileSystem.GetDirectory("~/Photos"), fileSearchPath);
+            if (!files.Any())
                 return RedirectToAction("Unknown", new { size });
 
-            var photoFile = _fileSystem.GetFile(fileName);
+            var photoFile = _fileSystem.GetFile($"~/Photos/{files.First().Name}");
             return _ProcessPhoto(size, photoFile);
         }
 
