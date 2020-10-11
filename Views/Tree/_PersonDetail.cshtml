@@ -24,7 +24,7 @@
 			<span>
 				Birth:
 				@Model.Birth.DateFormatted
-				@if (Model.Birth.Location != null)
+				@if (!string.IsNullOrEmpty(Model.Birth.Location))
 				{
 					<span>
 						(@Model.Birth.Location)
@@ -37,7 +37,7 @@
 			<span>
 				Death:
 				@Model.Death.DateFormatted
-				@if (Model.Death.Location != null)
+				@if (!string.IsNullOrEmpty(Model.Death.Location))
 				{
 					<span>
 						(@Model.Death.Location)
