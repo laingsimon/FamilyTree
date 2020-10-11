@@ -37,14 +37,25 @@ namespace FamilyTree.Models.FileSystem.AzureStorage
             return connectionString;
         }
 
-        private static string GetConnectionStringFromServer()
+        private static string GetConnectionStringFromServer(bool throwIfNotFound = true)
         {
             const string environmentVariableName = "FamilyTree_StorageConnectionString";
             var connectionString = Environment.GetEnvironmentVariable(environmentVariableName);
             if (string.IsNullOrEmpty(connectionString))
-                throw new InvalidOperationException("StorageConnectionString is not configured in the web.config or in the " + environmentVariableName + " environment variable");
+            {
+                if (throwIfNotFound)
+                    throw new InvalidOperationException("StorageConnectionString is not configured in the web.config or in the " + environmentVariableName + " environment variable");
+
+                return null;
+            }
 
             return connectionString;
+        }
+
+        public static bool CanUseFileSystem()
+        {
+            var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            return !string.IsNullOrEmpty(connectionString) || !string.IsNullOrEmpty(GetConnectionStringFromServer(false));
         }
 
         private static IEnumerable<string> _GetPathParts(string path)

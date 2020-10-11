@@ -254,6 +254,15 @@ namespace FamilyTree.Models.FileSystem
 			if (httpResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
 				throw new ServiceUnavailableException();
 
+            if (httpResponse.ContentLength > 0)
+            {
+                using (var responseBodyReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var responseContent = responseBodyReader.ReadToEnd();
+
+                    throw new InvalidOperationException("Unable to process request - " + uri + "\r\n" + responseContent, exception);
+                }
+            }
 			throw new InvalidOperationException("Unable to process request - " + uri, exception);
 		}
 	}
