@@ -2,7 +2,7 @@
 
 namespace FamilyTree.Models.FileSystem
 {
-	public static class FileSystemFactory
+    public static class FileSystemFactory
 	{
 		public static IFileSystem GetFileSystem()
 		{

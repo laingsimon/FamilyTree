@@ -5,9 +5,6 @@ using FamilyTree.Models.FileSystem;
 using FamilyTree.Models.FileSystem.AzureStorage;
 using JsonResult = FamilyTree.Models.JsonResult;
 using System.Diagnostics;
-// ReSharper disable RedundantUsingDirective
-using FamilyTree.Models.FileSystem.LocalDevice;
-// ReSharper restore RedundantUsingDirective
 using FamilyTree.Models;
 using System.Web;
 using System;
@@ -63,6 +60,10 @@ namespace FamilyTree.Controllers
             {
                 return new StatusContentResult("File not found", "text/plain", HttpStatusCode.NotFound);
             }
+            catch (Exception exc)
+            {
+                return new StatusContentResult($"{exc.GetType().FullName}: {exc.Message}", "text/plain", HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpGet]
@@ -86,6 +87,10 @@ namespace FamilyTree.Controllers
             catch (DirectoryNotFoundException)
             {
                 return new StatusContentResult("Directory not found", "text/plain", HttpStatusCode.NotFound);
+            }
+            catch (Exception exc)
+            {
+                return new StatusContentResult($"{exc.GetType().FullName}: {exc.Message}", "text/plain", HttpStatusCode.InternalServerError);
             }
         }
 
@@ -161,8 +166,7 @@ namespace FamilyTree.Controllers
             }
             catch (Exception exc)
             {
-                Console.WriteLine("Error retrieving file content:\n" + Request.Url + "\n\n" + exc.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                return new StatusContentResult($"{exc.GetType().FullName}: {exc.Message}", "text/plain", HttpStatusCode.InternalServerError);
             }
         }
     }

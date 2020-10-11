@@ -7,7 +7,7 @@
 
 @if (Model.Children.Any())
 {
-	<div class="person" id="@Model.GetHandle()">
+	<div class="person" id="@Model.GetHandleForId()">
 		@if (Model.Children.Any())
 		{
 			<div class="illegitimate-children">
@@ -27,7 +27,7 @@
 {
 	foreach (var marriage in Model.Marriages)
 	{
-		<div class="person" id="@Model.GetHandle()">
+		<div class="person" id="@Model.GetHandleForId()">
 			<div class="marriages">
 				@Html.DisplayFor(_ => marriage)
 			</div>

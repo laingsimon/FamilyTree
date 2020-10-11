@@ -166,6 +166,7 @@
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageCache.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageDirectoryReference.cs" />
     <Compile Include="Models\FileSystem\AzureStorage\AzureStorageFileReference.cs" />
+    <Compile Include="Models\FileSystem\AzureStorage\FilePatternComparer.cs" />
     <Compile Include="Models\FileSystem\InterceptedDirectory.cs" />
     <Compile Include="Models\FileSystem\InterceptedFile.cs" />
     <Compile Include="Models\FileSystem\CachingFileSystem.cs" />
@@ -229,7 +230,6 @@
     <Compile Include="Models\Responses\ContentNegotiation.cs" />
     <Compile Include="Models\JsonResult.cs" />
     <Compile Include="Models\Responses\RazorContentResponder.cs" />
-    <Compile Include="Models\StringExtensions.cs" />
     <Compile Include="Models\TreeDateVisitee.cs" />
     <Compile Include="Models\TreeFactory.cs" />
     <Compile Include="Models\TreeParser.cs" />

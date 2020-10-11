@@ -4,9 +4,16 @@ namespace FamilyTree.ViewModels
 {
 	public class EventViewModel
 	{
-		public string RawDate { get; set; }
+        private readonly string dateFormat;
+
+        public string RawDate { get; set; }
 		public DateTime? Date { get; set; }
 		public string Location { get; set; }
+
+        public EventViewModel(string dateFormat)
+        {
+            this.dateFormat = dateFormat;
+        }
 
 		public string DateFormatted
 		{
@@ -15,7 +22,7 @@ namespace FamilyTree.ViewModels
 				if (Date == null)
 					return RawDate;
 
-				return Date.Value.ToString("MMM yyyy");
+				return Date.Value.ToString(dateFormat);
 			}
 		}
 	}
